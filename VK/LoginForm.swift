@@ -231,3 +231,4 @@ class GroupInfoTableView: UITableViewController {
         print("[Logging] load Group Info Table View")
     }
 }
+//
