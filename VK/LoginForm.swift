@@ -1,3 +1,5 @@
+//Complete homework , lesson 1 & 2
+
 import UIKit
 
 class LoginForm: UIViewController {
@@ -231,4 +233,3 @@ class GroupInfoTableView: UITableViewController {
         print("[Logging] load Group Info Table View")
     }
 }
-//Test #2
