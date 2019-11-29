@@ -77,7 +77,6 @@ class LoginForm: UIViewController {
             toVC.username = loginForm.text ?? ""
             toVC.language = languageInt
         }
-        //Подумать как добавить передачу Bool значения языка !
     }
     
     override func viewDidLoad() {
