@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DA5D606623957534000002D6 /* ProfileForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5D606523957534000002D6 /* ProfileForm.swift */; };
+		DA5D606823957838000002D6 /* FriendsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5D606723957838000002D6 /* FriendsTableView.swift */; };
+		DA5D606A23957FF1000002D6 /* FriendsCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5D606923957FF1000002D6 /* FriendsCollectionView.swift */; };
+		DA5D606C2395818A000002D6 /* GroupsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5D606B2395818A000002D6 /* GroupsTableView.swift */; };
+		DA5D606E2395856D000002D6 /* GlobalSearchGroupsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5D606D2395856D000002D6 /* GlobalSearchGroupsTableView.swift */; };
+		DA5D607023958784000002D6 /* GroupInfoTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5D606F23958784000002D6 /* GroupInfoTableView.swift */; };
 		DAF16B8C238D2E0A00FF58D0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF16B8B238D2E0A00FF58D0 /* AppDelegate.swift */; };
 		DAF16B8E238D2E0A00FF58D0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF16B8D238D2E0A00FF58D0 /* SceneDelegate.swift */; };
 		DAF16B93238D2E0A00FF58D0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAF16B91238D2E0A00FF58D0 /* Main.storyboard */; };
@@ -35,6 +41,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DA5D606523957534000002D6 /* ProfileForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileForm.swift; sourceTree = "<group>"; };
+		DA5D606723957838000002D6 /* FriendsTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsTableView.swift; sourceTree = "<group>"; };
+		DA5D606923957FF1000002D6 /* FriendsCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsCollectionView.swift; sourceTree = "<group>"; };
+		DA5D606B2395818A000002D6 /* GroupsTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsTableView.swift; sourceTree = "<group>"; };
+		DA5D606D2395856D000002D6 /* GlobalSearchGroupsTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalSearchGroupsTableView.swift; sourceTree = "<group>"; };
+		DA5D606F23958784000002D6 /* GroupInfoTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupInfoTableView.swift; sourceTree = "<group>"; };
 		DAF16B88238D2E0A00FF58D0 /* VK_KonstantinovDS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VK_KonstantinovDS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAF16B8B238D2E0A00FF58D0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DAF16B8D238D2E0A00FF58D0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -101,11 +113,17 @@
 			children = (
 				DAF16B8B238D2E0A00FF58D0 /* AppDelegate.swift */,
 				DAF16B8D238D2E0A00FF58D0 /* SceneDelegate.swift */,
-				DAF16B91238D2E0A00FF58D0 /* Main.storyboard */,
 				DAF16B94238D2E0E00FF58D0 /* Assets.xcassets */,
 				DAF16B96238D2E0E00FF58D0 /* LaunchScreen.storyboard */,
 				DAF16B99238D2E0E00FF58D0 /* Info.plist */,
+				DAF16B91238D2E0A00FF58D0 /* Main.storyboard */,
 				DAF16BBB238D2EF400FF58D0 /* LoginForm.swift */,
+				DA5D606523957534000002D6 /* ProfileForm.swift */,
+				DA5D606723957838000002D6 /* FriendsTableView.swift */,
+				DA5D606923957FF1000002D6 /* FriendsCollectionView.swift */,
+				DA5D606B2395818A000002D6 /* GroupsTableView.swift */,
+				DA5D606D2395856D000002D6 /* GlobalSearchGroupsTableView.swift */,
+				DA5D606F23958784000002D6 /* GroupInfoTableView.swift */,
 			);
 			path = VK;
 			sourceTree = "<group>";
@@ -260,6 +278,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				DAF16B8C238D2E0A00FF58D0 /* AppDelegate.swift in Sources */,
+				DA5D606C2395818A000002D6 /* GroupsTableView.swift in Sources */,
+				DA5D606E2395856D000002D6 /* GlobalSearchGroupsTableView.swift in Sources */,
+				DA5D606823957838000002D6 /* FriendsTableView.swift in Sources */,
+				DA5D607023958784000002D6 /* GroupInfoTableView.swift in Sources */,
+				DA5D606A23957FF1000002D6 /* FriendsCollectionView.swift in Sources */,
+				DA5D606623957534000002D6 /* ProfileForm.swift in Sources */,
 				DAF16BBC238D2EF400FF58D0 /* LoginForm.swift in Sources */,
 				DAF16B8E238D2E0A00FF58D0 /* SceneDelegate.swift in Sources */,
 			);
