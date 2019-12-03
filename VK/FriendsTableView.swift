@@ -7,7 +7,7 @@ class FriendsTableView: UITableViewController {
     //    return 0
     //}
     
-    var dataFriends: [String] = ["Friend_One", "Friend_Two", "Friend_Three", "Friend_Four", "Friend_Five"]
+    var dataFriends: [String] = ["Amancio Ortega", "Bernard Arnault", "Bill Gates", "Carlos Slim", "Jeff Bezos", "Lawrence Ellison", "Lawrence Page", "Mark Zuckerberg", "Michael Bloomberg", "Warren Buffett"]
     
     //реализация количества строк (ячеек) равное количеству элементов массива dataFriens
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -19,6 +19,8 @@ class FriendsTableView: UITableViewController {
         //cell.textLabel?.text = dataFriends[indexPath.row]
         let friend = dataFriends[indexPath.row]
         cell.FriendsName.text = friend
+        let image = UIImage(named: friend)
+        cell.friendsImage.image = image
         return cell
     }
     //реализация функции при нажатии на Cell
@@ -29,9 +31,9 @@ class FriendsTableView: UITableViewController {
         print(dataFriends[indexPath.row])
         //сделаем переключение на Collection View, со всех ячеек переключаемся на один и тот же Collection View.
         let main = UIStoryboard( name: "Main", bundle: nil)
-        let vc = main.instantiateViewController(identifier: "PhotoFreindsCollection")
+        let vc = main.instantiateViewController(identifier: "PhotoFreindsCollection") as! FriendsCollectionView
+        vc.user = dataFriends[indexPath.row]
         navigationController?.pushViewController(vc, animated: true)
-        
     }
     
     @IBOutlet var friendsTView: UITableView!

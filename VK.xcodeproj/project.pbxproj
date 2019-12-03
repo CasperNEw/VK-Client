@@ -17,6 +17,8 @@
 		DAA5E4C823966E7100B09EE7 /* GlobalGroupsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA5E4C723966E7100B09EE7 /* GlobalGroupsCell.swift */; };
 		DAA5E4CC239674A900B09EE7 /* GroupsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA5E4CB239674A900B09EE7 /* GroupsCell.swift */; };
 		DAA5E4CE239682E000B09EE7 /* GroupInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA5E4CD239682E000B09EE7 /* GroupInfoCell.swift */; };
+		DAA5E4D22396935A00B09EE7 /* FriendsCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA5E4D12396935A00B09EE7 /* FriendsCollectionCell.swift */; };
+		DAA5E4D7239695D000B09EE7 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA5E4D6239695D000B09EE7 /* Model.swift */; };
 		DAF16B8C238D2E0A00FF58D0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF16B8B238D2E0A00FF58D0 /* AppDelegate.swift */; };
 		DAF16B8E238D2E0A00FF58D0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF16B8D238D2E0A00FF58D0 /* SceneDelegate.swift */; };
 		DAF16B93238D2E0A00FF58D0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAF16B91238D2E0A00FF58D0 /* Main.storyboard */; };
@@ -55,6 +57,8 @@
 		DAA5E4C723966E7100B09EE7 /* GlobalGroupsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalGroupsCell.swift; sourceTree = "<group>"; };
 		DAA5E4CB239674A900B09EE7 /* GroupsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsCell.swift; sourceTree = "<group>"; };
 		DAA5E4CD239682E000B09EE7 /* GroupInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupInfoCell.swift; sourceTree = "<group>"; };
+		DAA5E4D12396935A00B09EE7 /* FriendsCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsCollectionCell.swift; sourceTree = "<group>"; };
+		DAA5E4D6239695D000B09EE7 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		DAF16B88238D2E0A00FF58D0 /* VK_KonstantinovDS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VK_KonstantinovDS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAF16B8B238D2E0A00FF58D0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DAF16B8D238D2E0A00FF58D0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -96,6 +100,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DAA5E4D32396955C00B09EE7 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				DAA5E4D6239695D000B09EE7 /* Model.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		DAF16B7F238D2E0A00FF58D0 = {
 			isa = PBXGroup;
 			children = (
@@ -119,6 +131,7 @@
 		DAF16B8A238D2E0A00FF58D0 /* VK */ = {
 			isa = PBXGroup;
 			children = (
+				DAA5E4D32396955C00B09EE7 /* Models */,
 				DAF16B8B238D2E0A00FF58D0 /* AppDelegate.swift */,
 				DAF16B8D238D2E0A00FF58D0 /* SceneDelegate.swift */,
 				DAF16B94238D2E0E00FF58D0 /* Assets.xcassets */,
@@ -130,6 +143,7 @@
 				DA5D606723957838000002D6 /* FriendsTableView.swift */,
 				DA5D607123966096000002D6 /* FriendsTableViewCell.swift */,
 				DA5D606923957FF1000002D6 /* FriendsCollectionView.swift */,
+				DAA5E4D12396935A00B09EE7 /* FriendsCollectionCell.swift */,
 				DA5D606B2395818A000002D6 /* GroupsTableView.swift */,
 				DAA5E4CB239674A900B09EE7 /* GroupsCell.swift */,
 				DA5D606D2395856D000002D6 /* GlobalSearchGroupsTableView.swift */,
@@ -289,9 +303,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DAA5E4D7239695D000B09EE7 /* Model.swift in Sources */,
 				DAF16B8C238D2E0A00FF58D0 /* AppDelegate.swift in Sources */,
 				DA5D606C2395818A000002D6 /* GroupsTableView.swift in Sources */,
 				DA5D606E2395856D000002D6 /* GlobalSearchGroupsTableView.swift in Sources */,
+				DAA5E4D22396935A00B09EE7 /* FriendsCollectionCell.swift in Sources */,
 				DAA5E4CC239674A900B09EE7 /* GroupsCell.swift in Sources */,
 				DA5D607223966096000002D6 /* FriendsTableViewCell.swift in Sources */,
 				DAA5E4C823966E7100B09EE7 /* GlobalGroupsCell.swift in Sources */,

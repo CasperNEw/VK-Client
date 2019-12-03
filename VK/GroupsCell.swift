@@ -3,6 +3,7 @@ import UIKit
 class GroupsCell: UITableViewCell {
 
     @IBOutlet weak var GroupsName: UILabel!
+    @IBOutlet weak var GroupImage: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()

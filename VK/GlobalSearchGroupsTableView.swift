@@ -3,7 +3,7 @@ import UIKit
 
 class GlobalSearchGroupsTableView: UITableViewController {
 
-    var dataGlobalGroups: [String] = ["Group_One", "Group_Two", "Group_Three", "Group_Four", "Group_Five", "Swift Develop Group 1", "Swift Develop Group 2", "Swift Develop Group 3", "Swift Develop Group 4" , "Swift Develop Group 5", "Swift Develop Group 6", "Swift Develop Group 7", "Swift Develop Group 8", "Swift Develop Group 9"]
+    var dataGlobalGroups: [String] = ["Swift Develop Group 1", "Swift Develop Group 2", "Swift Develop Group 3", "Swift Develop Group 4" , "Swift Develop Group 5", "Swift Develop Group 6", "Swift Develop Group 7", "Swift Develop Group 8", "Swift Develop Group 9"]
 
     @IBOutlet var GlobalSearchGroupView: UITableView!
     
@@ -14,10 +14,10 @@ class GlobalSearchGroupsTableView: UITableViewController {
     //реализация присвоения титулу ячеек значений элементов массива dataGlobalGroups, идентификатор CellGlobalGroups задается в Storyboard
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CellGlobalGroups", for: indexPath) as! GlobalGroupsCell
-//        cell.textLabel?.text = dataGlobalGroups[indexPath.row]
-//        return cell
         let globalGroup = dataGlobalGroups[indexPath.row]
         cell.GlobalGroupsName.text = globalGroup
+        let image = UIImage(named: "swift")
+        cell.GlobalGroupImage.image = image
         return cell
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

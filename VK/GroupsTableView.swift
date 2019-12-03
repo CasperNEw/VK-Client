@@ -14,6 +14,8 @@ class GroupsTableView: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CellGroups", for: indexPath) as! GroupsCell
         let group = dataGroups[indexPath.row]
         cell.GroupsName.text = group
+        let image = UIImage(named: "swift")
+        cell.GroupImage.image = image
         return cell
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
