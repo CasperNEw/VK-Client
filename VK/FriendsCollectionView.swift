@@ -30,14 +30,3 @@ class FriendsCollectionView: UICollectionViewController {
         return cell
     }
 }
-/*
-override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCell(withIdentifier: "CellFriends", for: indexPath) as! FriendsTableViewCell
-    //cell.textLabel?.text = dataFriends[indexPath.row]
-    let friend = dataFriends[indexPath.row]
-    cell.FriendsName.text = friend
-    let image = UIImage(named: friend)
-    cell.friendsImage.image = image
-    return cell
-}
-*/

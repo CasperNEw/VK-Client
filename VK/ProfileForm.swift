@@ -16,15 +16,4 @@ class ProfileForm: UITabBarController {
     @objc func hideKeyboard() {
         view.endEditing(true)
     }
-    
-//    подумать как можно реализовать передачу данных при переходе без Segue!
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        print("[Logging] jump to \(String(describing: segue.identifier))")
-//        //Реализация передачи данных при Segue
-//        if let toVC = segue.destination as? FriendsTableView {
-//            toVC.username = username
-//            toVC.language = language
-//        }
-//    }
-    
 }

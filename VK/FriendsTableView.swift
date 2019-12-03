@@ -1,11 +1,6 @@
 import UIKit
 
 class FriendsTableView: UITableViewController {
-    //на всякий случай оставил штатный метод, хотя как я понял он у меня просто вписан в метод tableView
-    //но пока оставим, вдруг придется переделать в дальнейшем
-    //override func numberOfSections(in tableView: UITableView) -> Int {
-    //    return 0
-    //}
     
     var dataFriends: [String] = ["Amancio Ortega", "Bernard Arnault", "Bill Gates", "Carlos Slim", "Jeff Bezos", "Lawrence Ellison", "Lawrence Page", "Mark Zuckerberg", "Michael Bloomberg", "Warren Buffett"]
     
