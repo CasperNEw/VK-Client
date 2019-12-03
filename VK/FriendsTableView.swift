@@ -15,8 +15,10 @@ class FriendsTableView: UITableViewController {
     }
     //реализация присвоения титулу ячеек значений элементов массива data, идентификатор CellFriends задается в Storyboard
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CellFriends", for: indexPath)
-        cell.textLabel?.text = dataFriends[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CellFriends", for: indexPath) as! FriendsTableViewCell
+        //cell.textLabel?.text = dataFriends[indexPath.row]
+        let friend = dataFriends[indexPath.row]
+        cell.FriendsName.text = friend
         return cell
     }
     //реализация функции при нажатии на Cell

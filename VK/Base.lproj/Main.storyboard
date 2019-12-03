@@ -177,7 +177,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CellFriends" textLabel="VCh-XY-NVw" imageView="U6i-eL-8y4" style="IBUITableViewCellStyleDefault" id="HYF-9I-Con">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CellFriends" textLabel="VCh-XY-NVw" style="IBUITableViewCellStyleDefault" id="HYF-9I-Con" customClass="FriendsTableViewCell" customModule="VK_KonstantinovDS" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="HYF-9I-Con" id="LHG-T2-nBc">
@@ -185,18 +185,17 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="VCh-XY-NVw">
-                                            <rect key="frame" x="59" y="0.0" width="335" height="43.5"/>
+                                            <rect key="frame" x="20" y="0.0" width="374" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" image="person.circle" catalog="system" id="U6i-eL-8y4">
-                                            <rect key="frame" x="22" y="12" width="20" height="19"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </imageView>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="FriendsName" destination="VCh-XY-NVw" id="xfn-Yh-xmL"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -230,26 +229,28 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CellGroups" textLabel="DLF-Mq-gXM" imageView="juZ-JK-dQO" style="IBUITableViewCellStyleDefault" id="GGf-D2-qSX">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CellGroups" id="GGf-D2-qSX" customClass="GroupsCell" customModule="VK_KonstantinovDS" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="GGf-D2-qSX" id="Z88-Z6-4Ba">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="DLF-Mq-gXM">
-                                            <rect key="frame" x="59" y="0.0" width="335" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EbW-8C-YUY">
+                                            <rect key="frame" x="20" y="11" width="264" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" image="star.fill" catalog="system" id="juZ-JK-dQO">
-                                            <rect key="frame" x="21" y="11.5" width="22" height="20"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </imageView>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstItem="EbW-8C-YUY" firstAttribute="leading" secondItem="Z88-Z6-4Ba" secondAttribute="leading" constant="20" id="a79-nX-s6R"/>
+                                        <constraint firstItem="EbW-8C-YUY" firstAttribute="centerY" secondItem="Z88-Z6-4Ba" secondAttribute="centerY" id="hS7-XD-hUQ"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="GroupsName" destination="EbW-8C-YUY" id="HLL-L7-d9M"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -257,6 +258,7 @@
                             <outlet property="delegate" destination="tNz-5p-Hyy" id="FTD-Hn-QY8"/>
                         </connections>
                     </tableView>
+                    <toolbarItems/>
                     <navigationItem key="navigationItem" title="Groups" id="8Uj-EW-YRI">
                         <barButtonItem key="rightBarButtonItem" image="magnifyingglass.circle" catalog="system" id="oPO-4y-UEp">
                             <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -265,6 +267,7 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="GroupsView" destination="1uB-6O-rQE" id="2fo-ox-WQT"/>
                     </connections>
@@ -282,7 +285,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CellFavoriteGroup" textLabel="Ag9-0E-rJn" imageView="VN1-lX-tWm" style="IBUITableViewCellStyleDefault" id="rgm-sv-hOc">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CellFavoriteGroup" textLabel="Ag9-0E-rJn" imageView="VN1-lX-tWm" style="IBUITableViewCellStyleDefault" id="rgm-sv-hOc" customClass="GroupInfoCell" customModule="VK_KonstantinovDS" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="rgm-sv-hOc" id="7sx-8v-c3t">
@@ -302,6 +305,9 @@
                                         </imageView>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="GroupInfo" destination="Ag9-0E-rJn" id="877-dP-Aol"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -323,7 +329,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CellGlobalGroups" textLabel="i96-7c-cQO" imageView="err-BN-SHr" style="IBUITableViewCellStyleDefault" id="cUX-Zj-SD7">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CellGlobalGroups" textLabel="i96-7c-cQO" imageView="err-BN-SHr" style="IBUITableViewCellStyleDefault" id="cUX-Zj-SD7" customClass="GlobalGroupsCell" customModule="VK_KonstantinovDS" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="cUX-Zj-SD7" id="l3p-zh-Hp4">
@@ -343,6 +349,10 @@
                                         </imageView>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="GlobalGroupsName" destination="i96-7c-cQO" id="OOo-r7-9O2"/>
+                                    <segue destination="LhW-H7-Bks" kind="unwind" identifier="addGroup" unwindAction="addGroupWithSegue:" id="tN1-50-PhD"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -356,6 +366,7 @@
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rKJ-Jj-5WB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="LhW-H7-Bks" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="5248" y="3680"/>
         </scene>
@@ -480,11 +491,9 @@
         <image name="magnifyingglass.circle" catalog="system" width="64" height="60"/>
         <image name="person.2" catalog="system" width="64" height="40"/>
         <image name="person.2.fill" catalog="system" width="64" height="40"/>
-        <image name="person.circle" catalog="system" width="64" height="60"/>
         <image name="rectangle.grid.1x2" catalog="system" width="64" height="50"/>
         <image name="rectangle.grid.1x2.fill" catalog="system" width="64" height="50"/>
         <image name="star" catalog="system" width="64" height="58"/>
-        <image name="star.fill" catalog="system" width="64" height="58"/>
         <image name="star.lefthalf.fill" catalog="system" width="64" height="58"/>
     </resources>
 </document>
