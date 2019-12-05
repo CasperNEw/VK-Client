@@ -1,7 +1,5 @@
 import Foundation
 
-// struct or class for user and group.
-
 class User {
     var name = String() //array [f,i,o,nickname]?
     var statusMessage = String()
@@ -16,11 +14,4 @@ class User {
     var favoriteQuotes = String()
     var aboutMe = String()
     var friends = [User]()
-}
-
-class Group {
-    var name = String()
-    var statusMessage = String()
-    var contacts = [User]()
-    var members = [User]()
 }
