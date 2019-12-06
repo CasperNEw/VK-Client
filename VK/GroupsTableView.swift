@@ -31,6 +31,7 @@ class GroupsTableView: UITableViewController {
     }
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
+            print("[Logging] delete group from favorite - \(dataGroups[indexPath.row])")
             dataGroups.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
@@ -50,6 +51,7 @@ class GroupsTableView: UITableViewController {
             if let indexPath = globalGView.tableView.indexPathForSelectedRow {
                 let group = globalGView.dataGlobalGroups[indexPath.row]
                 if !dataGroups.contains(group) {
+                    print("[Logging] add Group to favorite - \(group)")
                     dataGroups.append(group)
                     tableView.reloadData()
                 }

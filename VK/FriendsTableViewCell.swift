@@ -4,8 +4,7 @@ class FriendsTableViewCell: UITableViewCell {
 
     @IBOutlet weak var FriendsName: UILabel!
     
-    @IBOutlet weak var friendsImage: UIImageView!
-    
+    @IBOutlet weak var CornerShadowView: CornerShadowView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -14,5 +13,4 @@ class FriendsTableViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
-
 }

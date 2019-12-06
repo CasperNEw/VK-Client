@@ -11,7 +11,6 @@ class FriendsCollectionView: UICollectionViewController {
         super.viewDidLoad()
         print("[Logging] load Friends Photo Collection View")
         //self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-
     }
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -27,6 +26,13 @@ class FriendsCollectionView: UICollectionViewController {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FriendCollCell", for: indexPath) as! FriendsCollectionCell
         let image = UIImage(named: user!)
         cell.FriendCollectionImage.image = image
+        cell.FriendCollectionImage.layer.cornerRadius = 10
         return cell
+        
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let sectionView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "FooterLike", for: indexPath) as! FooterWithLike
+        return sectionView
     }
 }
