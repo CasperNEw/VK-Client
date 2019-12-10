@@ -12,7 +12,7 @@ class LoginForm: UIViewController {
     @IBOutlet weak var passwordForm: UITextField!
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var forgotPasswordButton: UIButton!
-    @IBOutlet weak var ScrollMainViewForm: UIScrollView!
+    @IBOutlet weak var scrollMainViewForm: UIScrollView!
     
     
     @IBAction func loginButton(_ sender: Any) {
@@ -94,4 +94,16 @@ class LoginForm: UIViewController {
     @objc func hideKeyboard() {
         view.endEditing(true)
     }
+    
+    
+    
+    @IBAction func testButtonOne(_ sender: Any) {
+        
+        let main = UIStoryboard( name: "Main", bundle: nil)
+        let vc = main.instantiateViewController(identifier: "GroupInfoView") as! GroupInfoTableView
+        //vc.user = friendsSection[indexPath.section].items[indexPath.row].username
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    
 }

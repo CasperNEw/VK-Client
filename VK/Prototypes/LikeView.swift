@@ -2,7 +2,7 @@
 
 import UIKit
 
-@IBDesignable class NewLike: UIView {
+@IBDesignable class LikeView: UIView {
     
     var newLikeScore = Int.random( in: 1...30 )
     var likeColor = UIColor.darkGray

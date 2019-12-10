@@ -1,9 +1,10 @@
 import UIKit
 
-class GroupsCell: UITableViewCell {
+class FriendsTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var GroupsName: UILabel!
-    @IBOutlet weak var GroupImage: UIImageView!
+    @IBOutlet weak var friendsName: UILabel!
+    
+    @IBOutlet weak var cornerShadowView: CornerShadowView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -11,7 +12,5 @@ class GroupsCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
     }
-
 }

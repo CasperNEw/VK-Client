@@ -1,8 +1,8 @@
 import Foundation
 
-class Group {
-    var name = String()
-    var statusMessage = String()
-    var contacts = [User]()
-    var members = [User]()
+struct Group {
+    var groupName: String
+    var statusMessage: String
+//    var contacts: [User]
+//    var members: [User]
 }

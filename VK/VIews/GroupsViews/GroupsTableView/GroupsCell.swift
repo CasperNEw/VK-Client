@@ -1,9 +1,9 @@
 import UIKit
 
-class GlobalGroupsCell: UITableViewCell {
+class GroupsCell: UITableViewCell {
 
-    @IBOutlet weak var GlobalGroupImage: UIImageView!
-    @IBOutlet weak var GlobalGroupsName: UILabel!
+    @IBOutlet weak var groupsName: UILabel!
+    @IBOutlet weak var groupImage: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()

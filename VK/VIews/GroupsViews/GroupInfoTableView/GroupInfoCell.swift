@@ -2,7 +2,7 @@ import UIKit
 
 class GroupInfoCell: UITableViewCell {
 
-    @IBOutlet weak var GroupInfo: UILabel!
+    @IBOutlet weak var groupInfo: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

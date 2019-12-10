@@ -1,10 +1,9 @@
 import UIKit
 
-class FriendsTableViewCell: UITableViewCell {
+class GlobalGroupsCell: UITableViewCell {
 
-    @IBOutlet weak var FriendsName: UILabel!
-    
-    @IBOutlet weak var CornerShadowView: CornerShadowView!
+    @IBOutlet weak var globalGroupImage: UIImageView!
+    @IBOutlet weak var globalGroupsName: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -12,5 +11,7 @@ class FriendsTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+
     }
+
 }

@@ -9,8 +9,7 @@ class FriendsCollectionView: UICollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("[Logging] load Friends Photo Collection View")
-        //self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        print("[Logging] load \(user ?? "Friends") Photo Collection View")
     }
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -25,8 +24,8 @@ class FriendsCollectionView: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FriendCollCell", for: indexPath) as! FriendsCollectionCell
         let image = UIImage(named: user!)
-        cell.FriendCollectionImage.image = image
-        cell.FriendCollectionImage.layer.cornerRadius = 10
+        cell.friendCollectionImage.image = image
+        cell.friendCollectionImage.layer.cornerRadius = 10
         return cell
         
     }

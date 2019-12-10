@@ -1,54 +1,36 @@
 //Реализация класса для custom View с возможностью создания радиуса, ободка и тени
 //внутри View данного класса создается объект (Subview) UIImageView
+//радиус реализуется на Subview, а тень реализуется на самом View
 
 import UIKit
 
 class CornerShadowView: UIView {
     
-    @IBInspectable var cornerRadius: CGFloat = 20 { didSet { updateRadius() } }
+    @IBInspectable var cornerRadius: CGFloat = 25 { didSet { updateRadius() } }
     @IBInspectable var borderColor: UIColor = .darkGray { didSet { updateBorderColor() } }
-    @IBInspectable var borderWidth: CGFloat = 2 { didSet { updateBorderWidth() } }
+    @IBInspectable var borderWidth: CGFloat = 1 { didSet { updateBorderWidth() } }
     @IBInspectable var shadowColor: UIColor = .black { didSet { updateShadowColor() } }
-    @IBInspectable var shadowRadius: CGFloat = 5 { didSet { updateShadowRadius() } }
-    @IBInspectable var shadowOpacity: Float = 0.5 { didSet { updateShadowOpacity() } }
+    @IBInspectable var shadowRadius: CGFloat = 3 { didSet { updateShadowRadius() } }
+    @IBInspectable var shadowOpacity: Float = 1 { didSet { updateShadowOpacity() } }
     
-    var imageView = UIImageView()
+    var imageView: UIImageView!
     
+    override init(frame: CGRect) {
+        super .init(frame: frame)
+        addImage()
+    }
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        layer.shadowRadius = shadowRadius
-        layer.shadowColor = shadowColor.cgColor
-        layer.shadowOffset = CGSize(width: 5, height: 5)
-        layer.shadowOpacity = shadowOpacity
-        layer.cornerRadius = cornerRadius
-        layer.borderColor = borderColor.cgColor
-        
-        clipsToBounds = true
-        layer.masksToBounds = false
-        
-        imageView.layer.cornerRadius = cornerRadius
-        imageView.layer.borderColor = borderColor.cgColor
-        imageView.layer.borderWidth = borderWidth
-        imageView.clipsToBounds = true
-        addSubview(imageView)
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.topAnchor.constraint(equalTo: imageView.superview!.topAnchor).isActive = true
-        imageView.bottomAnchor.constraint(equalTo: imageView.superview!.bottomAnchor).isActive = true
-        imageView.leadingAnchor.constraint(equalTo: imageView.superview!.leadingAnchor).isActive = true
-        imageView.trailingAnchor.constraint(equalTo: imageView.superview!.trailingAnchor).isActive = true
+        addImage()
     }
     
     func updateRadius() {
-        self.layer.cornerRadius = cornerRadius
-        //self.layer.shadowRadius = cornerRadius
-        self.imageView.layer.cornerRadius = cornerRadius
+        imageView.layer.cornerRadius = cornerRadius
     }
     func updateBorderColor() {
-        self.layer.borderColor = borderColor.cgColor
         imageView.layer.borderColor = borderColor.cgColor
     }
     func updateBorderWidth() {
-        self.layer.borderWidth = borderWidth
         imageView.layer.borderWidth = borderWidth
     }
     func updateShadowColor() {
@@ -59,5 +41,25 @@ class CornerShadowView: UIView {
     }
     func updateShadowOpacity() {
         self.layer.shadowOpacity = shadowOpacity
+    }
+    
+    func addImage() {
+        imageView = UIImageView(frame: frame)
+        addSubview(imageView)
+    }
+    
+    override func layoutSubviews() {
+        imageView.frame = bounds
+        
+        layer.backgroundColor = UIColor.clear.cgColor
+        layer.shadowColor = shadowColor.cgColor
+        layer.shadowOpacity = shadowOpacity
+        layer.shadowRadius = shadowRadius
+        layer.shadowOffset = CGSize(width: 1, height: 1)
+        layer.masksToBounds = false
+        
+        //imageView.layer.cornerRadius = bounds.size.height / 2 //реализация круга
+        imageView.layer.cornerRadius = cornerRadius
+        imageView.layer.masksToBounds = true
     }
 }

@@ -4,7 +4,7 @@ var dataGroups = [String]()
 
 class GroupsTableView: UITableViewController {
     
-    @IBOutlet var GroupsView: UITableView!
+    @IBOutlet var groupsView: UITableView!
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataGroups.count
@@ -13,9 +13,9 @@ class GroupsTableView: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CellGroups", for: indexPath) as! GroupsCell
         let group = dataGroups[indexPath.row]
-        cell.GroupsName.text = group
+        cell.groupsName.text = group
         let image = UIImage(named: "swift")
-        cell.GroupImage.image = image
+        cell.groupImage.image = image
         return cell
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
