@@ -150,6 +150,13 @@
 			path = GroupInfoTableView;
 			sourceTree = "<group>";
 		};
+		DA35802323A13813009AD4CF /* NewsViews */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = NewsViews;
+			sourceTree = "<group>";
+		};
 		DA7D1EE72398FB21009E0514 /* Prototypes */ = {
 			isa = PBXGroup;
 			children = (
@@ -178,6 +185,7 @@
 				DA5D606523957534000002D6 /* ProfileForm.swift */,
 				DA0E8EED239EA2200068F0DD /* FriendsViews */,
 				DAB18FEF239E72AE00B4E9DA /* GroupsViews */,
+				DA35802323A13813009AD4CF /* NewsViews */,
 			);
 			path = VIews;
 			sourceTree = "<group>";
