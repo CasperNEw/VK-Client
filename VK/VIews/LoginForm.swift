@@ -1,6 +1,3 @@
-// hw lesson 3
-
-//it is HomeWirk branch // test commit and merge
 
 import UIKit
 
