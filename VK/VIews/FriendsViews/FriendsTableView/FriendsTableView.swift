@@ -26,20 +26,23 @@ class FriendsTableView: UITableViewController {
     var friendsSection = [Section<User>]()
         
     override func viewDidLoad() {
-        //добавляем search controller
+        addSearchController()
+        makeSortedSection()
+       
+        print("[Logging] load Friends View")
+    }
+    
+    func makeSortedSection() {
+        let friendsDictionary = Dictionary.init(grouping: dataFriends ) { $0.surname.prefix(1) }
+        friendsSection = friendsDictionary.map { Section(title: String($0.key), items: $0.value) }
+        friendsSection.sort { $0.title < $1.title }
+    }
+    func addSearchController() {
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Friends search"
         navigationItem.searchController = searchController
         definesPresentationContext = true
-        
-        //формирование элементов разделов (по первой букве фамилии) для быстрого перемещения по TableView
-        let friendsDictionary = Dictionary.init(grouping: dataFriends ) {
-            $0.surname.prefix(1)
-        }
-        friendsSection = friendsDictionary.map { Section(title: String($0.key), items: $0.value) }
-        friendsSection.sort { $0.title < $1.title }
-        print("[Logging] load Friends View")
     }
     
     //реализация количества строк (ячеек) в секции

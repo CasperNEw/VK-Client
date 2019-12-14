@@ -6,6 +6,7 @@ class GlobalSearchGroupsTableView: UITableViewController {
     var dataGlobalGroups: [String] = ["iOS Development Course", "Objective-C, Swift, Cocoa & iOS Developers, tvOS", "Школа Брата Антония", "The Swift Developers" , "Swiftbook.ru", "loftblog", "LearningIT", "Sergey Kargopolov", "ITVDN", "Alex Skutarenko", "Swift Lessons RU", "learnSwift.ru", "Гоша Дударь"]
 
     var sortedGlobalGroups = [String]()
+    var customRefreshControl = UIRefreshControl()
     
     @IBOutlet var globalSearchGroupView: UITableView!
     
@@ -31,7 +32,15 @@ class GlobalSearchGroupsTableView: UITableViewController {
     }
 
     override func viewDidLoad() {
-        //добавляем search controller
+        addSearchController()
+        addRefreshControl()
+        print("[Logging] load Global Search Groups View")
+    }
+    @objc func hideKeyboard() {
+        view.endEditing(true)
+    }
+    
+    func addSearchController() {
         gGroupsSearchController.searchResultsUpdater = self
         gGroupsSearchController.obscuresBackgroundDuringPresentation = false
         gGroupsSearchController.searchBar.placeholder = "Groups search"
@@ -39,11 +48,18 @@ class GlobalSearchGroupsTableView: UITableViewController {
         definesPresentationContext = true
         
         sortedGlobalGroups = dataGlobalGroups
-        
-        print("[Logging] load Global Search Groups View")
     }
-    @objc func hideKeyboard() {
-        view.endEditing(true)
+    func addRefreshControl() {
+        customRefreshControl.attributedTitle = NSAttributedString(string: "Refreshing ...")
+        customRefreshControl.addTarget(self, action: #selector(refreshTable), for: .valueChanged)
+        tableView.addSubview(customRefreshControl)
+    }
+    @objc func refreshTable() {
+        print("[Logging] Update Global Groups from server")
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            self.customRefreshControl.endRefreshing()
+        }
     }
 }
 

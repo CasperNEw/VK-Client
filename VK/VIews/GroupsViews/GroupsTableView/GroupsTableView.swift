@@ -41,6 +41,14 @@ class GroupsTableView: UITableViewController {
     }
     
     override func viewDidLoad() {
+        addSearchController()
+        print("[Logging] load Groups View")
+    }
+    @objc func hideKeyboard() {
+        view.endEditing(true)
+    }
+    
+    func addSearchController() {
         groupsSearchController.searchResultsUpdater = self
         groupsSearchController.obscuresBackgroundDuringPresentation = false
         groupsSearchController.searchBar.placeholder = "Groups search"
@@ -48,11 +56,6 @@ class GroupsTableView: UITableViewController {
         definesPresentationContext = true
         
         sortedGroups = dataGroups
-        
-        print("[Logging] load Groups View")
-    }
-    @objc func hideKeyboard() {
-        view.endEditing(true)
     }
     
     @IBAction func addGroup(segue: UIStoryboardSegue) {
