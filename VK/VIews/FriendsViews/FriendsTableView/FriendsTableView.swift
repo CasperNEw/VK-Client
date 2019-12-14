@@ -1,4 +1,5 @@
 //Уверен на 100% что можно сделать всё намного изящнее ... )
+//Upd^ решил продолжить со своим решением реализации SearchBar, но с использованием изящнего кода с урока ... =)
 
 import UIKit
 
@@ -9,41 +10,32 @@ struct Section<T> {
 
 class FriendsTableView: UITableViewController {
     
-    var dataFriends = [User(username: "Amancio Ortega", avatarPath: "Amancio Ortega"),
-                       User(username: "Bernard Arnault", avatarPath: "Bernard Arnault"),
-                       User(username: "Bill Gates", avatarPath: "Bill Gates"),
-                       User(username: "Carlos Slim", avatarPath: "Carlos Slim"),
-                       User(username: "Jeff Bezos", avatarPath: "Jeff Bezos"),
-                       User(username: "Lawrence Ellison", avatarPath: "Lawrence Ellison"),
-                       User(username: "Lawrence Page", avatarPath: "Lawrence Page"),
-                       User(username: "Mark Zuckerberg", avatarPath: "Mark Zuckerberg"),
-                       User(username: "Michael Bloomberg", avatarPath: "Michael Bloomberg"),
-                       User(username: "Warren Buffett", avatarPath: "Warren Buffett")]
+    var dataFriends = [User(username: "Amancio", surname: "Ortega", avatarPath: "Amancio Ortega"),
+                       User(username: "Bernard", surname: "Arnault", avatarPath: "Bernard Arnault"),
+                       User(username: "Bill", surname: "Gates", avatarPath: "Bill Gates"),
+                       User(username: "Carlos", surname: "Slim", avatarPath: "Carlos Slim"),
+                       User(username: "Jeff", surname: "Bezos", avatarPath: "Jeff Bezos"),
+                       User(username: "Lawrence", surname: "Ellison", avatarPath: "Lawrence Ellison"),
+                       User(username: "Lawrence", surname: "Page", avatarPath: "Lawrence Page"),
+                       User(username: "Mark", surname: "Zuckerberg", avatarPath: "Mark Zuckerberg"),
+                       User(username: "Michael", surname: "Bloomberg", avatarPath: "Michael Bloomberg"),
+                       User(username: "Warren", surname: "Buffett", avatarPath: "Warren Buffett")]
     
-    private var filteredDataFriends = [User]()
     private let searchController = UISearchController(searchResultsController: nil)
-    private var searchBarIsEmpty: Bool {
-        guard let text = searchController.searchBar.text else { return false }
-        return text.isEmpty
-    }
-    private var isFiltering: Bool {
-        return searchController.isActive && !searchBarIsEmpty
-    }
-    
+
     var friendsSection = [Section<User>]()
-    var friendsSectionTwo = [Section<User>]()
         
     override func viewDidLoad() {
-        //search controller
+        //добавляем search controller
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "Search"
+        searchController.searchBar.placeholder = "Friends search"
         navigationItem.searchController = searchController
         definesPresentationContext = true
         
-        //формирование элементов разделов для быстрого перемещения по TableView
+        //формирование элементов разделов (по первой букве фамилии) для быстрого перемещения по TableView
         let friendsDictionary = Dictionary.init(grouping: dataFriends ) {
-            $0.username.prefix(1)
+            $0.surname.prefix(1)
         }
         friendsSection = friendsDictionary.map { Section(title: String($0.key), items: $0.value) }
         friendsSection.sort { $0.title < $1.title }
@@ -52,17 +44,10 @@ class FriendsTableView: UITableViewController {
     
     //реализация количества строк (ячеек) в секции
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //тестирование, searchBar
-        if isFiltering {
-            return friendsSectionTwo[section].items.count
-        }
         return friendsSection[section].items.count
     }
     //реализация количества секций
     override func numberOfSections(in tableView: UITableView) -> Int {
-        if isFiltering {
-            return friendsSectionTwo.count
-        } 
         return friendsSection.count
     }
     //реализация присвоения титулу ячеек значений элементов массива data, идентификатор CellFriends задается в Storyboard
@@ -70,13 +55,7 @@ class FriendsTableView: UITableViewController {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "CellFriends", for: indexPath) as? FriendsTableViewCell else {
             return UITableViewCell()
         }
-        //тестирование, searchBar
-        if isFiltering {
-            cell.friendsName.text = friendsSectionTwo[indexPath.section].items[indexPath.row].username
-            cell.cornerShadowView.imageView.image = UIImage(named: friendsSectionTwo[indexPath.section].items[indexPath.row].avatarPath)
-            return cell
-        }
-        cell.friendsName.text = friendsSection[indexPath.section].items[indexPath.row].username
+        cell.friendsName.text = friendsSection[indexPath.section].items[indexPath.row].fullname
         cell.cornerShadowView.imageView.image = UIImage(named: friendsSection[indexPath.section].items[indexPath.row].avatarPath)
         return cell
     }
@@ -85,45 +64,28 @@ class FriendsTableView: UITableViewController {
         //плавная анимация исчезновения выделения
         tableView.deselectRow(at: indexPath, animated: true)
         //выведем в консоль имя нажатой ячейки
-        if isFiltering {
-            print(friendsSectionTwo[indexPath.section].items[indexPath.row].username)
-            //сделаем переключение на Collection View
-            let main = UIStoryboard( name: "Main", bundle: nil)
-            let vc = main.instantiateViewController(identifier: "PhotoFreindsCollection") as! FriendsCollectionView
-            vc.user = friendsSectionTwo[indexPath.section].items[indexPath.row].username
-            navigationController?.pushViewController(vc, animated: true)
-        } else {
-        print(friendsSection[indexPath.section].items[indexPath.row].username)
-        //сделаем переключение на Collection View
+        print(friendsSection[indexPath.section].items[indexPath.row].fullname)
+        //сделаем переключение на Collection View с пробросом данных
         let main = UIStoryboard( name: "Main", bundle: nil)
         let vc = main.instantiateViewController(identifier: "PhotoFreindsCollection") as! FriendsCollectionView
-        vc.user = friendsSection[indexPath.section].items[indexPath.row].username
+        vc.user = friendsSection[indexPath.section].items[indexPath.row].fullname
         navigationController?.pushViewController(vc, animated: true)
-        }
     }
     //реализуем метод который возвращает названия разделов для нашего TableView
     override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
-        if isFiltering {
-            return friendsSectionTwo.map { $0.title }
-        }
         return friendsSection.map { $0.title }
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if isFiltering {
-            return friendsSectionTwo[section].title
-        }
         return friendsSection[section].title
     }
     
     @IBOutlet var friendsTView: UITableView!
     
-    
     @objc func hideKeyboard() {
         view.endEditing(true)
     }
 }
-
 
 extension FriendsTableView: UISearchResultsUpdating {
     
@@ -132,15 +94,32 @@ extension FriendsTableView: UISearchResultsUpdating {
     }
     
     private func filterContentForSearchText(_ searchText: String) {
-        filteredDataFriends = dataFriends.filter({ (friend: User) -> Bool in
-            return friend.username.lowercased().contains(searchText.lowercased())
-        })
-        let friendsDictionaryTwo = Dictionary.init(grouping: filteredDataFriends ) {
-            $0.username.prefix(1)
-        }
-        friendsSectionTwo = friendsDictionaryTwo.map { Section(title: String($0.key), items: $0.value) }
-        friendsSectionTwo.sort { $0.title < $1.title }
+        let friendsDictionary = Dictionary.init(grouping: dataFriends.filter { (user) -> Bool in
+            return searchText.isEmpty ? true : user.fullname.lowercased().contains(searchText.lowercased())
+        }) { $0.surname.prefix(1) }
+        friendsSection = friendsDictionary.map { Section(title: String($0.key), items: $0.value) }
+        friendsSection.sort { $0.title < $1.title }
         tableView.reloadData()
     }
-    
 }
+
+
+//Реализация поиска при добавлении searchBar через Storyboard
+
+//@IBOutlet ...
+
+//extension FriendsTableView: UISearchBarDelegate {
+//
+//    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+//        let friendsDictionary = Dictionary.init(grouping: dataFriends.filter { (user) -> Bool in
+//            return searchText.isEmpty ? true : user.fullname.lowercased().contains(searchText.lowercased())
+//        }) { $0.surname.prefix(1) }
+//        friendsSection = friendsDictionary.map { Section(title: String($0.key), items: $0.value) }
+//        friendsSection.sort { $0.title < $1.title }
+//        tableView.reloadData()
+//    }
+//
+//    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+//        view.endEditing(true)
+//    }
+//}

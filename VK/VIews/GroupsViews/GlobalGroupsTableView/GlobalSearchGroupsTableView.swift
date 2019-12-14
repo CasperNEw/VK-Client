@@ -3,34 +3,59 @@ import UIKit
 
 class GlobalSearchGroupsTableView: UITableViewController {
 
-    var dataGlobalGroups: [String] = ["Swift Develop Group 1", "Swift Develop Group 2", "Swift Develop Group 3", "Swift Develop Group 4" , "Swift Develop Group 5", "Swift Develop Group 6", "Swift Develop Group 7", "Swift Develop Group 8", "Swift Develop Group 9"]
+    var dataGlobalGroups: [String] = ["iOS Development Course", "Objective-C, Swift, Cocoa & iOS Developers, tvOS", "Школа Брата Антония", "The Swift Developers" , "Swiftbook.ru", "loftblog", "LearningIT", "Sergey Kargopolov", "ITVDN", "Alex Skutarenko", "Swift Lessons RU", "learnSwift.ru", "Гоша Дударь"]
 
+    var sortedGlobalGroups = [String]()
+    
     @IBOutlet var globalSearchGroupView: UITableView!
     
-    //реализация количества строк (ячеек) равное количеству элементов массива dataGlobalGroups
+    private let gGroupsSearchController = UISearchController(searchResultsController: nil)
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dataGlobalGroups.count
+        return sortedGlobalGroups.count
     }
-    //реализация присвоения титулу ячеек значений элементов массива dataGlobalGroups, идентификатор CellGlobalGroups задается в Storyboard
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CellGlobalGroups", for: indexPath) as! GlobalGroupsCell
-        let globalGroup = dataGlobalGroups[indexPath.row]
-        cell.globalGroupsName.text = globalGroup
-        let image = UIImage(named: "swift")
-        cell.globalGroupImage.image = image
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "CellGlobalGroups", for: indexPath) as? GlobalGroupsCell else {
+            return UITableViewCell()
+        }
+        cell.globalGroupsName.text = sortedGlobalGroups[indexPath.row]
+        cell.globalGroupImage.image = UIImage(named: "swift")
         return cell
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //плавная анимация исчезновения выделения
         tableView.deselectRow(at: indexPath, animated: true)
         //выведем в консоль имя нажатой ячейки
-        print(dataGlobalGroups[indexPath.row])
+        print(sortedGlobalGroups[indexPath.row])
     }
 
     override func viewDidLoad() {
+        //добавляем search controller
+        gGroupsSearchController.searchResultsUpdater = self
+        gGroupsSearchController.obscuresBackgroundDuringPresentation = false
+        gGroupsSearchController.searchBar.placeholder = "Groups search"
+        navigationItem.searchController = gGroupsSearchController
+        definesPresentationContext = true
+        
+        sortedGlobalGroups = dataGlobalGroups
+        
         print("[Logging] load Global Search Groups View")
     }
     @objc func hideKeyboard() {
         view.endEditing(true)
     }
+}
+
+extension GlobalSearchGroupsTableView: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        filterContentForSearchText(searchController.searchBar.text!)
+    }
+    private func filterContentForSearchText(_ searchText: String) {
+        sortedGlobalGroups = dataGlobalGroups.filter { (group) -> Bool in
+            return searchText.isEmpty ? true : group.lowercased().contains(searchText.lowercased())
+        }
+        tableView.reloadData()
+    }
+    
 }
