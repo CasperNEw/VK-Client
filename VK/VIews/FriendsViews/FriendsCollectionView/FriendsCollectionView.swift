@@ -22,7 +22,9 @@ class FriendsCollectionView: UICollectionViewController {
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FriendCollCell", for: indexPath) as! FriendsCollectionCell
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FriendCollCell", for: indexPath) as? FriendsCollectionCell else {
+            return UICollectionViewCell()
+        }
         let image = UIImage(named: user!)
         cell.friendCollectionImage.image = image
         cell.friendCollectionImage.layer.cornerRadius = 10
@@ -31,7 +33,9 @@ class FriendsCollectionView: UICollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let sectionView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "FooterLike", for: indexPath) as! FooterWithLike
+        guard let sectionView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "FooterLike", for: indexPath) as? FooterWithLike else {
+            return UICollectionReusableView()
+        }
         return sectionView
     }
 }

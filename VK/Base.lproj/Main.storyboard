@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Yf8-mk-jgv">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="LoV-zV-964">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
@@ -579,6 +579,54 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bmF-oi-RGM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="6158" y="1266"/>
+        </scene>
+        <!--Photo Collection View Collection View Controller-->
+        <scene sceneID="y7z-vu-cLi">
+            <objects>
+                <collectionViewController id="LoV-zV-964" customClass="PhotoCollectionViewCollectionViewController" customModule="VK_KonstantinovDS" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="tFX-Jk-JKy">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <collectionViewLayout key="collectionViewLayout" id="NAC-bf-wyU" customClass="CustomCollectionViewLayout" customModule="VK_KonstantinovDS" customModuleProvider="target"/>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PhotoCell" id="QvZ-ty-c9J" customClass="PhotoCollectionViewCell" customModule="VK_KonstantinovDS" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Sh8-ZG-qos">
+                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Swift Dev 001" translatesAutoresizingMaskIntoConstraints="NO" id="bJT-nr-cA8">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="bJT-nr-cA8" secondAttribute="height" multiplier="1:1" id="1D1-Te-4C2"/>
+                                                <constraint firstAttribute="width" constant="50" id="Xp2-y2-uqP"/>
+                                            </constraints>
+                                        </imageView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="bJT-nr-cA8" secondAttribute="bottom" id="N0K-Ci-68r"/>
+                                        <constraint firstAttribute="trailing" secondItem="bJT-nr-cA8" secondAttribute="trailing" id="c9G-9j-rP6"/>
+                                        <constraint firstItem="bJT-nr-cA8" firstAttribute="top" secondItem="Sh8-ZG-qos" secondAttribute="top" id="dD4-VQ-qoa"/>
+                                        <constraint firstItem="bJT-nr-cA8" firstAttribute="leading" secondItem="Sh8-ZG-qos" secondAttribute="leading" id="xKe-9F-p3r"/>
+                                    </constraints>
+                                </collectionViewCellContentView>
+                                <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <outlet property="photo" destination="bJT-nr-cA8" id="vNU-AS-zkq"/>
+                                </connections>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="LoV-zV-964" id="n90-8A-ogY"/>
+                            <outlet property="delegate" destination="LoV-zV-964" id="603-or-qDk"/>
+                        </connections>
+                    </collectionView>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bCe-dy-Zhn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6904.8000000000002" y="1265.7635467980297"/>
         </scene>
         <!--My Friends-->
         <scene sceneID="VvS-Uk-7Fc">
