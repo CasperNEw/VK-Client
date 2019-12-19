@@ -7,6 +7,4 @@ class MessageCell: UITableViewCell {
     @IBOutlet weak var avatar: UIImageView!
     @IBOutlet weak var message: UILabel!
     
-    
- 
 }

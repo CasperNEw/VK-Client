@@ -8,14 +8,14 @@
 
 import UIKit
 
-class LikeButton: UIButton {
+@IBDesignable class LikeButton: UIButton {
     @IBInspectable var liked: Bool = false {
         didSet {
             setupDefault()
         }
     }
     
-    @IBInspectable var likeCount: Int = 0 {
+    var likeCount: Int = 0 {
         didSet {
             setupDefault()
         }
@@ -44,11 +44,11 @@ class LikeButton: UIButton {
     private func setupDefault() {
         setImage(UIImage(named: liked ? "like" : "dislike"), for: .normal)
         setTitle(String(describing: likeCount), for: .normal)
-        tintColor = liked ? .red : .gray
-        
-        imageEdgeInsets = UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0)
-        titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -5)
-        imageView?.contentMode = .scaleAspectFit
+        tintColor = liked ? .red : .darkGray
+        setTitleColor( liked ? .red : .darkGray, for: .normal)
+        imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -10)
+        imageView?.contentMode = .scaleAspectFill
         
     }
     
@@ -63,7 +63,7 @@ class LikeButton: UIButton {
         likeCount -= 1
         setImage(UIImage(named: "dislike"), for: .normal)
         setTitle(String(describing: likeCount), for: .normal)
-        tintColor = .gray
+        tintColor = .darkGray
     }
     
 }

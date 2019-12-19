@@ -12,10 +12,10 @@ class CustomCollectionViewLayout: UICollectionViewLayout {
     var containerHeight: CGFloat = 0 //переменная для подсчета общей высоты контента в View
     
     override func prepare() {
-        guard let collection = collectionView else {
-            return
-        }
+        guard let collection = collectionView else { return }
         let itemsCount = collection.numberOfItems(inSection: 0) //высчитывает суммарное количество ячеек внутри коллекции
+        guard itemsCount > 0 else { return } //проверяем наличие хотя бы одной ячейки
+        
         let commonWidth = collection.frame.width //определяем ширину для маленькой и широкой ячейки
         let smallWidth = collection.frame.width / CGFloat(columns)
         
