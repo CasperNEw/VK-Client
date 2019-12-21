@@ -39,6 +39,7 @@
 		DAA5E4CE239682E000B09EE7 /* GroupInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA5E4CD239682E000B09EE7 /* GroupInfoCell.swift */; };
 		DAA5E4D22396935A00B09EE7 /* FriendsCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA5E4D12396935A00B09EE7 /* FriendsCollectionCell.swift */; };
 		DAA5E4D7239695D000B09EE7 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA5E4D6239695D000B09EE7 /* Group.swift */; };
+		DACB2FC223ACEC2500816B0F /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACB2FC123ACEC2500816B0F /* TestViewController.swift */; };
 		DAF16B8C238D2E0A00FF58D0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF16B8B238D2E0A00FF58D0 /* AppDelegate.swift */; };
 		DAF16B8E238D2E0A00FF58D0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF16B8D238D2E0A00FF58D0 /* SceneDelegate.swift */; };
 		DAF16B93238D2E0A00FF58D0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAF16B91238D2E0A00FF58D0 /* Main.storyboard */; };
@@ -99,6 +100,7 @@
 		DAA5E4CD239682E000B09EE7 /* GroupInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupInfoCell.swift; sourceTree = "<group>"; };
 		DAA5E4D12396935A00B09EE7 /* FriendsCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsCollectionCell.swift; sourceTree = "<group>"; };
 		DAA5E4D6239695D000B09EE7 /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
+		DACB2FC123ACEC2500816B0F /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		DAF16B88238D2E0A00FF58D0 /* VK_KonstantinovDS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VK_KonstantinovDS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAF16B8B238D2E0A00FF58D0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DAF16B8D238D2E0A00FF58D0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -241,6 +243,7 @@
 				DA779EE423A7762C00A2E911 /* PhotoCollection */,
 				DA779ED823A4D86C00A2E911 /* MessageTableView */,
 				DA35802323A13813009AD4CF /* NewsViews */,
+				DACB2FC023ACEBF900816B0F /* TestViews */,
 			);
 			path = VIews;
 			sourceTree = "<group>";
@@ -272,6 +275,14 @@
 				DA0E8EEF239EA2470068F0DD /* GlobalGroupsTableView */,
 			);
 			path = GroupsViews;
+			sourceTree = "<group>";
+		};
+		DACB2FC023ACEBF900816B0F /* TestViews */ = {
+			isa = PBXGroup;
+			children = (
+				DACB2FC123ACEC2500816B0F /* TestViewController.swift */,
+			);
+			path = TestViews;
 			sourceTree = "<group>";
 		};
 		DAF16B7F238D2E0A00FF58D0 = {
@@ -475,6 +486,7 @@
 				DA4AE947239FACD1009B6300 /* ParallaxTableView.swift in Sources */,
 				DA5D607223966096000002D6 /* FriendsTableViewCell.swift in Sources */,
 				DAA5E4C823966E7100B09EE7 /* GlobalGroupsCell.swift in Sources */,
+				DACB2FC223ACEC2500816B0F /* TestViewController.swift in Sources */,
 				DA5D606823957838000002D6 /* FriendsTableView.swift in Sources */,
 				DA5D607023958784000002D6 /* GroupInfoTableView.swift in Sources */,
 				DA4AE945239F75E6009B6300 /* LikeButton.swift in Sources */,

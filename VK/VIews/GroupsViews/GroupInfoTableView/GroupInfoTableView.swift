@@ -16,7 +16,7 @@ class GroupInfoTableView: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CellGroupInfo", for: indexPath)
-        cell.textLabel?.text = "This is test row \(indexPath.row)"
+        cell.textLabel?.text = "Tap for exit - test row \(indexPath.row)"
         return cell
     }
 }

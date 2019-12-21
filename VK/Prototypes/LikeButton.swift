@@ -57,6 +57,7 @@ import UIKit
         setImage(UIImage(named: "like"), for: .normal)
         setTitle(String(describing: likeCount), for: .normal)
         tintColor = .red
+        animatedLikeButton()
     }
     
     private func disableLike() {
@@ -64,6 +65,19 @@ import UIKit
         setImage(UIImage(named: "dislike"), for: .normal)
         setTitle(String(describing: likeCount), for: .normal)
         tintColor = .darkGray
+        animatedLikeButton()
     }
     
+    //добавляем функцию анимации при нажатии
+    private func animatedLikeButton() {
+        let animation = CASpringAnimation(keyPath: "transform.scale") //что будем менять
+        animation.fromValue = 1.1 //стартовое значение
+        animation.toValue = 1 //конечно значение
+        animation.stiffness = 500 //жесткость пружины
+        animation.mass = 1 //масса
+        animation.duration = 1 //продолжительность анимации
+        animation.beginTime = CACurrentMediaTime() //время старта анимации, дефолтное значение
+        animation.fillMode = .both
+        layer.add(animation, forKey: nil) //добавляем к слою текущую анимацию
+    }
 }

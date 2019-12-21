@@ -65,7 +65,7 @@
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GEu-rd-LTr">
                                         <rect key="frame" x="152.66666666666666" y="230" width="70" height="33"/>
-                                        <color key="backgroundColor" red="0.27450980390000002" green="0.50196078430000002" blue="0.76078431369999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" red="0.27450980390000002" green="0.50196078430000002" blue="0.76078431372549016" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="33" id="THG-24-tKh"/>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="70" id="YoX-f7-L4y"/>
@@ -73,6 +73,11 @@
                                         <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="16"/>
                                         <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <state key="normal" title="Войти"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="loginButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="xkM-T4-Rzj"/>
                                             <segue destination="Dzc-7D-dbf" kind="presentation" identifier="Profile Form" modalPresentationStyle="fullScreen" id="9i1-jF-q11"/>
@@ -139,8 +144,20 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S8V-UR-dge">
-                                <rect key="frame" x="86" y="675" width="203" height="30"/>
-                                <state key="normal" title="Test Parallax - One way ticket"/>
+                                <rect key="frame" x="147.66666666666666" y="673" width="80" height="32"/>
+                                <color key="backgroundColor" red="0.27450980392156865" green="0.50196078431372548" blue="0.76078431372549016" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="80" id="NK4-xL-6oT"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <state key="normal" title="Test View">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="testButtonOne:" destination="BYZ-38-t0r" eventType="touchUpInside" id="yb8-MG-07E"/>
                                 </connections>
@@ -346,6 +363,95 @@
             </objects>
             <point key="canvasLocation" x="5255" y="2086"/>
         </scene>
+        <!--Test View Controller-->
+        <scene sceneID="9Je-mW-mQ0">
+            <objects>
+                <viewController storyboardIdentifier="TestView" id="Mup-hZ-hQo" customClass="TestViewController" customModule="VK_KonstantinovDS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="viE-av-zjW">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a2h-bg-Dab">
+                                <rect key="frame" x="140" y="144" width="95" height="30"/>
+                                <state key="normal" title="Test Parallax"/>
+                                <connections>
+                                    <action selector="parallaxButtonPush:" destination="Mup-hZ-hQo" eventType="touchUpInside" id="kmU-Fh-ho7"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2SN-dM-SZO">
+                                <rect key="frame" x="140" y="648" width="95" height="30"/>
+                                <state key="normal" title="Exit"/>
+                                <connections>
+                                    <segue destination="ggl-KQ-EJ4" kind="unwind" unwindAction="goToLofinFormWithUnwindSegue:" id="AEk-xI-JbQ"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q5G-Ov-6GN">
+                                <rect key="frame" x="165" y="197" width="45" height="15"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gvM-RY-otI">
+                                        <rect key="frame" x="0.0" y="0.0" width="45" height="15"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="CircleInd" translatesAutoresizingMaskIntoConstraints="NO" id="fjE-q4-Gha">
+                                                <rect key="frame" x="0.0" y="0.0" width="15" height="15"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="fjE-q4-Gha" secondAttribute="height" multiplier="1:1" id="gPg-6G-CAf"/>
+                                                    <constraint firstAttribute="width" constant="15" id="ycr-st-IFo"/>
+                                                </constraints>
+                                            </imageView>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="CircleInd" translatesAutoresizingMaskIntoConstraints="NO" id="KS7-cf-iat">
+                                                <rect key="frame" x="15" y="0.0" width="15" height="15"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="KS7-cf-iat" secondAttribute="height" multiplier="1:1" id="VBO-2b-Gbb"/>
+                                                    <constraint firstAttribute="width" constant="15" id="nZf-r2-q9y"/>
+                                                </constraints>
+                                            </imageView>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="CircleInd" translatesAutoresizingMaskIntoConstraints="NO" id="hWY-6e-VHg">
+                                                <rect key="frame" x="30" y="0.0" width="15" height="15"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="hWY-6e-VHg" secondAttribute="height" multiplier="1:1" id="ewX-i6-uCk"/>
+                                                    <constraint firstAttribute="width" constant="15" id="pfG-Jl-P7N"/>
+                                                </constraints>
+                                            </imageView>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="15" id="2oJ-0A-98a"/>
+                                    <constraint firstAttribute="bottom" secondItem="gvM-RY-otI" secondAttribute="bottom" id="5k0-oL-7yb"/>
+                                    <constraint firstAttribute="trailing" secondItem="gvM-RY-otI" secondAttribute="trailing" id="Oxl-Qy-GwU"/>
+                                    <constraint firstAttribute="width" secondItem="Q5G-Ov-6GN" secondAttribute="height" multiplier="3:1" id="bX0-Ge-AfF"/>
+                                    <constraint firstItem="gvM-RY-otI" firstAttribute="leading" secondItem="Q5G-Ov-6GN" secondAttribute="leading" id="jUY-H5-2lR"/>
+                                    <constraint firstItem="gvM-RY-otI" firstAttribute="top" secondItem="Q5G-Ov-6GN" secondAttribute="top" id="sEM-f3-d85"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="G7E-Iy-Nth" firstAttribute="trailing" secondItem="Q5G-Ov-6GN" secondAttribute="trailing" constant="165" id="6Ps-r5-kkY"/>
+                            <constraint firstItem="Q5G-Ov-6GN" firstAttribute="top" secondItem="a2h-bg-Dab" secondAttribute="bottom" constant="23" id="DQm-dY-rfR"/>
+                            <constraint firstItem="G7E-Iy-Nth" firstAttribute="bottom" secondItem="2SN-dM-SZO" secondAttribute="bottom" constant="100" id="HfL-EE-aCd"/>
+                            <constraint firstItem="a2h-bg-Dab" firstAttribute="leading" secondItem="G7E-Iy-Nth" secondAttribute="leading" constant="140" id="JT5-nO-Fz6"/>
+                            <constraint firstItem="G7E-Iy-Nth" firstAttribute="trailing" secondItem="2SN-dM-SZO" secondAttribute="trailing" constant="140" id="Q7Y-F8-MM3"/>
+                            <constraint firstItem="2SN-dM-SZO" firstAttribute="leading" secondItem="G7E-Iy-Nth" secondAttribute="leading" constant="140" id="Vsw-nm-Pqr"/>
+                            <constraint firstItem="Q5G-Ov-6GN" firstAttribute="leading" secondItem="G7E-Iy-Nth" secondAttribute="leading" constant="165" id="YHS-JZ-yDE"/>
+                            <constraint firstItem="G7E-Iy-Nth" firstAttribute="trailing" secondItem="a2h-bg-Dab" secondAttribute="trailing" constant="140" id="YI6-F6-isk"/>
+                            <constraint firstItem="2SN-dM-SZO" firstAttribute="top" secondItem="Q5G-Ov-6GN" secondAttribute="bottom" constant="436" id="bDE-uH-f4y"/>
+                            <constraint firstItem="a2h-bg-Dab" firstAttribute="top" secondItem="G7E-Iy-Nth" secondAttribute="top" constant="100" id="hiZ-W0-96K"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="G7E-Iy-Nth"/>
+                    </view>
+                    <connections>
+                        <outlet property="CircleIndOne" destination="fjE-q4-Gha" id="lbj-bK-rwG"/>
+                        <outlet property="CircleIndThree" destination="hWY-6e-VHg" id="h4n-RC-kWc"/>
+                        <outlet property="CircleIndTwo" destination="KS7-cf-iat" id="BxL-Kq-Y85"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="11h-bB-385" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="ggl-KQ-EJ4" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="1197.5999999999999" y="3258.6206896551726"/>
+        </scene>
         <!--Group Info Table View-->
         <scene sceneID="dRn-1K-NCH">
             <objects>
@@ -396,6 +502,7 @@
                                 <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
                                 <connections>
                                     <outlet property="groupInfo" destination="Ag9-0E-rJn" id="wy2-hc-diU"/>
+                                    <segue destination="fOQ-14-cEW" kind="unwind" unwindAction="goToLofinFormWithUnwindSegue:" id="ofh-x2-QCM"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -406,6 +513,7 @@
                     </tableView>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fCe-DL-aqK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="fOQ-14-cEW" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2108" y="3259"/>
         </scene>
@@ -775,6 +883,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="CircleInd" width="160" height="160"/>
         <image name="Swift Dev 001" width="333.33334350585938" height="187.66667175292969"/>
         <image name="VK_logo" width="210" height="210"/>
         <image name="magnifyingglass.circle" catalog="system" width="64" height="60"/>

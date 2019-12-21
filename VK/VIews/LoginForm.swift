@@ -99,7 +99,7 @@ class LoginForm: UIViewController {
     @IBAction func testButtonOne(_ sender: Any) {
         
         let main = UIStoryboard( name: "Main", bundle: nil)
-        let vc = main.instantiateViewController(identifier: "GroupInfoView") as! GroupInfoTableView
+        let vc = main.instantiateViewController(identifier: "TestView") as! TestViewController
         //vc.user = friendsSection[indexPath.section].items[indexPath.row].username
         navigationController?.pushViewController(vc, animated: true)
     }

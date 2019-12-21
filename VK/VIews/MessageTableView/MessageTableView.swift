@@ -26,6 +26,11 @@ class MessageViewController: UITableViewController {
         cell?.avatar.image = UIImage(named: "Mark Zuckerberg")
         cell?.message.text = messageArray[indexPath.row]
         cell?.time.text = currentDate()
+        //включаем обработку нажаний на ImageView.
+        cell?.avatar.isUserInteractionEnabled = true
+        cell?.avatar.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(imageTapped)))
+        
+        
         return cell!
     }
     func currentDate() -> String {
@@ -34,4 +39,8 @@ class MessageViewController: UITableViewController {
         return dateFormatter.string(from: Date.init())
     }
     
+    @objc private func imageTapped(_ recognizer: UITapGestureRecognizer) {
+        print("avatar touched")
+    }
+  
 }

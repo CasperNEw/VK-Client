@@ -16,9 +16,10 @@
                 <rect key="frame" x="0.0" y="0.0" width="430" height="129"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="Vc6-GK-UmK">
+                    <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="Vc6-GK-UmK">
                         <rect key="frame" x="15" y="10" width="50" height="50"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstAttribute="width" constant="50" id="24a-bE-M5D"/>
                             <constraint firstAttribute="width" secondItem="Vc6-GK-UmK" secondAttribute="height" multiplier="1:1" id="Cz4-Mr-1oZ"/>
@@ -64,6 +65,7 @@
                     <constraint firstItem="Vc6-GK-UmK" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="ybE-tx-tYi"/>
                 </constraints>
             </tableViewCellContentView>
+            <gestureRecognizers/>
             <constraints>
                 <constraint firstItem="njF-e1-oar" firstAttribute="trailing" secondItem="MyQ-oQ-mQB" secondAttribute="trailing" constant="15" id="xEO-To-iyP"/>
             </constraints>
