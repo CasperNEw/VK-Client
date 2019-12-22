@@ -34,7 +34,7 @@ import UIKit
         
         //Color Declaration
         let heartColor = likeColor
-            //UIColor.darkGray
+        //UIColor.darkGray
         
         //Bezier Drawing
         //let maskLayer = CAShapeLayer() //маскирующий слой
@@ -62,7 +62,7 @@ import UIKit
         bezierPath.stroke() //отрисовка линии
         //maskLayer.path = bezierPath.cgPath //присваиваем маскирующему слою значение нашего рисунка
         //self.layer.mask = maskLayer //отсекаем всё что за границей нашей маски
-      
+        
         //Text Drawing
         let textRect = CGRect(x: 23, y: 2, width: 18, height: 18)
         let textTextContent = "\(newLikeScore)"

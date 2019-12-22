@@ -26,6 +26,19 @@ class MessageViewController: UITableViewController {
         cell?.avatar.image = UIImage(named: "Mark Zuckerberg")
         cell?.message.text = messageArray[indexPath.row]
         cell?.time.text = currentDate()
+        
+        //добавляем блок анимации плавного появления контента
+        cell?.avatar.alpha = 0
+        cell?.time.alpha = 0
+        cell?.username.alpha = 0
+        cell?.message.alpha = 0
+        UIView.animate(withDuration: 1, delay: 0.1, options: [], animations: {
+            cell?.avatar.alpha = 1.0
+            cell?.time.alpha = 1.0
+            cell?.username.alpha = 1.0
+            cell?.message.alpha = 1.0
+        })
+        
         return cell!
     }
     func currentDate() -> String {
