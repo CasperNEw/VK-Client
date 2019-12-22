@@ -49,6 +49,7 @@
 		DAF16BAE238D2E0E00FF58D0 /* VKUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF16BAD238D2E0E00FF58D0 /* VKUITests.swift */; };
 		DAF16BBC238D2EF400FF58D0 /* LoginForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF16BBB238D2EF400FF58D0 /* LoginForm.swift */; };
 		DAF97A6323AFA0FC00753D94 /* CornerImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF97A6223AFA0FC00753D94 /* CornerImageView.swift */; };
+		DAF97A6523AFD05B00753D94 /* TestTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF97A6423AFD05B00753D94 /* TestTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -117,6 +118,7 @@
 		DAF16BAF238D2E0E00FF58D0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DAF16BBB238D2EF400FF58D0 /* LoginForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginForm.swift; sourceTree = "<group>"; };
 		DAF97A6223AFA0FC00753D94 /* CornerImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornerImageView.swift; sourceTree = "<group>"; };
+		DAF97A6423AFD05B00753D94 /* TestTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -284,6 +286,7 @@
 			isa = PBXGroup;
 			children = (
 				DACB2FC123ACEC2500816B0F /* TestViewController.swift */,
+				DAF97A6423AFD05B00753D94 /* TestTableViewController.swift */,
 			);
 			path = TestViews;
 			sourceTree = "<group>";
@@ -502,6 +505,7 @@
 				DAA5E4CE239682E000B09EE7 /* GroupInfoCell.swift in Sources */,
 				DA5D606623957534000002D6 /* ProfileForm.swift in Sources */,
 				DAF16BBC238D2EF400FF58D0 /* LoginForm.swift in Sources */,
+				DAF97A6523AFD05B00753D94 /* TestTableViewController.swift in Sources */,
 				DA779EEC23A9349D00A2E911 /* NewsTableView.swift in Sources */,
 				DA779EE623A7765F00A2E911 /* PhotoCollectionViewCollectionViewController.swift in Sources */,
 				DA779EF423AA7DF200A2E911 /* CustomNewsCollectionLayout.swift in Sources */,

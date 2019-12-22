@@ -42,6 +42,7 @@ class GroupsTableView: UITableViewController {
     
     override func viewDidLoad() {
         addSearchController()
+        
         print("[Logging] load Groups View")
     }
     @objc func hideKeyboard() {

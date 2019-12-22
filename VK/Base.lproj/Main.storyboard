@@ -420,18 +420,28 @@
                                     <constraint firstItem="gvM-RY-otI" firstAttribute="top" secondItem="Q5G-Ov-6GN" secondAttribute="top" id="sEM-f3-d85"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mwq-BZ-UsV">
+                                <rect key="frame" x="120" y="235" width="135" height="30"/>
+                                <state key="normal" title="Test Search Bar"/>
+                                <connections>
+                                    <action selector="searchBarButtonPush:" destination="Mup-hZ-hQo" eventType="touchUpInside" id="0Oy-Gd-Aql"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="G7E-Iy-Nth" firstAttribute="trailing" secondItem="Q5G-Ov-6GN" secondAttribute="trailing" constant="165" id="6Ps-r5-kkY"/>
+                            <constraint firstItem="mwq-BZ-UsV" firstAttribute="leading" secondItem="G7E-Iy-Nth" secondAttribute="leading" constant="120" id="9uW-cG-1rW"/>
+                            <constraint firstItem="2SN-dM-SZO" firstAttribute="top" secondItem="mwq-BZ-UsV" secondAttribute="bottom" constant="383" id="BuV-JD-RWe"/>
                             <constraint firstItem="Q5G-Ov-6GN" firstAttribute="top" secondItem="a2h-bg-Dab" secondAttribute="bottom" constant="23" id="DQm-dY-rfR"/>
                             <constraint firstItem="G7E-Iy-Nth" firstAttribute="bottom" secondItem="2SN-dM-SZO" secondAttribute="bottom" constant="100" id="HfL-EE-aCd"/>
                             <constraint firstItem="a2h-bg-Dab" firstAttribute="leading" secondItem="G7E-Iy-Nth" secondAttribute="leading" constant="140" id="JT5-nO-Fz6"/>
+                            <constraint firstItem="G7E-Iy-Nth" firstAttribute="trailing" secondItem="mwq-BZ-UsV" secondAttribute="trailing" constant="120" id="JYu-us-zXI"/>
                             <constraint firstItem="G7E-Iy-Nth" firstAttribute="trailing" secondItem="2SN-dM-SZO" secondAttribute="trailing" constant="140" id="Q7Y-F8-MM3"/>
                             <constraint firstItem="2SN-dM-SZO" firstAttribute="leading" secondItem="G7E-Iy-Nth" secondAttribute="leading" constant="140" id="Vsw-nm-Pqr"/>
                             <constraint firstItem="Q5G-Ov-6GN" firstAttribute="leading" secondItem="G7E-Iy-Nth" secondAttribute="leading" constant="165" id="YHS-JZ-yDE"/>
                             <constraint firstItem="G7E-Iy-Nth" firstAttribute="trailing" secondItem="a2h-bg-Dab" secondAttribute="trailing" constant="140" id="YI6-F6-isk"/>
-                            <constraint firstItem="2SN-dM-SZO" firstAttribute="top" secondItem="Q5G-Ov-6GN" secondAttribute="bottom" constant="436" id="bDE-uH-f4y"/>
+                            <constraint firstItem="mwq-BZ-UsV" firstAttribute="top" secondItem="Q5G-Ov-6GN" secondAttribute="bottom" constant="23" id="gIG-wp-llK"/>
                             <constraint firstItem="a2h-bg-Dab" firstAttribute="top" secondItem="G7E-Iy-Nth" secondAttribute="top" constant="100" id="hiZ-W0-96K"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="G7E-Iy-Nth"/>
@@ -511,6 +521,50 @@
                 <exit id="fOQ-14-cEW" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2108" y="3259"/>
+        </scene>
+        <!--Test Table View Controller-->
+        <scene sceneID="kG8-Of-FlK">
+            <objects>
+                <tableViewController storyboardIdentifier="SearchBarTestView" id="476-Z8-WW6" customClass="TestTableViewController" customModule="VK_KonstantinovDS" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="a4b-xJ-ZZv">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" id="klm-jT-Xbz">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </searchBar>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="4eE-3S-W69">
+                                <rect key="frame" x="0.0" y="72" width="375" height="43.666667938232422"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="4eE-3S-W69" id="1Bb-5S-clp">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.666667938232422"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="476-Z8-WW6" id="h06-WG-6dx"/>
+                            <outlet property="delegate" destination="476-Z8-WW6" id="Kif-a6-0Ds"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="41y-af-Csj">
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="magnifyingglass" catalog="system" id="LkM-t6-va3">
+                            <connections>
+                                <action selector="rightSearchButtonPressed:" destination="476-Z8-WW6" id="mRp-S9-atY"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="rightSearchButton" destination="LkM-t6-va3" id="lwJ-CQ-L7r"/>
+                        <outlet property="searchBar" destination="klm-jT-Xbz" id="Uxx-vS-RIq"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mAF-UB-wFc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3050.4000000000001" y="4017.4876847290643"/>
         </scene>
         <!--News Table View-->
         <scene sceneID="oPr-Qq-vPO">
@@ -848,7 +902,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yZT-BY-hxK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5255.1999999999998" y="3671.6748768472908"/>
+            <point key="canvasLocation" x="6197.6000000000004" y="3671.6748768472908"/>
         </scene>
         <!--Message-->
         <scene sceneID="v0a-4L-yeH">
@@ -869,13 +923,32 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zfC-fH-oaQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4312.8000000000002" y="3671.6748768472908"/>
+            <point key="canvasLocation" x="5255.1999999999998" y="3671.6748768472908"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="pbV-9d-f3T">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="a28-gu-tFN" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="8PF-4E-5VK">
+                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="476-Z8-WW6" kind="relationship" relationship="rootViewController" id="auB-2Q-Fh4"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5ek-Xa-yom" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2108" y="4017.4876847290643"/>
         </scene>
     </scenes>
     <resources>
         <image name="CircleInd" width="160" height="160"/>
         <image name="Swift Dev 001" width="333.33334350585938" height="187.66667175292969"/>
         <image name="VK_logo" width="210" height="210"/>
+        <image name="magnifyingglass" catalog="system" width="64" height="56"/>
         <image name="magnifyingglass.circle" catalog="system" width="64" height="60"/>
         <image name="message" catalog="system" width="64" height="56"/>
         <image name="message.fill" catalog="system" width="64" height="56"/>

@@ -46,4 +46,11 @@ class TestViewController: UIViewController {
         let vc = main.instantiateViewController(identifier: "GroupInfoView") as! GroupInfoTableView
         navigationController?.pushViewController(vc, animated: true)
     }
+    
+    @IBAction func searchBarButtonPush(_ sender: Any) {
+        let main = UIStoryboard( name: "Main", bundle: nil)
+        let vc = main.instantiateViewController(identifier: "SearchBarTestView") as! TestTableViewController
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
 }
