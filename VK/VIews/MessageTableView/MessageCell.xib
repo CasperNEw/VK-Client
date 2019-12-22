@@ -16,7 +16,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="430" height="129"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="Vc6-GK-UmK">
+                    <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="Vc6-GK-UmK" customClass="CornerImageView" customModule="VK_KonstantinovDS" customModuleProvider="target">
                         <rect key="frame" x="15" y="10" width="50" height="50"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <gestureRecognizers/>
@@ -24,11 +24,6 @@
                             <constraint firstAttribute="width" constant="50" id="24a-bE-M5D"/>
                             <constraint firstAttribute="width" secondItem="Vc6-GK-UmK" secondAttribute="height" multiplier="1:1" id="Cz4-Mr-1oZ"/>
                         </constraints>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                <integer key="value" value="25"/>
-                            </userDefinedRuntimeAttribute>
-                        </userDefinedRuntimeAttributes>
                     </imageView>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="MyQ-oQ-mQB">
                         <rect key="frame" x="75" y="16" width="340" height="38.5"/>
