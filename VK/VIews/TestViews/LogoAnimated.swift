@@ -3,7 +3,7 @@ import UIKit
 class AnimationLogo: UIView {
     
     //VK Logo draw
-    let VKLogoPath: UIBezierPath = {
+    let vkLogoPath: UIBezierPath = {
         
         let bezier2Path = UIBezierPath()
         bezier2Path.move(to: CGPoint(x: 100.96, y: 164.5))
@@ -55,20 +55,31 @@ class AnimationLogo: UIView {
         super.draw(rect)
         
         let customLayer = CAShapeLayer()
-        customLayer.path = VKLogoPath.cgPath
+        customLayer.path = vkLogoPath.cgPath
+        
         customLayer.fillColor = UIColor.clear.cgColor
+        
         customLayer.strokeColor = UIColor(red: 70.0/255.0, green: 128.0/255.0, blue: 194.0/255.0, alpha: 1.0).cgColor
         customLayer.backgroundColor = UIColor.clear.cgColor
         customLayer.lineWidth = 4
         
+        //добавление анимации бегающей по контуру нашего лого
+        let followPathAnimation = CAKeyframeAnimation(keyPath: "position")
+        followPathAnimation.path = vkLogoPath.cgPath
+        followPathAnimation.duration = 2.0
+        followPathAnimation.rotationMode = .rotateAuto
+        followPathAnimation.repeatCount = 2
+
+
+        //добавление анимации бегающей линии
         let strokeAnimationStart = CABasicAnimation(keyPath: "strokeStart")
         strokeAnimationStart.fromValue = 0
         strokeAnimationStart.toValue = 1.0
-        
+        //добавление анимации бегающей линии #2
         let strokeAnimationEnd = CABasicAnimation(keyPath: "strokeEnd")
         strokeAnimationEnd.fromValue = 0
         strokeAnimationEnd.toValue = 1.4
-        
+        //добавление групповой анимации
         let groupAnimation = CAAnimationGroup()
         groupAnimation.duration = 1.3
         groupAnimation.animations = [strokeAnimationStart, strokeAnimationEnd]
@@ -76,8 +87,16 @@ class AnimationLogo: UIView {
         groupAnimation.repeatCount = .infinity
         groupAnimation.isRemovedOnCompletion = false
         groupAnimation.fillMode = .forwards
-        
+        //добавление групповой анимации на слой
         customLayer.add(groupAnimation, forKey: nil)
         layer.addSublayer(customLayer)
+        //добавление pencil
+        let likeLayer = CAShapeLayer()
+        likeLayer.bounds = CGRect(x: 0, y: 0, width: 35, height: 35)
+        likeLayer.contents = UIImage(named: "pencil")?.cgImage
+        //добавляем последним на наш слой, что бы pencil был верхним слоем
+        layer.addSublayer(likeLayer)
+        //добавляем нашему лайку анимацию пробегания контура лого
+        likeLayer.add(followPathAnimation, forKey: nil)
     }
 }
