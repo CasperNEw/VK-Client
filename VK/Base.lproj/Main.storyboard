@@ -408,6 +408,9 @@
                                                 </constraints>
                                             </imageView>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="gvM-RY-otI" secondAttribute="height" multiplier="3:1" id="wyJ-Il-Y34"/>
+                                        </constraints>
                                     </stackView>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -427,9 +430,21 @@
                                     <action selector="searchBarButtonPush:" destination="Mup-hZ-hQo" eventType="touchUpInside" id="0Oy-Gd-Aql"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YT4-Vh-jlb">
+                                <rect key="frame" x="162.66666666666666" y="386" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="Cj2-Mh-cun"/>
+                                    <constraint firstAttribute="width" secondItem="YT4-Vh-jlb" secondAttribute="height" multiplier="1:1" id="yld-p1-hgT"/>
+                                </constraints>
+                                <state key="normal" title="VK Button" image="VK_logo"/>
+                                <connections>
+                                    <action selector="vkButtonPush:" destination="Mup-hZ-hQo" eventType="touchUpInside" id="2wp-xB-EO8"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="YT4-Vh-jlb" firstAttribute="centerX" secondItem="G7E-Iy-Nth" secondAttribute="centerX" id="3zi-JD-Ap9"/>
                             <constraint firstItem="G7E-Iy-Nth" firstAttribute="trailing" secondItem="Q5G-Ov-6GN" secondAttribute="trailing" constant="165" id="6Ps-r5-kkY"/>
                             <constraint firstItem="mwq-BZ-UsV" firstAttribute="leading" secondItem="G7E-Iy-Nth" secondAttribute="leading" constant="120" id="9uW-cG-1rW"/>
                             <constraint firstItem="2SN-dM-SZO" firstAttribute="top" secondItem="mwq-BZ-UsV" secondAttribute="bottom" constant="383" id="BuV-JD-RWe"/>
@@ -443,6 +458,7 @@
                             <constraint firstItem="G7E-Iy-Nth" firstAttribute="trailing" secondItem="a2h-bg-Dab" secondAttribute="trailing" constant="140" id="YI6-F6-isk"/>
                             <constraint firstItem="mwq-BZ-UsV" firstAttribute="top" secondItem="Q5G-Ov-6GN" secondAttribute="bottom" constant="23" id="gIG-wp-llK"/>
                             <constraint firstItem="a2h-bg-Dab" firstAttribute="top" secondItem="G7E-Iy-Nth" secondAttribute="top" constant="100" id="hiZ-W0-96K"/>
+                            <constraint firstItem="YT4-Vh-jlb" firstAttribute="centerY" secondItem="G7E-Iy-Nth" secondAttribute="centerY" id="wg4-y5-gkw"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="G7E-Iy-Nth"/>
                     </view>
@@ -450,6 +466,7 @@
                         <outlet property="CircleIndOne" destination="fjE-q4-Gha" id="lbj-bK-rwG"/>
                         <outlet property="CircleIndThree" destination="hWY-6e-VHg" id="h4n-RC-kWc"/>
                         <outlet property="CircleIndTwo" destination="KS7-cf-iat" id="BxL-Kq-Y85"/>
+                        <outlet property="vkButton" destination="YT4-Vh-jlb" id="WdT-af-zoW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="11h-bB-385" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

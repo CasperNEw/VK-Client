@@ -5,10 +5,12 @@ class TestViewController: UIViewController {
     @IBOutlet weak var CircleIndOne: UIImageView!
     @IBOutlet weak var CircleIndTwo: UIImageView!
     @IBOutlet weak var CircleIndThree: UIImageView!
+    @IBOutlet weak var vkButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         loadAnimation()
+        vkButton.imageView?.layer.cornerRadius = 7
         // реализация метода появления и исчезновения клавиатуры
         let hideAction = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         view.addGestureRecognizer(hideAction)
@@ -51,6 +53,18 @@ class TestViewController: UIViewController {
         let main = UIStoryboard( name: "Main", bundle: nil)
         let vc = main.instantiateViewController(identifier: "SearchBarTestView") as! TestTableViewController
         navigationController?.pushViewController(vc, animated: true)
+    }
+    @IBAction func vkButtonPush(_ sender: Any) {
+        //пробуем Keyframes animations
+        UIView.animateKeyframes(withDuration: 5.0, delay: 0, options: [], animations: {
+            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.1) { self.vkButton.center.y -= 60 }
+            UIView.addKeyframe(withRelativeStartTime: 0.1, relativeDuration: 0.1) { self.vkButton.center.x = self.vkButton.frame.width }
+            UIView.addKeyframe(withRelativeStartTime: 0.2, relativeDuration: 0.2) { self.vkButton.center.y += 120 }
+            UIView.addKeyframe(withRelativeStartTime: 0.4, relativeDuration: 0.2) { self.vkButton.center.x = self.view.frame.width - self.vkButton.frame.width }
+            UIView.addKeyframe(withRelativeStartTime: 0.6, relativeDuration: 0.1) { self.vkButton.center.y -= 120 }
+            UIView.addKeyframe(withRelativeStartTime: 0.7, relativeDuration: 0.2) { self.vkButton.center.x = self.view.frame.width / 2 }
+            UIView.addKeyframe(withRelativeStartTime: 0.9, relativeDuration: 0.1) { self.vkButton.center.y += 60 }
+        }, completion: nil)
     }
     
 }

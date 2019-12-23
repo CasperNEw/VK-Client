@@ -12,12 +12,12 @@ class TestTableViewController: UITableViewController {
         animateBarButton()
     }
     
-    func animateBarButton() { //мощная анимация =)
+    func animateBarButton() {
         let button = UIButton(frame: CGRect(x: 0, y: 0, width: 25, height: 25))
         button.setImage(UIImage.init(named: "lens"), for: UIControl.State())
         let right = UIBarButtonItem(customView: button)
         self.navigationItem.rightBarButtonItem = right
-    
+        
         UIView.animate(withDuration: 0.8,
                        delay: 0.1,
                        options: .curveEaseIn,
@@ -34,16 +34,7 @@ class TestTableViewController: UITableViewController {
                        initialSpringVelocity: 0.2,
                        options:.curveEaseInOut,
                        animations: { self.navigationItem.rightBarButtonItem?.customView?.frame.origin.x += 300 })
-        
-        let animation = CASpringAnimation(keyPath: "transform.scale")
-        animation.fromValue = 1
-        animation.toValue = 1.1
-        animation.stiffness = 500
-        animation.mass = 1
-        animation.duration = 1.5
-        animation.beginTime = CACurrentMediaTime()
-        animation.fillMode = .both
-        self.navigationItem.rightBarButtonItem?.customView?.layer.add(animation, forKey: nil)
+
     }
     //после отработывания первого тапа по UIBarButtonItem, сам Item становился не активным, поэтому применил дополнительные "уловки" отрабатывания нажатий по этому Item'у
     @objc private func imageTapped(_ recognizer: UITapGestureRecognizer) {
