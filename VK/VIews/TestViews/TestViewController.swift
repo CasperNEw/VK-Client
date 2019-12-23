@@ -14,10 +14,37 @@ class TestViewController: UIViewController {
         // реализация метода появления и исчезновения клавиатуры
         let hideAction = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         view.addGestureRecognizer(hideAction)
-        
+        // добавляем метод отслеживания нажатия
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(panRecognize(_:)) )
+        view.addGestureRecognizer(panGesture)
     }
     @objc func hideKeyboard() {
         view.endEditing(true)
+    }
+    //добавляем "процентную" анимацию
+    var propertyAnimator: UIViewPropertyAnimator!
+    
+    @objc func panRecognize(_ recognizer: UIPanGestureRecognizer) {
+        switch recognizer.state {
+        case .began:
+            //в начале тапа инициализируем начало трансформации
+            propertyAnimator = UIViewPropertyAnimator(duration: 1.0, dampingRatio: 1.0, animations: {
+                self.vkButton.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
+            })
+        case .changed:
+            //которое при движении по координате "у", будет увеличивать scale нашей кнопки в процентном отношении
+            let translation = recognizer.translation(in: self.view)
+            propertyAnimator.fractionComplete = translation.y / 100
+        case .ended:
+            //возвращаем изначальное состояние при окончании тапа
+            propertyAnimator.stopAnimation(true)
+            propertyAnimator.addAnimations {
+                self.vkButton.transform = .identity
+            }
+            //стартуем анимацию
+            propertyAnimator.startAnimation()
+        default: break
+        }
     }
     
     func loadAnimation() {
