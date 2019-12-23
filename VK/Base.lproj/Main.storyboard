@@ -417,6 +417,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="15" id="2oJ-0A-98a"/>
                                     <constraint firstAttribute="bottom" secondItem="gvM-RY-otI" secondAttribute="bottom" id="5k0-oL-7yb"/>
+                                    <constraint firstAttribute="width" constant="45" id="KTC-B9-rlO"/>
                                     <constraint firstAttribute="trailing" secondItem="gvM-RY-otI" secondAttribute="trailing" id="Oxl-Qy-GwU"/>
                                     <constraint firstAttribute="width" secondItem="Q5G-Ov-6GN" secondAttribute="height" multiplier="3:1" id="bX0-Ge-AfF"/>
                                     <constraint firstItem="gvM-RY-otI" firstAttribute="leading" secondItem="Q5G-Ov-6GN" secondAttribute="leading" id="jUY-H5-2lR"/>
@@ -441,21 +442,31 @@
                                     <action selector="vkButtonPush:" destination="Mup-hZ-hQo" eventType="touchUpInside" id="2wp-xB-EO8"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7iw-nb-px1">
+                                <rect key="frame" x="120" y="288" width="135" height="30"/>
+                                <state key="normal" title="Test Animate"/>
+                                <connections>
+                                    <action selector="animateButtonPush:" destination="Mup-hZ-hQo" eventType="touchUpInside" id="D5V-dS-iwM"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="YT4-Vh-jlb" firstAttribute="centerX" secondItem="G7E-Iy-Nth" secondAttribute="centerX" id="3zi-JD-Ap9"/>
                             <constraint firstItem="G7E-Iy-Nth" firstAttribute="trailing" secondItem="Q5G-Ov-6GN" secondAttribute="trailing" constant="165" id="6Ps-r5-kkY"/>
                             <constraint firstItem="mwq-BZ-UsV" firstAttribute="leading" secondItem="G7E-Iy-Nth" secondAttribute="leading" constant="120" id="9uW-cG-1rW"/>
-                            <constraint firstItem="2SN-dM-SZO" firstAttribute="top" secondItem="mwq-BZ-UsV" secondAttribute="bottom" constant="383" id="BuV-JD-RWe"/>
+                            <constraint firstItem="7iw-nb-px1" firstAttribute="top" secondItem="mwq-BZ-UsV" secondAttribute="bottom" constant="23" id="CUc-iC-WFK"/>
                             <constraint firstItem="Q5G-Ov-6GN" firstAttribute="top" secondItem="a2h-bg-Dab" secondAttribute="bottom" constant="23" id="DQm-dY-rfR"/>
                             <constraint firstItem="G7E-Iy-Nth" firstAttribute="bottom" secondItem="2SN-dM-SZO" secondAttribute="bottom" constant="100" id="HfL-EE-aCd"/>
+                            <constraint firstItem="7iw-nb-px1" firstAttribute="leading" secondItem="G7E-Iy-Nth" secondAttribute="leading" constant="120" id="IJl-gl-0U2"/>
                             <constraint firstItem="a2h-bg-Dab" firstAttribute="leading" secondItem="G7E-Iy-Nth" secondAttribute="leading" constant="140" id="JT5-nO-Fz6"/>
                             <constraint firstItem="G7E-Iy-Nth" firstAttribute="trailing" secondItem="mwq-BZ-UsV" secondAttribute="trailing" constant="120" id="JYu-us-zXI"/>
                             <constraint firstItem="G7E-Iy-Nth" firstAttribute="trailing" secondItem="2SN-dM-SZO" secondAttribute="trailing" constant="140" id="Q7Y-F8-MM3"/>
+                            <constraint firstItem="G7E-Iy-Nth" firstAttribute="trailing" secondItem="7iw-nb-px1" secondAttribute="trailing" constant="120" id="Tkf-27-XBJ"/>
                             <constraint firstItem="2SN-dM-SZO" firstAttribute="leading" secondItem="G7E-Iy-Nth" secondAttribute="leading" constant="140" id="Vsw-nm-Pqr"/>
                             <constraint firstItem="Q5G-Ov-6GN" firstAttribute="leading" secondItem="G7E-Iy-Nth" secondAttribute="leading" constant="165" id="YHS-JZ-yDE"/>
                             <constraint firstItem="G7E-Iy-Nth" firstAttribute="trailing" secondItem="a2h-bg-Dab" secondAttribute="trailing" constant="140" id="YI6-F6-isk"/>
+                            <constraint firstItem="2SN-dM-SZO" firstAttribute="top" secondItem="7iw-nb-px1" secondAttribute="bottom" constant="330" id="abv-MW-qqo"/>
                             <constraint firstItem="mwq-BZ-UsV" firstAttribute="top" secondItem="Q5G-Ov-6GN" secondAttribute="bottom" constant="23" id="gIG-wp-llK"/>
                             <constraint firstItem="a2h-bg-Dab" firstAttribute="top" secondItem="G7E-Iy-Nth" secondAttribute="top" constant="100" id="hiZ-W0-96K"/>
                             <constraint firstItem="YT4-Vh-jlb" firstAttribute="centerY" secondItem="G7E-Iy-Nth" secondAttribute="centerY" id="wg4-y5-gkw"/>
@@ -959,6 +970,37 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5ek-Xa-yom" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2108" y="4017.4876847290643"/>
+        </scene>
+        <!--Test Animate View Controller-->
+        <scene sceneID="xfY-Qg-1LS">
+            <objects>
+                <viewController storyboardIdentifier="TestAnimateView" id="gYs-lR-hBM" customClass="TestAnimateViewController" customModule="VK_KonstantinovDS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="7JH-ZF-1Ob">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="21K-Ga-uQs" customClass="AnimationLogo" customModule="VK_KonstantinovDS" customModuleProvider="target">
+                                <rect key="frame" x="87.666666666666686" y="169" width="200" height="200"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="HVd-h4-rLD"/>
+                                    <constraint firstAttribute="height" constant="200" id="cP1-Jz-OE4"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="Zd0-gB-y5M" firstAttribute="bottom" secondItem="21K-Ga-uQs" secondAttribute="bottom" constant="409" id="VKf-ri-zZJ"/>
+                            <constraint firstItem="21K-Ga-uQs" firstAttribute="top" secondItem="Zd0-gB-y5M" secondAttribute="top" constant="125" id="dx2-bc-00B"/>
+                            <constraint firstItem="21K-Ga-uQs" firstAttribute="centerX" secondItem="Zd0-gB-y5M" secondAttribute="centerX" id="uJc-g7-zAB"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Zd0-gB-y5M"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QM3-02-sOz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2108" y="4766.7487684729067"/>
         </scene>
     </scenes>
     <resources>
