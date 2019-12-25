@@ -89,8 +89,31 @@ class TestTableViewController: UITableViewController {
         
         
         let hideAction = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
-            view.addGestureRecognizer(hideAction)
+        view.addGestureRecognizer(hideAction)
+        
+        //добавляем возможность отслеживания положения контента на TableView
+        (tableView as? UIScrollView)?.delegate = self
     }
+    //добавляем необходимые для нашей "магии" переменные
+    var offsetBool = false
+    var offsetWithoutSearchBar: CGFloat = 0.0
+    var offsetWithSearchBar: CGFloat = 0.0
+    
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        print(scrollView.contentOffset.y)
+//        print(searchBar.frame.height)
+        //делаем Bool проверку что бы сделать запись значений только при изначальном запуске View
+        if offsetBool == false {
+            offsetBool = true
+            offsetWithoutSearchBar = scrollView.contentOffset.y + searchBar.frame.height
+            offsetWithSearchBar = scrollView.contentOffset.y
+        }
+        //"магия" =)
+        if scrollView.contentOffset.y == offsetWithSearchBar {
+            UIView.animate(withDuration: 0.6, animations: { scrollView.contentOffset.y = self.offsetWithoutSearchBar })
+        }
+    }
+    
     @objc func hideKeyboard() {
         view.endEditing(true)
         searchBarCancelButtonClicked(searchBar)

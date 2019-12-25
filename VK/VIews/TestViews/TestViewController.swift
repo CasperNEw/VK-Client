@@ -80,13 +80,15 @@ class TestViewController: UIViewController {
         let main = UIStoryboard( name: "Main", bundle: nil)
         let vc = main.instantiateViewController(identifier: "SearchBarTestView") as! TestTableViewController
         navigationController?.pushViewController(vc, animated: true)
+        print("[Logging] func SearchBarButtonPush")
     }
     
     @IBAction func animateButtonPush(_ sender: Any) {
-    let main = UIStoryboard( name: "Main", bundle: nil)
-            let vc = main.instantiateViewController(identifier: "TestAnimateView") as! TestAnimateViewController
-            navigationController?.pushViewController(vc, animated: true)
-        }
+        let main = UIStoryboard( name: "Main", bundle: nil)
+        let vc = main.instantiateViewController(identifier: "TestAnimateView") as! TestAnimateViewController
+        navigationController?.pushViewController(vc, animated: true)
+        print("[Logging] func animateButtonPush")
+    }
     
     @IBAction func vkButtonPush(_ sender: Any) {
         //пробуем Keyframes animations
