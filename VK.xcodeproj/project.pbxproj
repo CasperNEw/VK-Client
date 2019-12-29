@@ -38,7 +38,6 @@
 		DA7D1EE92398FB4D009E0514 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7D1EE82398FB4D009E0514 /* GradientView.swift */; };
 		DAA5E4C823966E7100B09EE7 /* GlobalGroupsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA5E4C723966E7100B09EE7 /* GlobalGroupsCell.swift */; };
 		DAA5E4CC239674A900B09EE7 /* GroupsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA5E4CB239674A900B09EE7 /* GroupsCell.swift */; };
-		DAA5E4CE239682E000B09EE7 /* GroupInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA5E4CD239682E000B09EE7 /* GroupInfoCell.swift */; };
 		DAA5E4D22396935A00B09EE7 /* FriendsCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA5E4D12396935A00B09EE7 /* FriendsCollectionCell.swift */; };
 		DAA5E4D7239695D000B09EE7 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA5E4D6239695D000B09EE7 /* Group.swift */; };
 		DAB122B823B0E87F00F118DF /* TestAnimateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB122B723B0E87F00F118DF /* TestAnimateViewController.swift */; };
@@ -109,7 +108,6 @@
 		DA7D1EE82398FB4D009E0514 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		DAA5E4C723966E7100B09EE7 /* GlobalGroupsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalGroupsCell.swift; sourceTree = "<group>"; };
 		DAA5E4CB239674A900B09EE7 /* GroupsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsCell.swift; sourceTree = "<group>"; };
-		DAA5E4CD239682E000B09EE7 /* GroupInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupInfoCell.swift; sourceTree = "<group>"; };
 		DAA5E4D12396935A00B09EE7 /* FriendsCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsCollectionCell.swift; sourceTree = "<group>"; };
 		DAA5E4D6239695D000B09EE7 /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		DAB122B723B0E87F00F118DF /* TestAnimateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestAnimateViewController.swift; sourceTree = "<group>"; };
@@ -195,7 +193,6 @@
 				DA45F33923B876BF0063CC62 /* Cells */,
 				DA5D606F23958784000002D6 /* ProfileTableView.swift */,
 				DA4AE946239FACD1009B6300 /* ParallaxTableView.swift */,
-				DAA5E4CD239682E000B09EE7 /* GroupInfoCell.swift */,
 			);
 			path = ProfileTableView;
 			sourceTree = "<group>";
@@ -547,7 +544,6 @@
 				DA779EDE23A4D96500A2E911 /* MessageCell.swift in Sources */,
 				DA7ACD9623993B450040F75E /* CornerShadowView.swift in Sources */,
 				DA45F33723B876B60063CC62 /* ProfileInfoCell.swift in Sources */,
-				DAA5E4CE239682E000B09EE7 /* GroupInfoCell.swift in Sources */,
 				DAB122B823B0E87F00F118DF /* TestAnimateViewController.swift in Sources */,
 				DAB122BA23B0EDA900F118DF /* LogoAnimated.swift in Sources */,
 				DA5D606623957534000002D6 /* ProfileForm.swift in Sources */,
