@@ -3,7 +3,7 @@
 
 import UIKit
 
-class ParallaxTableView: UITableView {
+class ParallaxEffect: UITableView {
 
     var infoHeight: NSLayoutConstraint?
     var infoBottom: NSLayoutConstraint?

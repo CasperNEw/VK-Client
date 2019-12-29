@@ -1,7 +1,11 @@
 import UIKit
 
-class GroupInfoTableView: UITableViewController {
+class ProfileTableView: UITableViewController {
 
+    
+    @IBOutlet weak var profileImage: UIImageView!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }

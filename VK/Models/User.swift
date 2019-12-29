@@ -11,7 +11,7 @@ struct User {
 //    var isOnline: Bool
 //    var statusMessage: String
 //    var birthday: Date
-//    var city: String //enum?
+//    var city: String
 //    var maritalStatus: String //enum?
 //    var userLanguage: String //enum?
 //    var education: String

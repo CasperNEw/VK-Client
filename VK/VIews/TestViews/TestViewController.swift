@@ -21,14 +21,14 @@ class TestViewController: UIViewController {
     @objc func hideKeyboard() {
         view.endEditing(true)
     }
-    //добавляем "процентную" анимацию
+    //добавляем Property анимацию
     var propertyAnimator: UIViewPropertyAnimator!
     
     @objc func panRecognize(_ recognizer: UIPanGestureRecognizer) {
         switch recognizer.state {
         case .began:
             //в начале тапа инициализируем начало трансформации
-            propertyAnimator = UIViewPropertyAnimator(duration: 1.0, dampingRatio: 1.0, animations: {
+            propertyAnimator = UIViewPropertyAnimator(duration: 1.0, dampingRatio: 0.4, animations: {
                 self.vkButton.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
             })
         case .changed:
@@ -72,7 +72,7 @@ class TestViewController: UIViewController {
     
     @IBAction func parallaxButtonPush(_ sender: Any) {
         let main = UIStoryboard( name: "Main", bundle: nil)
-        let vc = main.instantiateViewController(identifier: "GroupInfoView") as! GroupInfoTableView
+        let vc = main.instantiateViewController(identifier: "GroupInfoView") as! ProfileTableView
         navigationController?.pushViewController(vc, animated: true)
     }
     

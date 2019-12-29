@@ -67,6 +67,7 @@ class AnimationLogo: UIView {
         let followPathAnimation = CAKeyframeAnimation(keyPath: "position")
         followPathAnimation.path = vkLogoPath.cgPath
         followPathAnimation.duration = 2.0
+        followPathAnimation.calculationMode = .paced
         followPathAnimation.rotationMode = .rotateAuto
         followPathAnimation.repeatCount = 2
 

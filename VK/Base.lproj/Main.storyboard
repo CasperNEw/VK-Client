@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Yf8-mk-jgv">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="7fe-ZR-2hk">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
@@ -485,11 +485,11 @@
             </objects>
             <point key="canvasLocation" x="1197.5999999999999" y="3258.6206896551726"/>
         </scene>
-        <!--Group Info Table View-->
+        <!--Profile Table View-->
         <scene sceneID="dRn-1K-NCH">
             <objects>
-                <tableViewController storyboardIdentifier="GroupInfoView" id="7fe-ZR-2hk" customClass="GroupInfoTableView" customModule="VK_KonstantinovDS" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="70" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="S4z-TF-KTp" customClass="ParallaxTableView" customModule="VK_KonstantinovDS" customModuleProvider="target">
+                <tableViewController storyboardIdentifier="ProfileTableView" id="7fe-ZR-2hk" customClass="ProfileTableView" customModule="VK_KonstantinovDS" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="70" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="S4z-TF-KTp" customClass="ParallaxEffect" customModule="VK_KonstantinovDS" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -511,44 +511,18 @@
                                 <constraint firstAttribute="bottom" secondItem="Xi7-TI-OBX" secondAttribute="bottom" identifier="infoBottom" id="wth-AI-Bqn"/>
                             </constraints>
                         </view>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CellGroupInfo" textLabel="Ag9-0E-rJn" imageView="VN1-lX-tWm" rowHeight="70" style="IBUITableViewCellStyleDefault" id="rgm-sv-hOc" customClass="GroupInfoCell" customModule="VK_KonstantinovDS" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="228" width="375" height="70"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="rgm-sv-hOc" id="7sx-8v-c3t">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Ag9-0E-rJn">
-                                            <rect key="frame" x="54" y="0.0" width="305" height="70"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" image="star.lefthalf.fill" catalog="system" id="VN1-lX-tWm">
-                                            <rect key="frame" x="17" y="25" width="22" height="20"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </imageView>
-                                    </subviews>
-                                </tableViewCellContentView>
-                                <inset key="separatorInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
-                                <connections>
-                                    <outlet property="groupInfo" destination="Ag9-0E-rJn" id="wy2-hc-diU"/>
-                                    <segue destination="fOQ-14-cEW" kind="unwind" unwindAction="goToLofinFormWithUnwindSegue:" id="ofh-x2-QCM"/>
-                                </connections>
-                            </tableViewCell>
-                        </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="7fe-ZR-2hk" id="wq8-Xc-IsI"/>
                             <outlet property="delegate" destination="7fe-ZR-2hk" id="K4q-u6-wPX"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <outlet property="profileImage" destination="Xi7-TI-OBX" id="V60-Ha-CeG"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fCe-DL-aqK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <exit id="fOQ-14-cEW" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2108" y="3259"/>
+            <point key="canvasLocation" x="4313" y="473"/>
         </scene>
         <!--Test Table View Controller-->
         <scene sceneID="kG8-Of-FlK">
@@ -930,7 +904,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yZT-BY-hxK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6197.6000000000004" y="3671.6748768472908"/>
+            <point key="canvasLocation" x="5246" y="3672"/>
         </scene>
         <!--Message-->
         <scene sceneID="v0a-4L-yeH">
@@ -951,7 +925,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zfC-fH-oaQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5255.1999999999998" y="3671.6748768472908"/>
+            <point key="canvasLocation" x="4313" y="3672"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="pbV-9d-f3T">
@@ -1017,6 +991,5 @@
         <image name="rectangle.grid.1x2.fill" catalog="system" width="64" height="50"/>
         <image name="rectangle.stack" catalog="system" width="64" height="60"/>
         <image name="rectangle.stack.fill" catalog="system" width="64" height="60"/>
-        <image name="star.lefthalf.fill" catalog="system" width="64" height="58"/>
     </resources>
 </document>
