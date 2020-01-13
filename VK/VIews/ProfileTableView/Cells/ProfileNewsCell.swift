@@ -7,7 +7,7 @@ class ProfileNewsCell: UITableViewCell {
     @IBOutlet weak var publicationDate: UILabel!
     @IBOutlet weak var publicationText: UILabel!
     
-    @IBOutlet weak var photoCollection: UICollectionView!
+    @IBOutlet weak var newsPhotoCollection: UICollectionView!
     
     @IBOutlet weak var publicationLikeButton: LikeButton!
     @IBOutlet weak var publicationCommentButton: UIButton!
@@ -16,6 +16,7 @@ class ProfileNewsCell: UITableViewCell {
 
     
     @IBAction func publicationLikeButtonTapped(_ sender: Any) {
+        (sender as! LikeButton).like()
     }
     
     

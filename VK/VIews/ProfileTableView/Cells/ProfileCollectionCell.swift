@@ -1,6 +1,6 @@
 import UIKit
 
-class CollectionViewCell: UICollectionViewCell {
+class ProfileCollectionCell: UICollectionViewCell {
 
     @IBOutlet weak var collectionImage: UIImageView!
     
