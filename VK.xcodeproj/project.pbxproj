@@ -22,6 +22,7 @@
 		DA5D607223966096000002D6 /* FriendsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5D607123966096000002D6 /* FriendsTableViewCell.swift */; };
 		DA6937AB23ABE1B700DF1BA5 /* NewsCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6937A923ABE1B700DF1BA5 /* NewsCollectionCell.swift */; };
 		DA6937AC23ABE1B700DF1BA5 /* NewsCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA6937AA23ABE1B700DF1BA5 /* NewsCollectionCell.xib */; };
+		DA74265323CD814A0054732A /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA74265223CD81490054732A /* Session.swift */; };
 		DA779EDB23A4D8E100A2E911 /* MessageTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA779EDA23A4D8E100A2E911 /* MessageTableView.swift */; };
 		DA779EDE23A4D96500A2E911 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA779EDC23A4D96500A2E911 /* MessageCell.swift */; };
 		DA779EDF23A4D96500A2E911 /* MessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA779EDD23A4D96500A2E911 /* MessageCell.xib */; };
@@ -92,6 +93,7 @@
 		DA5D607123966096000002D6 /* FriendsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsTableViewCell.swift; sourceTree = "<group>"; };
 		DA6937A923ABE1B700DF1BA5 /* NewsCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsCollectionCell.swift; sourceTree = "<group>"; };
 		DA6937AA23ABE1B700DF1BA5 /* NewsCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsCollectionCell.xib; sourceTree = "<group>"; };
+		DA74265223CD81490054732A /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		DA779EDA23A4D8E100A2E911 /* MessageTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableView.swift; sourceTree = "<group>"; };
 		DA779EDC23A4D96500A2E911 /* MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
 		DA779EDD23A4D96500A2E911 /* MessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessageCell.xib; sourceTree = "<group>"; };
@@ -218,6 +220,14 @@
 				DAE3726423B89B1A006FC3F4 /* ProfileNewsCell.xib */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		DA74265423CD8B270054732A /* Objects */ = {
+			isa = PBXGroup;
+			children = (
+				DA74265223CD81490054732A /* Session.swift */,
+			);
+			path = Objects;
 			sourceTree = "<group>";
 		};
 		DA779ED823A4D86C00A2E911 /* MessageTableView */ = {
@@ -356,6 +366,7 @@
 				DAB18FEC239E724200B4E9DA /* VIews */,
 				DA7D1EE72398FB21009E0514 /* Prototypes */,
 				DAA5E4D32396955C00B09EE7 /* Models */,
+				DA74265423CD8B270054732A /* Objects */,
 				DAF16B8B238D2E0A00FF58D0 /* AppDelegate.swift */,
 				DAF16B8D238D2E0A00FF58D0 /* SceneDelegate.swift */,
 				DAF16B94238D2E0E00FF58D0 /* Assets.xcassets */,
@@ -539,6 +550,7 @@
 				DA4AE945239F75E6009B6300 /* LikeButton.swift in Sources */,
 				DA5D606A23957FF1000002D6 /* FriendsCollectionView.swift in Sources */,
 				DA779EDB23A4D8E100A2E911 /* MessageTableView.swift in Sources */,
+				DA74265323CD814A0054732A /* Session.swift in Sources */,
 				DAF97A6323AFA0FC00753D94 /* CornerImageView.swift in Sources */,
 				DA779EEE23AA234200A2E911 /* News.swift in Sources */,
 				DA779EDE23A4D96500A2E911 /* MessageCell.swift in Sources */,

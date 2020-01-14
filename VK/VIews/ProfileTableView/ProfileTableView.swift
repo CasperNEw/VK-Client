@@ -119,9 +119,12 @@ extension ProfileTableView: UICollectionViewDelegate, UICollectionViewDataSource
         
         guard let cellTwo = collectionView.dequeueReusableCell(withReuseIdentifier: "ProfileCollection", for: indexPath) as? ProfileCollectionCell else { return UICollectionViewCell() }
         
+        let specialIndex = indexPath.row - profileIndexPath
+        
         cellTwo.backgroundColor = .clear
-        //error error error !!!
+        //error error error !!! думай димас ... думай ...
         //cellTwo.collectionImage.image = UIImage(named: dataNews[newsIndexPath].mainImage[indexPath.row])
+        
         cellTwo.collectionImage.contentMode = .scaleAspectFill
         cellTwo.collectionImage.layer.borderWidth = 1
         cellTwo.collectionImage.layer.borderColor = UIColor.darkGray.cgColor
