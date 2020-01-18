@@ -39,7 +39,8 @@
 		DA7ACD9623993B450040F75E /* CornerShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7ACD9523993B450040F75E /* CornerShadowView.swift */; };
 		DA7D1EE62398CE5D009E0514 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7D1EE52398CE5D009E0514 /* User.swift */; };
 		DA7D1EE92398FB4D009E0514 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7D1EE82398FB4D009E0514 /* GradientView.swift */; };
-		DA8A9B0223D3169A00AD416B /* LoginForm_WKWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8A9B0123D3169A00AD416B /* LoginForm_WKWebView.swift */; };
+		DA8A9B0223D3169A00AD416B /* LoginWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8A9B0123D3169A00AD416B /* LoginWebView.swift */; };
+		DA8A9B0523D3413700AD416B /* VKApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8A9B0423D3413700AD416B /* VKApi.swift */; };
 		DAA5E4C823966E7100B09EE7 /* GlobalGroupsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA5E4C723966E7100B09EE7 /* GlobalGroupsCell.swift */; };
 		DAA5E4CC239674A900B09EE7 /* GroupsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA5E4CB239674A900B09EE7 /* GroupsCell.swift */; };
 		DAA5E4D22396935A00B09EE7 /* FriendsCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA5E4D12396935A00B09EE7 /* FriendsCollectionCell.swift */; };
@@ -120,7 +121,8 @@
 		DA7ACD9523993B450040F75E /* CornerShadowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornerShadowView.swift; sourceTree = "<group>"; };
 		DA7D1EE52398CE5D009E0514 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		DA7D1EE82398FB4D009E0514 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
-		DA8A9B0123D3169A00AD416B /* LoginForm_WKWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginForm_WKWebView.swift; sourceTree = "<group>"; };
+		DA8A9B0123D3169A00AD416B /* LoginWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginWebView.swift; sourceTree = "<group>"; };
+		DA8A9B0423D3413700AD416B /* VKApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKApi.swift; sourceTree = "<group>"; };
 		DAA5E4C723966E7100B09EE7 /* GlobalGroupsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalGroupsCell.swift; sourceTree = "<group>"; };
 		DAA5E4CB239674A900B09EE7 /* GroupsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsCell.swift; sourceTree = "<group>"; };
 		DAA5E4D12396935A00B09EE7 /* FriendsCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsCollectionCell.swift; sourceTree = "<group>"; };
@@ -292,6 +294,14 @@
 			path = Prototypes;
 			sourceTree = "<group>";
 		};
+		DA8A9B0323D3411C00AD416B /* API */ = {
+			isa = PBXGroup;
+			children = (
+				DA8A9B0423D3413700AD416B /* VKApi.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
 		DAA5E4D32396955C00B09EE7 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -305,9 +315,9 @@
 		DAB18FEC239E724200B4E9DA /* VIews */ = {
 			isa = PBXGroup;
 			children = (
+				DA8A9B0123D3169A00AD416B /* LoginWebView.swift */,
 				DAF16BBB238D2EF400FF58D0 /* LoginForm.swift */,
 				DA5D606523957534000002D6 /* ProfileForm.swift */,
-				DA8A9B0123D3169A00AD416B /* LoginForm_WKWebView.swift */,
 				DA0E8EF0239EA2560068F0DD /* ProfileTableView */,
 				DA0E8EED239EA2200068F0DD /* FriendsViews */,
 				DAB18FEF239E72AE00B4E9DA /* GroupsViews */,
@@ -400,6 +410,7 @@
 				DA7D1EE72398FB21009E0514 /* Prototypes */,
 				DAA5E4D32396955C00B09EE7 /* Models */,
 				DA74265423CD8B270054732A /* Objects */,
+				DA8A9B0323D3411C00AD416B /* API */,
 				DAF16B8B238D2E0A00FF58D0 /* AppDelegate.swift */,
 				DAF16B8D238D2E0A00FF58D0 /* SceneDelegate.swift */,
 				DAF16B94238D2E0E00FF58D0 /* Assets.xcassets */,
@@ -702,7 +713,7 @@
 				DA5D606A23957FF1000002D6 /* FriendsCollectionView.swift in Sources */,
 				DA779EDB23A4D8E100A2E911 /* MessageTableView.swift in Sources */,
 				DA74265323CD814A0054732A /* Session.swift in Sources */,
-				DA8A9B0223D3169A00AD416B /* LoginForm_WKWebView.swift in Sources */,
+				DA8A9B0223D3169A00AD416B /* LoginWebView.swift in Sources */,
 				DAF97A6323AFA0FC00753D94 /* CornerImageView.swift in Sources */,
 				DA779EEE23AA234200A2E911 /* News.swift in Sources */,
 				DA779EDE23A4D96500A2E911 /* MessageCell.swift in Sources */,
@@ -714,6 +725,7 @@
 				DAF16BBC238D2EF400FF58D0 /* LoginForm.swift in Sources */,
 				DAE3726523B89B1A006FC3F4 /* ProfileNewsCell.swift in Sources */,
 				DAF97A6523AFD05B00753D94 /* TestTableViewController.swift in Sources */,
+				DA8A9B0523D3413700AD416B /* VKApi.swift in Sources */,
 				DA779EEC23A9349D00A2E911 /* NewsTableView.swift in Sources */,
 				DA779EE623A7765F00A2E911 /* PhotoCollectionViewCollectionViewController.swift in Sources */,
 				DA779EF423AA7DF200A2E911 /* CustomNewsCollectionLayout.swift in Sources */,

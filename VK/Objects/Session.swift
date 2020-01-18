@@ -5,6 +5,6 @@ class Session {
     static let instance = Session()
     private init() {}
     
-    var userId = 0
+    var userId = ""
     var token = ""
 }
