@@ -50,6 +50,8 @@
 		DACB2FC223ACEC2500816B0F /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACB2FC123ACEC2500816B0F /* TestViewController.swift */; };
 		DACD6A2123D5298400D1C9DD /* UserVK.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACD6A2023D5298400D1C9DD /* UserVK.swift */; };
 		DACD6A2323D5A8D800D1C9DD /* GroupVK.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACD6A2223D5A8D800D1C9DD /* GroupVK.swift */; };
+		DACD6A2523D5BF0300D1C9DD /* PhotoVK.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACD6A2423D5BF0300D1C9DD /* PhotoVK.swift */; };
+		DACD6A2723D5CEC100D1C9DD /* UserSpecial.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACD6A2623D5CEC100D1C9DD /* UserSpecial.swift */; };
 		DAE3726023B89539006FC3F4 /* ProfileCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE3725E23B89539006FC3F4 /* ProfileCollectionCell.swift */; };
 		DAE3726123B89539006FC3F4 /* ProfileCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DAE3725F23B89539006FC3F4 /* ProfileCollectionCell.xib */; };
 		DAE3726523B89B1A006FC3F4 /* ProfileNewsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE3726323B89B1A006FC3F4 /* ProfileNewsCell.swift */; };
@@ -134,6 +136,8 @@
 		DACB2FC123ACEC2500816B0F /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		DACD6A2023D5298400D1C9DD /* UserVK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserVK.swift; sourceTree = "<group>"; };
 		DACD6A2223D5A8D800D1C9DD /* GroupVK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupVK.swift; sourceTree = "<group>"; };
+		DACD6A2423D5BF0300D1C9DD /* PhotoVK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoVK.swift; sourceTree = "<group>"; };
+		DACD6A2623D5CEC100D1C9DD /* UserSpecial.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSpecial.swift; sourceTree = "<group>"; };
 		DAE3725E23B89539006FC3F4 /* ProfileCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCollectionCell.swift; sourceTree = "<group>"; };
 		DAE3725F23B89539006FC3F4 /* ProfileCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileCollectionCell.xib; sourceTree = "<group>"; };
 		DAE3726323B89B1A006FC3F4 /* ProfileNewsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileNewsCell.swift; sourceTree = "<group>"; };
@@ -309,10 +313,12 @@
 		DAA5E4D32396955C00B09EE7 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				DA7D1EE52398CE5D009E0514 /* User.swift */,
 				DACD6A2023D5298400D1C9DD /* UserVK.swift */,
-				DAA5E4D6239695D000B09EE7 /* Group.swift */,
+				DACD6A2623D5CEC100D1C9DD /* UserSpecial.swift */,
 				DACD6A2223D5A8D800D1C9DD /* GroupVK.swift */,
+				DACD6A2423D5BF0300D1C9DD /* PhotoVK.swift */,
+				DA7D1EE52398CE5D009E0514 /* User.swift */,
+				DAA5E4D6239695D000B09EE7 /* Group.swift */,
 				DA779EED23AA234100A2E911 /* News.swift */,
 			);
 			path = Models;
@@ -706,6 +712,7 @@
 				DA779EE823A7778500A2E911 /* CustomCollectionViewLayout.swift in Sources */,
 				DA7D1EE62398CE5D009E0514 /* User.swift in Sources */,
 				DA7D1EE92398FB4D009E0514 /* GradientView.swift in Sources */,
+				DACD6A2523D5BF0300D1C9DD /* PhotoVK.swift in Sources */,
 				DAA5E4D22396935A00B09EE7 /* FriendsCollectionCell.swift in Sources */,
 				DAE3726023B89539006FC3F4 /* ProfileCollectionCell.swift in Sources */,
 				DA1C7B89239A388C00FDA5D7 /* FooterWithLike.swift in Sources */,
@@ -719,6 +726,7 @@
 				DA4AE945239F75E6009B6300 /* LikeButton.swift in Sources */,
 				DA5D606A23957FF1000002D6 /* FriendsCollectionView.swift in Sources */,
 				DA779EDB23A4D8E100A2E911 /* MessageTableView.swift in Sources */,
+				DACD6A2723D5CEC100D1C9DD /* UserSpecial.swift in Sources */,
 				DA74265323CD814A0054732A /* Session.swift in Sources */,
 				DA8A9B0223D3169A00AD416B /* LoginWebView.swift in Sources */,
 				DAF97A6323AFA0FC00753D94 /* CornerImageView.swift in Sources */,

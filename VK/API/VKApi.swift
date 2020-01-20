@@ -20,7 +20,7 @@ class VKApi {
         let requestURL = vkURL + "friends.get"
         let params = ["access_token": token,
                       "order": "hints",
-                      "fields": "photo_50",
+                      "fields": "photo_50, status",
                       "v": "5.103"]
         
         Alamofire.request(requestURL,
@@ -37,19 +37,49 @@ class VKApi {
         }
     }
     
-    func getPhotoInAlbum(token: String, user: String, album: Album) {
+    func getUserSpecialInformation(token: String, userId:String, completion: @escaping ([UserSpecial]) -> Void ) {
+        let requestURL = vkURL + "users.get"
+        let params = ["access_token": token,
+                      "user_id": userId,
+                      "fields": "photo_200, status, city, career, counters",
+                      "v": "5.103"]
+        
+        Alamofire.request(requestURL,
+                          method: .post,
+                          parameters: params).responseData { (response) in
+                            guard let data = response.value else { return }
+                            do {
+                                let userSpecial = try JSONDecoder().decode(ResponseUserSpecial.self, from: data).response.self
+                                completion(userSpecial)
+                            } catch {
+                                //Notify user
+                                print(error)
+                            }
+        }
+    }
+    
+    func getPhotoInAlbum(token: String, ownerId: String, album: Album, completion: @escaping ([PhotoVK]) -> Void ) {
         let requestURL = vkURL + "photos.get"
-        let params = ["owner_id": user,
-                      "access_token": token,
+        let params = ["access_token": token,
+                      "owner_id": ownerId,
                       "album_id": album,
                       "rev": "1",
+                      "extended": "1",
+                      "photo_sizes": "1",
                       "v": "5.103"] as [String : Any]
         
         Alamofire.request(requestURL,
                           method: .post,
-                          parameters: params).responseJSON(completionHandler: { (response) in
-                            print(response.value as? [String: Any] ?? "[Logging] JSON error")
-                          })
+                          parameters: params).responseData { (response) in
+                            guard let data = response.value else { return }
+                            do {
+                                let photoVK = try JSONDecoder().decode(ResponsePhoto.self, from: data).response.items
+                                completion(photoVK)
+                            } catch {
+                                //Notify user
+                                print(error)
+                          }
+        }
     }
     
     func getGroupListForUser(token: String, user: String, completion: @escaping ([GroupVK]) -> Void ) {
