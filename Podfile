@@ -6,6 +6,7 @@ target 'VK' do
   use_frameworks!
 
   pod 'Alamofire'
+  pod 'Kingfisher'
 
   # Pods for VK
 

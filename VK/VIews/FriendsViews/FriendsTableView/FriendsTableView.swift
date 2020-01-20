@@ -1,39 +1,36 @@
-//Уверен на 100% что можно сделать всё намного изящнее ... )
-//Upd^ решил продолжить со своим решением реализации SearchBar, но с использованием изящнего кода с урока ... =)
-
 import UIKit
+import Kingfisher
 
 struct Section<T> {
     var title: String
     var items: [T]
 }
 
+var vkApi = VKApi()
+
 class FriendsTableView: UITableViewController {
     
-    var dataFriends = [User(username: "Amancio", surname: "Ortega", avatarPath: "Amancio Ortega"),
-                       User(username: "Bernard", surname: "Arnault", avatarPath: "Bernard Arnault"),
-                       User(username: "Bill", surname: "Gates", avatarPath: "Bill Gates"),
-                       User(username: "Carlos", surname: "Slim", avatarPath: "Carlos Slim"),
-                       User(username: "Jeff", surname: "Bezos", avatarPath: "Jeff Bezos"),
-                       User(username: "Lawrence", surname: "Ellison", avatarPath: "Lawrence Ellison"),
-                       User(username: "Lawrence", surname: "Page", avatarPath: "Lawrence Page"),
-                       User(username: "Mark", surname: "Zuckerberg", avatarPath: "Mark Zuckerberg"),
-                       User(username: "Michael", surname: "Bloomberg", avatarPath: "Michael Bloomberg"),
-                       User(username: "Warren", surname: "Buffett", avatarPath: "Warren Buffett")]
+    var dataFriends = [UserVK]()
+    var friendsSection = [Section<UserVK>]()
     
     private let searchController = UISearchController(searchResultsController: nil)
 
-    var friendsSection = [Section<User>]()
-        
     override func viewDidLoad() {
+        
+        vkApi.getFriendList(token: Session.instance.token) { [weak self] dataFriends in
+            self?.dataFriends = dataFriends
+            self?.makeSortedSection()
+            self?.tableView.reloadData()
+        }
+        
         addSearchController()
-        makeSortedSection()
+        //makeSortedSection()
        
         print("[Logging] load Friends View")
     }
     
     func makeSortedSection() {
-        let friendsDictionary = Dictionary.init(grouping: dataFriends ) { $0.surname.prefix(1) }
+        let friendsDictionary = Dictionary.init(grouping: dataFriends ) { $0.lastName.prefix(1) }
         friendsSection = friendsDictionary.map { Section(title: String($0.key), items: $0.value) }
         friendsSection.sort { $0.title < $1.title }
     }
@@ -59,7 +56,13 @@ class FriendsTableView: UITableViewController {
             return UITableViewCell()
         }
         cell.friendsName.text = friendsSection[indexPath.section].items[indexPath.row].fullname
-        cell.cornerShadowView.imageView.image = UIImage(named: friendsSection[indexPath.section].items[indexPath.row].avatarPath)
+        
+        //используем Kingfisher для загрузки и кеширования изображений
+        let url = URL(string: friendsSection[indexPath.section].items[indexPath.row].photo50)
+        cell.cornerShadowView.imageView.kf.setImage(with: url)
+        
+        //cell.cornerShadowView.imageView.image = UIImage(named: friendsSection[indexPath.section].items[indexPath.row].avatarPath)
+        
         return cell
     }
     //реализация функции при нажатии на Cell
@@ -99,7 +102,7 @@ extension FriendsTableView: UISearchResultsUpdating {
     private func filterContentForSearchText(_ searchText: String) {
         let friendsDictionary = Dictionary.init(grouping: dataFriends.filter { (user) -> Bool in
             return searchText.isEmpty ? true : user.fullname.lowercased().contains(searchText.lowercased())
-        }) { $0.surname.prefix(1) }
+        }) { $0.lastName.prefix(1) }
         friendsSection = friendsDictionary.map { Section(title: String($0.key), items: $0.value) }
         friendsSection.sort { $0.title < $1.title }
         tableView.reloadData()

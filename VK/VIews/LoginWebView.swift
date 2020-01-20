@@ -4,7 +4,7 @@ import WebKit
 
 class LoginWebView: UIViewController {
     
-    let vkSecret = "7286112"
+    private let vkSecret = "7286112"
     var webView: WKWebView!
     var vkApi = VKApi()
     
@@ -15,6 +15,8 @@ class LoginWebView: UIViewController {
         webView = WKWebView(frame: .zero, configuration: webViewConfig)
         webView.navigationDelegate = self
         
+        /*
+        //реализация с URLComponent
         var urlVkComponent = URLComponents()
         urlVkComponent.scheme = "https"
         urlVkComponent.host = "oauth.vk.com"
@@ -29,6 +31,29 @@ class LoginWebView: UIViewController {
         let request = URLRequest(url: urlVkComponent.url!)
         webView.load(request)
         view = webView
+        */
+        
+        //реализация с Alamofire
+        let params = ["client_id": vkSecret,
+                      "redirect_uri": "https://oauth.vk.com/blank.html",
+                      "display": "mobile",
+                      "scope": "262150",
+                      "response_type": "token",
+                      "v": "5.103"]
+        
+        let dataRequest = Alamofire.request("https://oauth.vk.com/authorize",
+                                            method: .post,
+                                            parameters: params)
+        //безопасно извлекаем тип данных URLRequest? из DataRequest при помощи .request
+        guard let urlRequest = dataRequest.request else { return }
+        webView.load(urlRequest)
+        view = webView
+    }
+    
+    func pushMainView() {
+        let main = UIStoryboard( name: "Main", bundle: nil)
+        let vc = main.instantiateViewController(identifier: "MainView") as! ProfileForm
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 
@@ -73,7 +98,7 @@ extension LoginWebView: WKNavigationDelegate {
         
         print("[Logging] token = \(Session.instance.token)")
         print("[Logging] user_id = \(Session.instance.userId)")
-        
+        /*
         //запрос списка друзей текущего пользователя
         vkApi.getFriendList(token: Session.instance.token)
         //запрос фотографий конкретного пользователи и конкретного альбома
@@ -82,8 +107,10 @@ extension LoginWebView: WKNavigationDelegate {
         vkApi.getGroupListForUser(token: Session.instance.token, user: Session.instance.userId)
         //поиск групп по ключевым словам
         vkApi.getFilteredGroupList(token: Session.instance.token, user: Session.instance.userId, text: "Swift Develop")
-        
+        */
         //запрещаем переходы
         decisionHandler(.cancel)
+        
+        pushMainView()
     }
 }

@@ -1,8 +1,7 @@
 import Foundation
 
 struct Group {
+    var groupId: String
     var groupName: String
-    var statusMessage: String
-//    var contacts: [User]
-//    var members: [User]
+
 }
