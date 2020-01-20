@@ -1,13 +1,14 @@
 import UIKit
-
-var dataGroups = [String]()
+import Kingfisher
 
 class GroupsTableView: UITableViewController {
+    
+    var dataGroups = [GroupVK]()
     
     @IBOutlet var groupsView: UITableView!
     
     private let groupsSearchController = UISearchController(searchResultsController: nil)
-    var sortedGroups = [String]()
+    var sortedGroups = [GroupVK]()
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return sortedGroups.count
@@ -17,14 +18,18 @@ class GroupsTableView: UITableViewController {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "CellGroups", for: indexPath) as? GroupsCell else {
             return UITableViewCell()
         }
-        cell.groupsName.text = sortedGroups[indexPath.row]
-        cell.groupImage.image = UIImage(named: "swift")
+        cell.groupsName.text = sortedGroups[indexPath.row].name
+        
+        //используем Kingfisher для загрузки и кеширования изображений
+        let url = URL(string: sortedGroups[indexPath.row].photo50)
+        cell.groupImage.kf.setImage(with: url)
+        
         return cell
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //плавная анимация исчезновения выделения
         tableView.deselectRow(at: indexPath, animated: true)
-        print(sortedGroups[indexPath.row])
+        print("[Loggin] tapped - \(sortedGroups[indexPath.row].name)")
         //сделаем переключение на alert - Error! так как у нас пока нет внутренностей для групп
         let alert = UIAlertController(title: "Error", message: "Access error", preferredStyle: .alert)
         let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
@@ -33,14 +38,20 @@ class GroupsTableView: UITableViewController {
     }
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            print("[Logging] delete group from favorite - \(sortedGroups[indexPath.row])")
-            dataGroups.removeAll(where: {$0 == sortedGroups[indexPath.row] })
+            print("[Logging] delete group from favorite - \(sortedGroups[indexPath.row].name)")
+            dataGroups.removeAll(where: {$0.name == sortedGroups[indexPath.row].name })
             sortedGroups.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
     
     override func viewDidLoad() {
+    
+        vkApi.getGroupListForUser(token: Session.instance.token, user: Session.instance.userId) { [weak self] dataGroups in
+            self?.dataGroups = dataGroups
+            self?.makeSortedGroups()
+            self?.tableView.reloadData()
+        }
         addSearchController()
         
         print("[Logging] load Groups View")
@@ -48,7 +59,9 @@ class GroupsTableView: UITableViewController {
     @objc func hideKeyboard() {
         view.endEditing(true)
     }
-    
+    func makeSortedGroups() {
+        sortedGroups = dataGroups
+    }
     func addSearchController() {
         groupsSearchController.searchResultsUpdater = self
         groupsSearchController.obscuresBackgroundDuringPresentation = false
@@ -56,9 +69,10 @@ class GroupsTableView: UITableViewController {
         navigationItem.searchController = groupsSearchController
         definesPresentationContext = true
         
-        sortedGroups = dataGroups
+        //sortedGroups = dataGroups
     }
-    
+    //Убрал реализацию добавления группы из GlobalGroupsTableView. Добавим реализацию после обработки json для GlobalGroup.
+    /*
     @IBAction func addGroup(segue: UIStoryboardSegue) {
         if segue.identifier == "addGroup" {
             let globalGView = segue.source as! GlobalSearchGroupsTableView
@@ -78,6 +92,7 @@ class GroupsTableView: UITableViewController {
             self.navigationController?.popToRootViewController(animated: true)
         }
     }
+    */
 }
 
 extension GroupsTableView: UISearchResultsUpdating {
@@ -86,7 +101,7 @@ extension GroupsTableView: UISearchResultsUpdating {
     }
     private func filterContentForSearchText(_ searchText: String) {
         sortedGroups = dataGroups.filter { (group) -> Bool in
-            return searchText.isEmpty ? true : group.lowercased().contains(searchText.lowercased())
+            return searchText.isEmpty ? true : group.name.lowercased().contains(searchText.lowercased())
         }
         tableView.reloadData()
     }

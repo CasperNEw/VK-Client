@@ -1,4 +1,4 @@
-import Foundation
+/*import Foundation
 
 struct User {
 //    var id: String
@@ -24,3 +24,4 @@ struct User {
     
     
 }
+*/

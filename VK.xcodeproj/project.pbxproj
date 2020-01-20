@@ -49,6 +49,7 @@
 		DAB122BA23B0EDA900F118DF /* LogoAnimated.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB122B923B0EDA900F118DF /* LogoAnimated.swift */; };
 		DACB2FC223ACEC2500816B0F /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACB2FC123ACEC2500816B0F /* TestViewController.swift */; };
 		DACD6A2123D5298400D1C9DD /* UserVK.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACD6A2023D5298400D1C9DD /* UserVK.swift */; };
+		DACD6A2323D5A8D800D1C9DD /* GroupVK.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACD6A2223D5A8D800D1C9DD /* GroupVK.swift */; };
 		DAE3726023B89539006FC3F4 /* ProfileCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE3725E23B89539006FC3F4 /* ProfileCollectionCell.swift */; };
 		DAE3726123B89539006FC3F4 /* ProfileCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DAE3725F23B89539006FC3F4 /* ProfileCollectionCell.xib */; };
 		DAE3726523B89B1A006FC3F4 /* ProfileNewsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE3726323B89B1A006FC3F4 /* ProfileNewsCell.swift */; };
@@ -132,6 +133,7 @@
 		DAB122B923B0EDA900F118DF /* LogoAnimated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoAnimated.swift; sourceTree = "<group>"; };
 		DACB2FC123ACEC2500816B0F /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		DACD6A2023D5298400D1C9DD /* UserVK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserVK.swift; sourceTree = "<group>"; };
+		DACD6A2223D5A8D800D1C9DD /* GroupVK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupVK.swift; sourceTree = "<group>"; };
 		DAE3725E23B89539006FC3F4 /* ProfileCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCollectionCell.swift; sourceTree = "<group>"; };
 		DAE3725F23B89539006FC3F4 /* ProfileCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileCollectionCell.xib; sourceTree = "<group>"; };
 		DAE3726323B89B1A006FC3F4 /* ProfileNewsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileNewsCell.swift; sourceTree = "<group>"; };
@@ -310,6 +312,7 @@
 				DA7D1EE52398CE5D009E0514 /* User.swift */,
 				DACD6A2023D5298400D1C9DD /* UserVK.swift */,
 				DAA5E4D6239695D000B09EE7 /* Group.swift */,
+				DACD6A2223D5A8D800D1C9DD /* GroupVK.swift */,
 				DA779EED23AA234100A2E911 /* News.swift */,
 			);
 			path = Models;
@@ -697,6 +700,7 @@
 			files = (
 				DAA5E4D7239695D000B09EE7 /* Group.swift in Sources */,
 				DAF16B8C238D2E0A00FF58D0 /* AppDelegate.swift in Sources */,
+				DACD6A2323D5A8D800D1C9DD /* GroupVK.swift in Sources */,
 				DA5D606C2395818A000002D6 /* GroupsTableView.swift in Sources */,
 				DA5D606E2395856D000002D6 /* GlobalSearchGroupsTableView.swift in Sources */,
 				DA779EE823A7778500A2E911 /* CustomCollectionViewLayout.swift in Sources */,

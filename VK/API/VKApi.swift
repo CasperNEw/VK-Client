@@ -52,17 +52,26 @@ class VKApi {
                           })
     }
     
-    func getGroupListForUser(token: String, user: String) {
+    func getGroupListForUser(token: String, user: String, completion: @escaping ([GroupVK]) -> Void ) {
         let requestURL = vkURL + "groups.get"
         let params = ["access_token": token,
                       "user_id": user,
+                      "extended": "1",
+                      "fields": "photo_50",
                       "v": "5.103"]
         
         Alamofire.request(requestURL,
                           method: .post,
-                          parameters: params).responseJSON(completionHandler: { (response) in
-                            print(response.value as? [String: Any] ?? "[Logging] JSON error")
-                          })
+                          parameters: params).responseData { (response) in
+                            guard let data = response.value else { return }
+                            do {
+                                let groupVK = try JSONDecoder().decode(ResponseGroup.self, from: data).response.items
+                                completion(groupVK)
+                            } catch {
+                                //Notify user
+                                print(error)
+                            }
+        }
     }
     
     func getFilteredGroupList(token: String, user: String, text: String) {
