@@ -46,11 +46,15 @@ class GroupsTableView: UITableViewController {
     }
     
     override func viewDidLoad() {
-    
-        vkApi.getGroupListForUser(token: Session.instance.token, user: Session.instance.userId) { [weak self] dataGroups in
-            self?.dataGroups = dataGroups
-            self?.makeSortedGroups()
-            self?.tableView.reloadData()
+        vkApi.getGroupListForUser(token: Session.instance.token, user: Session.instance.userId) { [weak self] result in
+            do {
+                let resultData = try result.get()
+                self?.dataGroups = resultData
+                self?.makeSortedGroups()
+                self?.tableView.reloadData()
+            } catch {
+                print("[Logging] Error retrieving the value: \(error)")
+            }
         }
         addSearchController()
         

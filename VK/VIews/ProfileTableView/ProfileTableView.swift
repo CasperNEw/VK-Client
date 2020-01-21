@@ -25,23 +25,31 @@ class ProfileTableView: UITableViewController {
     
     var dataPhotos = [PhotoVK]()
     var dataUserSpecial = [UserSpecial]()
-    //var userSpecial = [UserSpecial]()
     var dataPhotosTest = [PhotoVK]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         if let id = user?.id {
-            vkApi.getPhotoInAlbum(token: Session.instance.token ,ownerId: String(id), album: .profile) { [weak self] dataPhotos in
-                self?.dataPhotos = dataPhotos
-                
-                self?.tableView.reloadData()
+            vkApi.getPhotoInAlbum(token: Session.instance.token, ownerId: String(id), album: .profile) { [weak self] result in
+                do {
+                    let resultData = try result.get()
+                    self?.dataPhotos = resultData
+                   
+                    self?.tableView.reloadData()
+                } catch {
+                    print("[Logging] Error retrieving the value: \(error)")
+                }
             }
-            vkApi.getUserSpecialInformation(token: Session.instance.token, userId: String(id)) { [weak self] dataUserSpecial in
-                self?.dataUserSpecial = dataUserSpecial
-                
-                self?.loadMainPhoto()
-                self?.loadCellData()
-                self?.tableView.reloadData()
+            vkApi.getUserSpecialInformation(token: Session.instance.token, userId: String(id)) { [weak self] result in
+                do {
+                    let resultData = try result.get()
+                    self?.dataUserSpecial = resultData
+                    self?.loadMainPhoto()
+                    self?.loadCellData()
+                    self?.tableView.reloadData()
+                } catch {
+                    print("[Logging] Error retrieving the value: \(error)")
+                }
             }
         } else { return }
         
@@ -117,7 +125,7 @@ class ProfileTableView: UITableViewController {
         status = dataUserSpecial[0].status ?? ""
         friendsCount = dataUserSpecial[0].counters.friends ?? 0
         subscribesCount = dataUserSpecial[0].counters.followers ?? 0
-        city = dataUserSpecial[0].city.title ?? ""
+        city = dataUserSpecial[0].city?.title ?? ""
         workPlace = dataUserSpecial[0].career?.last?.company ?? ""
         //test
         count = dataPhotos.count
@@ -127,10 +135,27 @@ class ProfileTableView: UITableViewController {
         //используем Kingfisher для загрузки и кеширования изображений
         guard let urlString = dataUserSpecial[0].photo200 else { return }
         let url = URL(string: urlString)
+        profileImage.contentMode = .scaleAspectFill
         profileImage.kf.setImage(with: url)
-    }
-    func reload() {
-    
+        
+        /*
+        //реализация .aspectFill совместно с .top используя Kingfisher
+        let size = profileImage.bounds.size
+        let processor = ResizingImageProcessor(referenceSize: size, mode: .aspectFill)
+        profileImage.kf.setImage(with: url, options: [.processor(processor), .scaleFactor(UIScreen.main.scale)])
+        */
+  
+        /*
+        //реализация .aspectFill совместно с .top используя extension UIImage
+        //сделал свой расчет показывающий часть image выше середины влезающую в наш frame Header.
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            guard let image = self.profileImage.image else { return }
+            self.profileImage.image = image.aspectFillImage(inRect: self.profileImage.frame)
+        }*/
+        
+        //мысль - использовать CoreImage или extension для NSImage для поиска лица на изображении и корректировка отображаемого image таким образом, что бы  вмещалось лицо + одинаковые отрезки по высоте в случае с вертикальным исходником и + по ширине в случае с горизонтальным исходником.
+        //
+        //
     }
 }
 

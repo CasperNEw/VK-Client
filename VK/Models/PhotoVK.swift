@@ -13,7 +13,7 @@ struct PhotoVK: Codable {
     let id, albumID, ownerID: Int
     let sizes: [Size]
     let text: String
-    let date, postID: Int
+    let date, postID: Int?
     let likes: Likes
     let reposts, comments: Comments
     let canComment: Int

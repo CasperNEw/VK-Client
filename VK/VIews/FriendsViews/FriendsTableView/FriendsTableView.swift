@@ -11,16 +11,21 @@ var vkApi = VKApi()
 class FriendsTableView: UITableViewController {
     
     var dataFriends = [UserVK]()
+    var dataFriendsTest = [UserVK]()
     var friendsSection = [Section<UserVK>]()
     
     private let searchController = UISearchController(searchResultsController: nil)
 
     override func viewDidLoad() {
-        
-        vkApi.getFriendList(token: Session.instance.token) { [weak self] dataFriends in
-            self?.dataFriends = dataFriends
-            self?.makeSortedSection()
-            self?.tableView.reloadData()
+        vkApi.getFriendList(token: Session.instance.token) { [weak self] result in
+            do {
+                let resultData = try result.get()
+                self?.dataFriends = resultData
+                self?.makeSortedSection()
+                self?.tableView.reloadData()
+            } catch {
+                print("[Logging] Error retrieving the value: \(error)")
+            }
         }
         
         addSearchController()

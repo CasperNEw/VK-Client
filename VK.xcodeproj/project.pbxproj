@@ -22,6 +22,7 @@
 		DA5D606E2395856D000002D6 /* GlobalSearchGroupsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5D606D2395856D000002D6 /* GlobalSearchGroupsTableView.swift */; };
 		DA5D607023958784000002D6 /* ProfileTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5D606F23958784000002D6 /* ProfileTableView.swift */; };
 		DA5D607223966096000002D6 /* FriendsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5D607123966096000002D6 /* FriendsTableViewCell.swift */; };
+		DA6442AD23D70549008C2992 /* UIImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6442AC23D70549008C2992 /* UIImage+.swift */; };
 		DA6937AB23ABE1B700DF1BA5 /* NewsCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA6937A923ABE1B700DF1BA5 /* NewsCollectionCell.swift */; };
 		DA6937AC23ABE1B700DF1BA5 /* NewsCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA6937AA23ABE1B700DF1BA5 /* NewsCollectionCell.xib */; };
 		DA74265323CD814A0054732A /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA74265223CD81490054732A /* Session.swift */; };
@@ -108,6 +109,7 @@
 		DA5D606D2395856D000002D6 /* GlobalSearchGroupsTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalSearchGroupsTableView.swift; sourceTree = "<group>"; };
 		DA5D606F23958784000002D6 /* ProfileTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableView.swift; sourceTree = "<group>"; };
 		DA5D607123966096000002D6 /* FriendsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsTableViewCell.swift; sourceTree = "<group>"; };
+		DA6442AC23D70549008C2992 /* UIImage+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+.swift"; sourceTree = "<group>"; };
 		DA6937A923ABE1B700DF1BA5 /* NewsCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsCollectionCell.swift; sourceTree = "<group>"; };
 		DA6937AA23ABE1B700DF1BA5 /* NewsCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsCollectionCell.xib; sourceTree = "<group>"; };
 		DA74265223CD81490054732A /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
@@ -234,7 +236,6 @@
 			children = (
 				DA45F33923B876BF0063CC62 /* Cells */,
 				DA5D606F23958784000002D6 /* ProfileTableView.swift */,
-				DA4AE946239FACD1009B6300 /* ParallaxTableView.swift */,
 			);
 			path = ProfileTableView;
 			sourceTree = "<group>";
@@ -260,6 +261,14 @@
 				DAE3726423B89B1A006FC3F4 /* ProfileNewsCell.xib */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		DA6442AB23D70536008C2992 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				DA6442AC23D70549008C2992 /* UIImage+.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		DA74265423CD8B270054732A /* Objects */ = {
@@ -293,6 +302,7 @@
 		DA7D1EE72398FB21009E0514 /* Prototypes */ = {
 			isa = PBXGroup;
 			children = (
+				DA4AE946239FACD1009B6300 /* ParallaxTableView.swift */,
 				DA7D1EE82398FB4D009E0514 /* GradientView.swift */,
 				DA7ACD9523993B450040F75E /* CornerShadowView.swift */,
 				DAF97A6223AFA0FC00753D94 /* CornerImageView.swift */,
@@ -416,6 +426,7 @@
 		DAF16B8A238D2E0A00FF58D0 /* VK */ = {
 			isa = PBXGroup;
 			children = (
+				DA6442AB23D70536008C2992 /* Extensions */,
 				DAF16B96238D2E0E00FF58D0 /* LaunchScreen.storyboard */,
 				DAF16B91238D2E0A00FF58D0 /* Main.storyboard */,
 				DAB18FEC239E724200B4E9DA /* VIews */,
@@ -738,6 +749,7 @@
 				DACD6A2123D5298400D1C9DD /* UserVK.swift in Sources */,
 				DAB122BA23B0EDA900F118DF /* LogoAnimated.swift in Sources */,
 				DA5D606623957534000002D6 /* ProfileForm.swift in Sources */,
+				DA6442AD23D70549008C2992 /* UIImage+.swift in Sources */,
 				DAF16BBC238D2EF400FF58D0 /* LoginForm.swift in Sources */,
 				DAE3726523B89B1A006FC3F4 /* ProfileNewsCell.swift in Sources */,
 				DAF97A6523AFD05B00753D94 /* TestTableViewController.swift in Sources */,

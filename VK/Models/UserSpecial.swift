@@ -8,7 +8,7 @@ struct UserSpecial: Codable {
     let id: Int
     let firstName, lastName: String
     let isClosed, canAccessClosed: Bool
-    let city: City
+    let city: City?
     let photo200: String?
     let status: String?
     let counters: Counters

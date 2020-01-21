@@ -505,7 +505,7 @@
         <scene sceneID="dRn-1K-NCH">
             <objects>
                 <tableViewController storyboardIdentifier="ProfileTableView" id="7fe-ZR-2hk" customClass="ProfileTableView" customModule="VK_KonstantinovDS" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="S4z-TF-KTp" customClass="ParallaxEffect" customModule="VK_KonstantinovDS" customModuleProvider="target">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="S4z-TF-KTp">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -513,7 +513,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Swift Dev 001" translatesAutoresizingMaskIntoConstraints="NO" id="Xi7-TI-OBX">
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="PageNotFound" translatesAutoresizingMaskIntoConstraints="NO" id="Xi7-TI-OBX">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="200" identifier="infoHeight" id="pXZ-fy-ldI"/>
@@ -538,7 +538,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fCe-DL-aqK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4313" y="473"/>
+            <point key="canvasLocation" x="4312.8000000000002" y="472.90640394088672"/>
         </scene>
         <!--Test Table View Controller-->
         <scene sceneID="kG8-Of-FlK">
@@ -692,7 +692,7 @@
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" reuseIdentifier="FriendCollCell" id="3XP-hz-2Ka" customClass="FriendsCollectionCell" customModule="VK_KonstantinovDS" customModuleProvider="target">
-                                <rect key="frame" x="37.666666666666664" y="50" width="300" height="300"/>
+                                <rect key="frame" x="38" y="50" width="300" height="300"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="f0m-Rx-Qsl">
                                     <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
@@ -1012,6 +1012,7 @@
     </scenes>
     <resources>
         <image name="CircleInd" width="160" height="160"/>
+        <image name="PageNotFound" width="790" height="634"/>
         <image name="Swift Dev 001" width="333.33334350585938" height="187.66667175292969"/>
         <image name="VK_logo" width="210" height="210"/>
         <image name="magnifyingglass" catalog="system" width="64" height="56"/>
