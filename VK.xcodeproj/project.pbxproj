@@ -46,6 +46,10 @@
 		DAA5E4CC239674A900B09EE7 /* GroupsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA5E4CB239674A900B09EE7 /* GroupsCell.swift */; };
 		DAA5E4D22396935A00B09EE7 /* FriendsCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA5E4D12396935A00B09EE7 /* FriendsCollectionCell.swift */; };
 		DAA5E4D7239695D000B09EE7 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA5E4D6239695D000B09EE7 /* Group.swift */; };
+		DAAD7FEC23D73B9700099E44 /* UserRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAAD7FEB23D73B9700099E44 /* UserRealm.swift */; };
+		DAAD7FEE23D73DEA00099E44 /* GroupRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAAD7FED23D73DEA00099E44 /* GroupRealm.swift */; };
+		DAAD7FF023D73F0F00099E44 /* UserSpecialRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAAD7FEF23D73F0F00099E44 /* UserSpecialRealm.swift */; };
+		DAAD7FF223D7429C00099E44 /* PhotoRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAAD7FF123D7429C00099E44 /* PhotoRealm.swift */; };
 		DAB122B823B0E87F00F118DF /* TestAnimateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB122B723B0E87F00F118DF /* TestAnimateViewController.swift */; };
 		DAB122BA23B0EDA900F118DF /* LogoAnimated.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB122B923B0EDA900F118DF /* LogoAnimated.swift */; };
 		DACB2FC223ACEC2500816B0F /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACB2FC123ACEC2500816B0F /* TestViewController.swift */; };
@@ -133,6 +137,10 @@
 		DAA5E4CB239674A900B09EE7 /* GroupsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsCell.swift; sourceTree = "<group>"; };
 		DAA5E4D12396935A00B09EE7 /* FriendsCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsCollectionCell.swift; sourceTree = "<group>"; };
 		DAA5E4D6239695D000B09EE7 /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
+		DAAD7FEB23D73B9700099E44 /* UserRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRealm.swift; sourceTree = "<group>"; };
+		DAAD7FED23D73DEA00099E44 /* GroupRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupRealm.swift; sourceTree = "<group>"; };
+		DAAD7FEF23D73F0F00099E44 /* UserSpecialRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSpecialRealm.swift; sourceTree = "<group>"; };
+		DAAD7FF123D7429C00099E44 /* PhotoRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoRealm.swift; sourceTree = "<group>"; };
 		DAB122B723B0E87F00F118DF /* TestAnimateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestAnimateViewController.swift; sourceTree = "<group>"; };
 		DAB122B923B0EDA900F118DF /* LogoAnimated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoAnimated.swift; sourceTree = "<group>"; };
 		DACB2FC123ACEC2500816B0F /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
@@ -327,6 +335,10 @@
 				DACD6A2623D5CEC100D1C9DD /* UserSpecial.swift */,
 				DACD6A2223D5A8D800D1C9DD /* GroupVK.swift */,
 				DACD6A2423D5BF0300D1C9DD /* PhotoVK.swift */,
+				DAAD7FEB23D73B9700099E44 /* UserRealm.swift */,
+				DAAD7FEF23D73F0F00099E44 /* UserSpecialRealm.swift */,
+				DAAD7FED23D73DEA00099E44 /* GroupRealm.swift */,
+				DAAD7FF123D7429C00099E44 /* PhotoRealm.swift */,
 				DA7D1EE52398CE5D009E0514 /* User.swift */,
 				DAA5E4D6239695D000B09EE7 /* Group.swift */,
 				DA779EED23AA234100A2E911 /* News.swift */,
@@ -747,6 +759,7 @@
 				DA45F33723B876B60063CC62 /* ProfileInfoCell.swift in Sources */,
 				DAB122B823B0E87F00F118DF /* TestAnimateViewController.swift in Sources */,
 				DACD6A2123D5298400D1C9DD /* UserVK.swift in Sources */,
+				DAAD7FF023D73F0F00099E44 /* UserSpecialRealm.swift in Sources */,
 				DAB122BA23B0EDA900F118DF /* LogoAnimated.swift in Sources */,
 				DA5D606623957534000002D6 /* ProfileForm.swift in Sources */,
 				DA6442AD23D70549008C2992 /* UIImage+.swift in Sources */,
@@ -757,8 +770,11 @@
 				DA779EEC23A9349D00A2E911 /* NewsTableView.swift in Sources */,
 				DA779EE623A7765F00A2E911 /* PhotoCollectionViewCollectionViewController.swift in Sources */,
 				DA779EF423AA7DF200A2E911 /* CustomNewsCollectionLayout.swift in Sources */,
+				DAAD7FF223D7429C00099E44 /* PhotoRealm.swift in Sources */,
+				DAAD7FEC23D73B9700099E44 /* UserRealm.swift in Sources */,
 				DAF16B8E238D2E0A00FF58D0 /* SceneDelegate.swift in Sources */,
 				DA6937AB23ABE1B700DF1BA5 /* NewsCollectionCell.swift in Sources */,
+				DAAD7FEE23D73DEA00099E44 /* GroupRealm.swift in Sources */,
 				DA779EEA23A788F200A2E911 /* PhotoCollectionViewCell.swift in Sources */,
 				DA1C7B8B239A4F1300FDA5D7 /* LikeView.swift in Sources */,
 				DA779EE223A7759100A2E911 /* NewsCell.swift in Sources */,
