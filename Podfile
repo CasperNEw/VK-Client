@@ -7,6 +7,7 @@ target 'VK' do
 
   pod 'Alamofire'
   pod 'Kingfisher'
+  pod 'RealmSwift'
 
   # Pods for VK
 
