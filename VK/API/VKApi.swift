@@ -26,9 +26,9 @@ class VKApi {
                     do {
                         guard let data = response.value else { return }
                         let response = try JSONDecoder().decode(T.self, from: data)
-        completion(.success(response))
+                        completion(.success(response))
                     } catch _ {
-        completion(.failure(RequestError.decodableError))
+                        completion(.failure(RequestError.decodableError))
                     }
                 }
         }
@@ -109,18 +109,18 @@ class VKApi {
     }
     //пока не используем данный метод, попозже перепишем ;)
     func getFilteredGroupList(token: String, user: String, text: String) {
-          let requestURL = vkURL + "groups.search"
-          let params = ["access_token": token,
-                        "user_id": user,
-                        "q": text,
-                        "is_member": "1", // ?
-                        "type": "group",
-                        "v": "5.103"]
-          
-          Alamofire.request(requestURL,
-                            method: .post,
-                            parameters: params).responseJSON(completionHandler: { (response) in
-                              print(response.value as? [String: Any] ?? "[Logging] JSON error")
-                            })
-      }
+        let requestURL = vkURL + "groups.search"
+        let params = ["access_token": token,
+                      "user_id": user,
+                      "q": text,
+                      "is_member": "1", // ?
+                      "type": "group",
+                      "v": "5.103"]
+        
+        Alamofire.request(requestURL,
+                          method: .post,
+                          parameters: params).responseJSON(completionHandler: { (response) in
+                            print(response.value as? [String: Any] ?? "[Logging] JSON error")
+                          })
+    }
 }
