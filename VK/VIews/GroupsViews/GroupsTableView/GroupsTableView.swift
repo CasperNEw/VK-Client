@@ -46,7 +46,7 @@ class GroupsTableView: UITableViewController {
     }
     
     override func viewDidLoad() {
-        vkApi.getGroupListForUser(token: Session.instance.token, user: Session.instance.userId) { [weak self] result in
+        vkApi.getGroupListForUser(token: Session.instance.token, version: Session.instance.version ,user: Session.instance.userId) { [weak self] result in
             do {
                 let resultData = try result.get()
                 self?.dataGroups = resultData

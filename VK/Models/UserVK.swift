@@ -1,13 +1,13 @@
 import Foundation
 
-struct Response: Codable {
-    let response: ResponseData
-}
-
-struct ResponseData: Codable {
-    let count: Int
-    let items: [UserVK]
-}
+//struct ResponseUser: Codable {
+//    let response: ResponseDataUser
+//}
+//
+//struct ResponseDataUser: Codable {
+//    let count: Int
+//    let items: [UserVK]
+//}
 
 struct UserVK: Codable {
     let id: Int

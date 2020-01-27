@@ -17,7 +17,7 @@ class FriendsTableView: UITableViewController {
     private let searchController = UISearchController(searchResultsController: nil)
 
     override func viewDidLoad() {
-        vkApi.getFriendList(token: Session.instance.token) { [weak self] result in
+        vkApi.getFriendList(token: Session.instance.token, version: Session.instance.version) { [weak self] result in
             do {
                 let resultData = try result.get()
                 self?.dataFriends = resultData
@@ -27,6 +27,17 @@ class FriendsTableView: UITableViewController {
                 print("[Logging] Error retrieving the value: \(error)")
             }
         }
+        
+//        vkApi.getFriendList(token: Session.instance.token) { [weak self] result in
+//            do {
+//                let resultData = try result.get()
+//                self?.dataFriends = resultData
+//                self?.makeSortedSection()
+//                self?.tableView.reloadData()
+//            } catch {
+//                print("[Logging] Error retrieving the value: \(error)")
+//            }
+//        }
         
         addSearchController()
         //makeSortedSection()

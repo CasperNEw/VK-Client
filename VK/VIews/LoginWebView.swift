@@ -95,6 +95,7 @@ extension LoginWebView: WKNavigationDelegate {
         //присваиваем значения нашему singleton instance
         Session.instance.token = token
         Session.instance.userId = userId
+        Session.instance.version = "5.103"
         
         print("[Logging] token = \(Session.instance.token)")
         print("[Logging] user_id = \(Session.instance.userId)")

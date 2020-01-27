@@ -7,4 +7,5 @@ class Session {
     
     var userId = ""
     var token = ""
+    var version = ""
 }

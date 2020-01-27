@@ -1,13 +1,13 @@
 import Foundation
 
-struct ResponseGroup: Codable {
-    let response: ResponseDataGroup
-}
-
-struct ResponseDataGroup: Codable {
-    let count: Int
-    let items: [GroupVK]
-}
+//struct ResponseGroup: Codable {
+//    let response: ResponseDataGroup
+//}
+//
+//struct ResponseDataGroup: Codable {
+//    let count: Int
+//    let items: [GroupVK]
+//}
 
 struct GroupVK: Codable {
     let id: Int

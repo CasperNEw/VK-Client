@@ -1,13 +1,15 @@
 import Foundation
 
-struct ResponsePhoto: Codable {
-    let response: ResponseDataPhoto
-}
+enum Album { case wall, profile, saved }
 
-struct ResponseDataPhoto: Codable {
-    let count: Int
-    let items: [PhotoVK]
-}
+//struct ResponsePhoto: Codable {
+//    let response: ResponseDataPhoto
+//}
+//
+//struct ResponseDataPhoto: Codable {
+//    let count: Int
+//    let items: [PhotoVK]
+//}
 
 struct PhotoVK: Codable {
     let id, albumID, ownerID: Int

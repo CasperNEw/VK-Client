@@ -30,7 +30,7 @@ class ProfileTableView: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         if let id = user?.id {
-            vkApi.getPhotoInAlbum(token: Session.instance.token, ownerId: String(id), album: .profile) { [weak self] result in
+            vkApi.getPhotoInAlbum(token: Session.instance.token, version: Session.instance.version, ownerId: String(id), album: .profile) { [weak self] result in
                 do {
                     let resultData = try result.get()
                     self?.dataPhotos = resultData
