@@ -29,6 +29,9 @@ class ProfileTableView: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        getUserData()
+        
+        /*
         if let id = user?.id {
             vkApi.getPhotoInAlbum(token: Session.instance.token, version: Session.instance.version, ownerId: String(id), album: .profile) { [weak self] result in
                 do {
@@ -52,7 +55,7 @@ class ProfileTableView: UITableViewController {
                 }
             }
         } else { return }
-        
+        */
         //регистрируем ячейки
         tableView.register(UINib(nibName: "ProfileNewsCell", bundle: nil), forCellReuseIdentifier: "ProfileNews")
         tableView.register(UINib(nibName: "ProfileInfoCell", bundle: nil), forCellReuseIdentifier: "ProfileInfo")
@@ -157,6 +160,34 @@ class ProfileTableView: UITableViewController {
         //
         //
     }
+    
+    func getUserData() {
+        
+        if let id = user?.id {
+            vkApi.getPhotoInAlbum(token: Session.instance.token, version: Session.instance.version, ownerId: String(id), album: .profile) { [weak self] result in
+                do {
+                    let resultData = try result.get()
+                    self?.dataPhotos = resultData
+                    
+                    self?.tableView.reloadData()
+                } catch {
+                    print("[Logging] Error retrieving the value: \(error)")
+                }
+            }
+            vkApi.getUserSpecialInformation(token: Session.instance.token, userId: String(id)) { [weak self] result in
+                do {
+                    let resultData = try result.get()
+                    self?.dataUserSpecial = resultData
+                    self?.loadMainPhoto()
+                    self?.loadCellData()
+                    self?.tableView.reloadData()
+                } catch {
+                    print("[Logging] Error retrieving the value: \(error)")
+                }
+            }
+        } else { return }
+        
+    }
 }
 
 
@@ -237,3 +268,16 @@ extension ProfileTableView: UICollectionViewDelegate, UICollectionViewDataSource
     }
 }
 
+class ProfileNewsCellOneTwoThree: UITableViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        return UICollectionViewCell()
+    }
+    
+    //!!! need update and fix
+}

@@ -13,6 +13,10 @@ class UserRealm: Object {
     @objc dynamic var deactivated = 0
     @objc dynamic var lists = 0
     
+//    override static func primaryKey() -> String? {
+//        return "id"
+//    }
+    
     var groups = List<GroupRealm>()
 }
 

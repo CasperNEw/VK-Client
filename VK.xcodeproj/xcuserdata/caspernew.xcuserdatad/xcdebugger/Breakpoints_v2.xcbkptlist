@@ -32,7 +32,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "40"
             endingLineNumber = "40"
-            landmarkName = "addSearchController()"
+            landmarkName = "hideKeyboard()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

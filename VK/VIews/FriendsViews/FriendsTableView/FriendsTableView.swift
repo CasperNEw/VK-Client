@@ -6,43 +6,98 @@ struct Section<T> {
     var items: [T]
 }
 
-var vkApi = VKApi()
+protocol UserListPresenter {
+    func getUserList(completion: @escaping (Swift.Result<[UserVK], Error>) -> ())
+    func getUsersFromDatabase() -> [UserVK]
+}
+
+class UserListPresenterImplementation: UserListPresenter {
+    
+    
+    let vkApi: VKApi
+    let database: UserCDRepository
+    
+    init(database: UserCDRepository, api: VKApi) {
+        self.vkApi = api
+        self.database = database
+    }
+    
+    func getUserList(completion: @escaping (Swift.Result<[UserVK], Error>) -> ()) {
+        vkApi.getFriendList(token: Session.instance.token, version: Session.instance.version)
+        { result in
+            switch result {
+            case .success(let users):
+                users.forEach{ self.database.create(entity: $0) }
+                completion(.success(users))
+            case .failure(let error):
+                print("[Logging] Error retrieving the value: \(error)")
+            }
+        }
+    }
+    
+    func getUsersFromDatabase() -> [UserVK] {
+        return database.getAll()
+    }
+}
+
+var vkApi = VKApi() //общий объект, используется во всех view для запроса данных через vkApi ... позже удалить!
 
 class FriendsTableView: UITableViewController {
+    
+    //по хорошему надо закинуть в отдельный класс
+    var presenter = UserListPresenterImplementation(database: UserCDRepository(stack: CoreDataStack.shared), api: VKApi())
     
     var dataFriends = [UserVK]()
     var dataFriendsTest = [UserVK]()
     var friendsSection = [Section<UserVK>]()
     
+    var customRefreshControl = UIRefreshControl()
+    
     private let searchController = UISearchController(searchResultsController: nil)
-
+    
     override func viewDidLoad() {
-        vkApi.getFriendList(token: Session.instance.token, version: Session.instance.version) { [weak self] result in
-            do {
-                let resultData = try result.get()
-                self?.dataFriends = resultData
-                self?.makeSortedSection()
-                self?.tableView.reloadData()
-            } catch {
-                print("[Logging] Error retrieving the value: \(error)")
+        
+        usersRequest()
+        addSearchController()
+        addRefreshControl()
+        print("[Logging] load Friends View")
+        
+        /*
+         //пока что на всякий случай сохраним ... =Р
+         
+         vkApi.getFriendList(token: Session.instance.token, version: Session.instance.version) { [weak self] result in
+         do {
+         let resultData = try result.get()
+         self?.dataFriends = resultData
+         self?.makeSortedSection()
+         self?.tableView.reloadData()
+         } catch {
+         print("[Logging] Error retrieving the value: \(error)")
+         }
+         }
+         */
+    }
+    
+    func usersRequest() {
+        
+        //делаем проверку наличия данных в БД, если нет то делаем запрос на сервер
+        if presenter.getUsersFromDatabase().count == 0 {
+            
+            presenter.getUserList { result in
+                switch result {
+                case .success:
+                    print("[Logging] CoreData UserCD create")
+                case .failure(let error):
+                    print("[Logging] Error retrieving the value: \(error)")
+                    
+                }
             }
         }
         
-//        vkApi.getFriendList(token: Session.instance.token) { [weak self] result in
-//            do {
-//                let resultData = try result.get()
-//                self?.dataFriends = resultData
-//                self?.makeSortedSection()
-//                self?.tableView.reloadData()
-//            } catch {
-//                print("[Logging] Error retrieving the value: \(error)")
-//            }
-//        }
-        
-        addSearchController()
-        //makeSortedSection()
-       
-        print("[Logging] load Friends View")
+        //метод получения данных для отображения из локальной БД
+        self.dataFriends = presenter.getUsersFromDatabase()
+        self.makeSortedSection()
+        self.tableView.reloadData()
     }
     
     func makeSortedSection() {
@@ -56,6 +111,27 @@ class FriendsTableView: UITableViewController {
         searchController.searchBar.placeholder = "Friends search"
         navigationItem.searchController = searchController
         definesPresentationContext = true
+    }
+    
+    func addRefreshControl() {
+        customRefreshControl.attributedTitle = NSAttributedString(string: "Refreshing ...")
+        customRefreshControl.addTarget(self, action: #selector(refreshTable), for: .valueChanged)
+        tableView.addSubview(customRefreshControl)
+    }
+    
+    @objc func refreshTable() {
+        print("[Logging] Update CoreData[UserCD] from server")
+        
+        presenter.getUserList { result in
+            switch result {
+            case .success:
+                self.usersRequest()
+                self.customRefreshControl.endRefreshing()
+            case .failure(let error):
+                print("[Logging] Error retrieving the value: \(error)")
+            }
+        }
+        
     }
     
     //реализация количества строк (ячеек) в секции
@@ -74,7 +150,7 @@ class FriendsTableView: UITableViewController {
         cell.friendsName.text = friendsSection[indexPath.section].items[indexPath.row].fullname
         
         //используем Kingfisher для загрузки и кеширования изображений
-        let url = URL(string: friendsSection[indexPath.section].items[indexPath.row].photo50)
+        let url = URL(string: friendsSection[indexPath.section].items[indexPath.row].photo100)
         cell.cornerShadowView.imageView.kf.setImage(with: url)
         
         //cell.cornerShadowView.imageView.image = UIImage(named: friendsSection[indexPath.section].items[indexPath.row].avatarPath)
@@ -88,12 +164,12 @@ class FriendsTableView: UITableViewController {
         //выведем в консоль имя нажатой ячейки
         print(friendsSection[indexPath.section].items[indexPath.row].fullname)
         /*
-        //сделаем переключение на Collection View с пробросом данных
-        let main = UIStoryboard( name: "Main", bundle: nil)
-        let vc = main.instantiateViewController(identifier: "PhotoFreindsCollection") as! FriendsCollectionView
-        vc.user = friendsSection[indexPath.section].items[indexPath.row].fullname
-        navigationController?.pushViewController(vc, animated: true)
-        */
+         //сделаем переключение на Collection View с пробросом данных
+         let main = UIStoryboard( name: "Main", bundle: nil)
+         let vc = main.instantiateViewController(identifier: "PhotoFreindsCollection") as! FriendsCollectionView
+         vc.user = friendsSection[indexPath.section].items[indexPath.row].fullname
+         navigationController?.pushViewController(vc, animated: true)
+         */
         
         //сделаем переключение на ProfileView с пробросом данных
         let main = UIStoryboard(name: "Main", bundle: nil)

@@ -33,7 +33,7 @@ class VKApi {
         let requestURL = vkURL + "friends.get"
         let params = ["access_token": token,
                       "order": "hints",
-                      "fields": "photo_50, status",
+                      "fields": "photo_100",
                       "v": version]
         
         requestServer(requestURL: requestURL, method: .post, params: params) { completion($0) }

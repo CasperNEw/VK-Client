@@ -16,6 +16,11 @@
 		DA4AE945239F75E6009B6300 /* LikeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4AE944239F75E6009B6300 /* LikeButton.swift */; };
 		DA4AE947239FACD1009B6300 /* ParallaxTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4AE946239FACD1009B6300 /* ParallaxTableView.swift */; };
 		DA5673EA23DEE32E0050080F /* CommonResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5673E923DEE32E0050080F /* CommonResponse.swift */; };
+		DA5673F323E1E03F0050080F /* VK.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DA5673F123E1E03F0050080F /* VK.xcdatamodeld */; };
+		DA5673FC23E2E8590050080F /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5673FB23E2E8590050080F /* CoreDataStack.swift */; };
+		DA5673FE23E2E9A40050080F /* UserCDRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5673FD23E2E9A40050080F /* UserCDRepository.swift */; };
+		DA56740123E2EA030050080F /* UserCD+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5673FF23E2EA030050080F /* UserCD+CoreDataProperties.swift */; };
+		DA56740223E2EA030050080F /* UserCD+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA56740023E2EA030050080F /* UserCD+CoreDataClass.swift */; };
 		DA5D606623957534000002D6 /* ProfileForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5D606523957534000002D6 /* ProfileForm.swift */; };
 		DA5D606823957838000002D6 /* FriendsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5D606723957838000002D6 /* FriendsTableView.swift */; };
 		DA5D606A23957FF1000002D6 /* FriendsCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5D606923957FF1000002D6 /* FriendsCollectionView.swift */; };
@@ -107,6 +112,11 @@
 		DA4AE944239F75E6009B6300 /* LikeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeButton.swift; sourceTree = "<group>"; };
 		DA4AE946239FACD1009B6300 /* ParallaxTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParallaxTableView.swift; sourceTree = "<group>"; };
 		DA5673E923DEE32E0050080F /* CommonResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonResponse.swift; sourceTree = "<group>"; };
+		DA5673F223E1E03F0050080F /* VK.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = VK.xcdatamodel; sourceTree = "<group>"; };
+		DA5673FB23E2E8590050080F /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		DA5673FD23E2E9A40050080F /* UserCDRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCDRepository.swift; sourceTree = "<group>"; };
+		DA5673FF23E2EA030050080F /* UserCD+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserCD+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		DA56740023E2EA030050080F /* UserCD+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserCD+CoreDataClass.swift"; sourceTree = "<group>"; };
 		DA5D606523957534000002D6 /* ProfileForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileForm.swift; sourceTree = "<group>"; };
 		DA5D606723957838000002D6 /* FriendsTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsTableView.swift; sourceTree = "<group>"; };
 		DA5D606923957FF1000002D6 /* FriendsCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsCollectionView.swift; sourceTree = "<group>"; };
@@ -271,6 +281,62 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		DA5673EE23E1DFC80050080F /* DataBase */ = {
+			isa = PBXGroup;
+			children = (
+				DA5673F023E1DFD60050080F /* CoreData */,
+				DA5673EF23E1DFCF0050080F /* Realm */,
+			);
+			path = DataBase;
+			sourceTree = "<group>";
+		};
+		DA5673EF23E1DFCF0050080F /* Realm */ = {
+			isa = PBXGroup;
+			children = (
+				DA5673F923E2E7AD0050080F /* Model */,
+			);
+			path = Realm;
+			sourceTree = "<group>";
+		};
+		DA5673F023E1DFD60050080F /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				DA5673FA23E2E7B70050080F /* Model */,
+				DA5673FB23E2E8590050080F /* CoreDataStack.swift */,
+				DA5673FD23E2E9A40050080F /* UserCDRepository.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		DA5673F423E201910050080F /* Old - for del later */ = {
+			isa = PBXGroup;
+			children = (
+				DAA5E4D6239695D000B09EE7 /* Group.swift */,
+				DA779EED23AA234100A2E911 /* News.swift */,
+			);
+			path = "Old - for del later";
+			sourceTree = "<group>";
+		};
+		DA5673F923E2E7AD0050080F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				DAAD7FEB23D73B9700099E44 /* UserRealm.swift */,
+				DAAD7FEF23D73F0F00099E44 /* UserSpecialRealm.swift */,
+				DAAD7FED23D73DEA00099E44 /* GroupRealm.swift */,
+				DAAD7FF123D7429C00099E44 /* PhotoRealm.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		DA5673FA23E2E7B70050080F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				DA56740023E2EA030050080F /* UserCD+CoreDataClass.swift */,
+				DA5673FF23E2EA030050080F /* UserCD+CoreDataProperties.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		DA6442AB23D70536008C2992 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -323,16 +389,11 @@
 		DAA5E4D32396955C00B09EE7 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				DA5673F423E201910050080F /* Old - for del later */,
 				DACD6A2023D5298400D1C9DD /* UserVK.swift */,
 				DACD6A2623D5CEC100D1C9DD /* UserSpecial.swift */,
 				DACD6A2223D5A8D800D1C9DD /* GroupVK.swift */,
 				DACD6A2423D5BF0300D1C9DD /* PhotoVK.swift */,
-				DAAD7FEB23D73B9700099E44 /* UserRealm.swift */,
-				DAAD7FEF23D73F0F00099E44 /* UserSpecialRealm.swift */,
-				DAAD7FED23D73DEA00099E44 /* GroupRealm.swift */,
-				DAAD7FF123D7429C00099E44 /* PhotoRealm.swift */,
-				DAA5E4D6239695D000B09EE7 /* Group.swift */,
-				DA779EED23AA234100A2E911 /* News.swift */,
 				DA5673E923DEE32E0050080F /* CommonResponse.swift */,
 				DA74265223CD81490054732A /* Session.swift */,
 			);
@@ -431,6 +492,7 @@
 		DAF16B8A238D2E0A00FF58D0 /* VK */ = {
 			isa = PBXGroup;
 			children = (
+				DA5673EE23E1DFC80050080F /* DataBase */,
 				DA6442AB23D70536008C2992 /* Extensions */,
 				DAF16B96238D2E0E00FF58D0 /* LaunchScreen.storyboard */,
 				DAF16B91238D2E0A00FF58D0 /* Main.storyboard */,
@@ -442,6 +504,7 @@
 				DAF16B8D238D2E0A00FF58D0 /* SceneDelegate.swift */,
 				DAF16B94238D2E0E00FF58D0 /* Assets.xcassets */,
 				DAF16B99238D2E0E00FF58D0 /* Info.plist */,
+				DA5673F123E1E03F0050080F /* VK.xcdatamodeld */,
 			);
 			path = VK;
 			sourceTree = "<group>";
@@ -727,10 +790,12 @@
 				DA779EE823A7778500A2E911 /* CustomCollectionViewLayout.swift in Sources */,
 				DA7D1EE92398FB4D009E0514 /* GradientView.swift in Sources */,
 				DACD6A2523D5BF0300D1C9DD /* PhotoVK.swift in Sources */,
+				DA56740123E2EA030050080F /* UserCD+CoreDataProperties.swift in Sources */,
 				DAA5E4D22396935A00B09EE7 /* FriendsCollectionCell.swift in Sources */,
 				DAE3726023B89539006FC3F4 /* ProfileCollectionCell.swift in Sources */,
 				DA1C7B89239A388C00FDA5D7 /* FooterWithLike.swift in Sources */,
 				DAA5E4CC239674A900B09EE7 /* GroupsCell.swift in Sources */,
+				DA5673F323E1E03F0050080F /* VK.xcdatamodeld in Sources */,
 				DA4AE947239FACD1009B6300 /* ParallaxTableView.swift in Sources */,
 				DA5D607223966096000002D6 /* FriendsTableViewCell.swift in Sources */,
 				DAA5E4C823966E7100B09EE7 /* GlobalGroupsCell.swift in Sources */,
@@ -740,6 +805,7 @@
 				DA4AE945239F75E6009B6300 /* LikeButton.swift in Sources */,
 				DA5D606A23957FF1000002D6 /* FriendsCollectionView.swift in Sources */,
 				DA779EDB23A4D8E100A2E911 /* MessageTableView.swift in Sources */,
+				DA56740223E2EA030050080F /* UserCD+CoreDataClass.swift in Sources */,
 				DACD6A2723D5CEC100D1C9DD /* UserSpecial.swift in Sources */,
 				DA74265323CD814A0054732A /* Session.swift in Sources */,
 				DA5673EA23DEE32E0050080F /* CommonResponse.swift in Sources */,
@@ -755,6 +821,7 @@
 				DAB122BA23B0EDA900F118DF /* LogoAnimated.swift in Sources */,
 				DA5D606623957534000002D6 /* ProfileForm.swift in Sources */,
 				DA6442AD23D70549008C2992 /* UIImage+.swift in Sources */,
+				DA5673FE23E2E9A40050080F /* UserCDRepository.swift in Sources */,
 				DAF16BBC238D2EF400FF58D0 /* LoginForm.swift in Sources */,
 				DAE3726523B89B1A006FC3F4 /* ProfileNewsCell.swift in Sources */,
 				DAF97A6523AFD05B00753D94 /* TestTableViewController.swift in Sources */,
@@ -766,6 +833,7 @@
 				DAAD7FEC23D73B9700099E44 /* UserRealm.swift in Sources */,
 				DAF16B8E238D2E0A00FF58D0 /* SceneDelegate.swift in Sources */,
 				DA6937AB23ABE1B700DF1BA5 /* NewsCollectionCell.swift in Sources */,
+				DA5673FC23E2E8590050080F /* CoreDataStack.swift in Sources */,
 				DAAD7FEE23D73DEA00099E44 /* GroupRealm.swift in Sources */,
 				DA779EEA23A788F200A2E911 /* PhotoCollectionViewCell.swift in Sources */,
 				DA1C7B8B239A4F1300FDA5D7 /* LikeView.swift in Sources */,
@@ -1098,6 +1166,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		DA5673F123E1E03F0050080F /* VK.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				DA5673F223E1E03F0050080F /* VK.xcdatamodel */,
+			);
+			currentVersion = DA5673F223E1E03F0050080F /* VK.xcdatamodel */;
+			path = VK.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = DAF16B80238D2E0A00FF58D0 /* Project object */;
 }
