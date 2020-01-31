@@ -24,10 +24,10 @@ class UserListPresenterImplementation: UserListPresenter {
     
     func getUserList(completion: @escaping (Swift.Result<[UserVK], Error>) -> ()) {
         vkApi.getFriendList(token: Session.instance.token, version: Session.instance.version)
-        { result in
+        { [weak self] result in
             switch result {
             case .success(let users):
-                users.forEach{ self.database.create(entity: $0) }
+                users.forEach{ self?.database.create(entity: $0) }
                 completion(.success(users))
             case .failure(let error):
                 print("[Logging] Error retrieving the value: \(error)")
@@ -122,11 +122,11 @@ class FriendsTableView: UITableViewController {
     @objc func refreshTable() {
         print("[Logging] Update CoreData[UserCD] from server")
         
-        presenter.getUserList { result in
+        presenter.getUserList { [weak self] result in
             switch result {
             case .success:
-                self.usersRequest()
-                self.customRefreshControl.endRefreshing()
+                self?.usersRequest()
+                self?.customRefreshControl.endRefreshing()
             case .failure(let error):
                 print("[Logging] Error retrieving the value: \(error)")
             }

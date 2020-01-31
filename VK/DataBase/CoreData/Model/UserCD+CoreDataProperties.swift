@@ -27,7 +27,7 @@ extension UserCD {
 
 }
 
-//Проблема, в Objective-C нет типа Bool?. В настройках сущности CoreData выставил дефолтные значения для isClossed (false) и canAccessClosed (true).
+//Проблема, в Objective-C нет типа Bool?. В настройках сущности CoreData выставил дефолтные значения для isClossed (false) и canAccessClosed (true). При тесте проблем выявлено не было.
 
 extension UserCD {
     func toCommonItem() -> UserVK {
