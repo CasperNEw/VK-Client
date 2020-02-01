@@ -18,6 +18,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         /*
+         if let token = keychain.getToken()
+         Показать основной экран
+         UserSession.defaultSession.token = token
+         
+         */
+        
+        /*
+         if let key = keychain.getKey {
+            let config = Realm.Configuration(encryptionKey: key, schemaVersion: 1)
+            Realm.Configuration.defaultConfiguration = config
+         } else {
+            var key = key.withUnsafeMutableBytes { bytes in
+                SecRandomCopyBytes(kSecRandomDefault, 64, bytes)
+                записываем в keychain
+                let config = Realm.Configuration(encryptionKey: key, schemaVersion: 1)
+                Realm.Configuration.defaultConfiguration = config
+         }
+         
+         */
+        
+        
+        
+        /*
         //Конфигурация миграции БД Realm
         let config = Realm.Configuration(
             schemaVersion: 1,

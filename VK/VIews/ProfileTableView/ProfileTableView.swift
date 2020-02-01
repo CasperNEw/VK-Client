@@ -5,6 +5,7 @@ import Kingfisher
 class ProfileTableView: UITableViewController {
     
     var user: UserVK?
+    var vkApi = VKApi()
     
     var arrayIndexPath = 0
     var profileIndexPath = 0

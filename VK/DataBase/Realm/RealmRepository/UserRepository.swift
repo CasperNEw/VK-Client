@@ -55,7 +55,7 @@ class UserRepository {
         }
     }
     
-    func adduser(user: UserVK) {
+    func addUser(user: UserVK) {
         do {
             let realm = try Realm()
             try realm.write {

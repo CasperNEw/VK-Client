@@ -40,18 +40,17 @@ class UserListPresenterImplementation: UserListPresenter {
     }
 }
 
-var vkApi = VKApi() //общий объект, используется во всех view для запроса данных через vkApi ... позже удалить!
+//!   //var vkApi = VKApi() //общий объект, используется во всех view для запроса данных через vkApi ... позже удалить!
 
 class FriendsTableView: UITableViewController {
     
     //по хорошему надо закинуть в отдельный класс
-    var presenter = UserListPresenterImplementation(database: UserCDRepository(stack: CoreDataStack.shared), api: VKApi())
+    var presenterCD = UserListPresenterImplementation(database: UserCDRepository(stack: CoreDataStack.shared), api: VKApi())
     
-    //Временно добавляем экземпляр БД для теста Realm
-    var database = UserRepository() // ?!?!??!?!? подумать проверить убрать коммент ...
+    //сделаем отдельный presenter для БД Realm в надежде что когда нибудь у нас он будет работать с обоими БД =)
+    var presenter: FriendsPresenter?
     
     var dataFriends = [UserVK]()
-    //var dataFriendsTest = [UserVK]()
     var friendsSection = [Section<UserVK>]()
     
     var customRefreshControl = UIRefreshControl()
@@ -60,73 +59,13 @@ class FriendsTableView: UITableViewController {
     
     override func viewDidLoad() {
         
-        usersRequest()
+        presenter = FriendsPresenterImplementation()
+        presenter?.viewDidLoad()
+        
         addSearchController()
         addRefreshControl()
         print("[Logging] load Friends View")
         
-        /*
-         //пока что на всякий случай сохраним ... =Р
-         
-         vkApi.getFriendList(token: Session.instance.token, version: Session.instance.version) { [weak self] result in
-         do {
-         let resultData = try result.get()
-         self?.dataFriends = resultData
-         self?.makeSortedSection()
-         self?.tableView.reloadData()
-         } catch {
-         print("[Logging] Error retrieving the value: \(error)")
-         }
-         }
-         */
-    }
-    
-    func usersRequest() {
-        
-        //делаем проверку наличия данных в БД, если нет то делаем запрос на сервер
-        if presenter.getUsersFromDatabase().count == 0 {
-            //Наполняем одновременно CoreData и Realm репозитории
-            presenter.getUserList { [weak self] result in
-                switch result {
-                case .success(let users): //modify for create DB Realm UserRealm
-                    self?.database.addUsers(users: users) //create DB Realm UserRealm
-                    print("[Logging] CoreData UserCD create")
-                    print("[Logging] Realm UserRealm create")
-                case .failure(let error):
-                    print("[Logging] Error retrieving the value: \(error)")
-                    
-                }
-            }
-        }
-        //получаем массив данных UserVK из БД Realm для отображения
-        usersFromRealm()
-        
-        //если что то пошло не так и на данный момент наш массив данных пуст, цепляем все данные из CoreData
-        if dataFriends.count == 0 {
-            usersFromCoreData()
-        }
-        
-        //При загрузке страницы должен принудительно совершиться api request.
-        //Какое то зацикливание функций друг на друга ... подумать.
-        
-    }
-    
-    @discardableResult func usersFromRealm() -> Bool {
-        do {
-            self.dataFriends = Array(try database.getAllUsers()).map{ $0.toModel() }
-            self.makeSortedSection()
-            self.tableView.reloadData()
-            return true
-        } catch {
-            print(error)
-            return false
-        }
-    }
-    
-    func usersFromCoreData() {
-        self.dataFriends = presenter.getUsersFromDatabase()
-        self.makeSortedSection()
-        self.tableView.reloadData()
     }
     
     func makeSortedSection() {
@@ -152,17 +91,8 @@ class FriendsTableView: UITableViewController {
         print("[Logging] Update CoreData[UserCD] from server")
         print("[Logging] Update Realm[UserRealm] from server")
         
-        presenter.getUserList { [weak self] result in
-            switch result {
-            case .success(let users): //modify for update DB Realm UserRealm
-                self?.database.addUsers(users: users) //update DB Realm UserRealm
-                self?.usersRequest()
-                self?.customRefreshControl.endRefreshing()
-            case .failure(let error):
-                print("[Logging] Error retrieving the value: \(error)")
-            }
-        }
-        
+        //presenter?.updateData() or ApiRequest.
+        self.customRefreshControl.endRefreshing()
     }
     
     //реализация количества строк (ячеек) в секции
@@ -233,39 +163,8 @@ extension FriendsTableView: UISearchResultsUpdating {
     }
     
     private func filterContentForSearchText(_ searchText: String) {
-        
-        do {
-            self.dataFriends = searchText.isEmpty ?
-                Array(try database.getAllUsers()).map{ $0.toModel() } :
-                Array(try database.searchusers(name: searchText)).map{ $0.toModel() }
-            /*
-            //В рамках текущей реализации сдесь должна быть проверка на то какую БД мы используем. То есть возможен сценарий когда dataFriends у нас != 0, но имеется проблема с БД Realm. И при инициализации страницы мы получили исходные данные из CoreData.
-            
-            if usersFromRealm() == false {
-                self.dataFriends = searchText.isEmpty ?
-                    presenter.getUsersFromDatabase() :
-                    presenter.getUsersFromDatabase() //А тут должен быть страшный fetchRequest к CoreData ...
-            }
-            */
-            let friendsDictionary = Dictionary(grouping : dataFriends) { $0.lastName.prefix(1) }
-            
-            friendsSection = friendsDictionary.map { Section(title: String($0.key), items: $0.value) }
-            friendsSection.sort { $0.title < $1.title }
-            tableView.reloadData()
-        } catch {
-            print(error)
-        }
-        
-        
-        /* //Старая запись, до работы с БД
-        let friendsDictionary = Dictionary.init(grouping: dataFriends.filter { (user) -> Bool in
-            return searchText.isEmpty ? true : user.fullname.lowercased().contains(searchText.lowercased())
-        }) { $0.lastName.prefix(1) }
-        //Группируем в секции
-        friendsSection = friendsDictionary.map { Section(title: String($0.key), items: $0.value) }
-        friendsSection.sort { $0.title < $1.title }
+        presenter?.searchFriends(name: searchText)
         tableView.reloadData()
-        */
     }
 }
 

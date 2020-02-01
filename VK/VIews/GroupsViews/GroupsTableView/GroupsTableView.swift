@@ -4,6 +4,7 @@ import Kingfisher
 class GroupsTableView: UITableViewController {
     
     var dataGroups = [GroupVK]()
+    var vkApi = VKApi()
     
     @IBOutlet var groupsView: UITableView!
     

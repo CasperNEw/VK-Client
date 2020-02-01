@@ -22,6 +22,8 @@
 		DA56740123E2EA030050080F /* UserCD+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5673FF23E2EA030050080F /* UserCD+CoreDataProperties.swift */; };
 		DA56740223E2EA030050080F /* UserCD+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA56740023E2EA030050080F /* UserCD+CoreDataClass.swift */; };
 		DA56740523E447F50050080F /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA56740423E447F40050080F /* UserRepository.swift */; };
+		DA56740723E598B10050080F /* FriendsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA56740623E598B00050080F /* FriendsPresenter.swift */; };
+		DA56740923E59C1F0050080F /* FriendsConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA56740823E59C1F0050080F /* FriendsConfigurator.swift */; };
 		DA5D606623957534000002D6 /* ProfileForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5D606523957534000002D6 /* ProfileForm.swift */; };
 		DA5D606823957838000002D6 /* FriendsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5D606723957838000002D6 /* FriendsTableView.swift */; };
 		DA5D606A23957FF1000002D6 /* FriendsCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5D606923957FF1000002D6 /* FriendsCollectionView.swift */; };
@@ -119,6 +121,8 @@
 		DA5673FF23E2EA030050080F /* UserCD+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserCD+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		DA56740023E2EA030050080F /* UserCD+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserCD+CoreDataClass.swift"; sourceTree = "<group>"; };
 		DA56740423E447F40050080F /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
+		DA56740623E598B00050080F /* FriendsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsPresenter.swift; sourceTree = "<group>"; };
+		DA56740823E59C1F0050080F /* FriendsConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsConfigurator.swift; sourceTree = "<group>"; };
 		DA5D606523957534000002D6 /* ProfileForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileForm.swift; sourceTree = "<group>"; };
 		DA5D606723957838000002D6 /* FriendsTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsTableView.swift; sourceTree = "<group>"; };
 		DA5D606923957FF1000002D6 /* FriendsCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsCollectionView.swift; sourceTree = "<group>"; };
@@ -432,6 +436,8 @@
 			isa = PBXGroup;
 			children = (
 				DA5D606723957838000002D6 /* FriendsTableView.swift */,
+				DA56740623E598B00050080F /* FriendsPresenter.swift */,
+				DA56740823E59C1F0050080F /* FriendsConfigurator.swift */,
 				DA5D607123966096000002D6 /* FriendsTableViewCell.swift */,
 			);
 			path = FriendsTableView;
@@ -836,6 +842,7 @@
 				DA5673FE23E2E9A40050080F /* UserCDRepository.swift in Sources */,
 				DAF16BBC238D2EF400FF58D0 /* LoginForm.swift in Sources */,
 				DAE3726523B89B1A006FC3F4 /* ProfileNewsCell.swift in Sources */,
+				DA56740923E59C1F0050080F /* FriendsConfigurator.swift in Sources */,
 				DAF97A6523AFD05B00753D94 /* TestTableViewController.swift in Sources */,
 				DA8A9B0523D3413700AD416B /* VKApi.swift in Sources */,
 				DA779EEC23A9349D00A2E911 /* NewsTableView.swift in Sources */,
@@ -843,6 +850,7 @@
 				DA779EF423AA7DF200A2E911 /* CustomNewsCollectionLayout.swift in Sources */,
 				DAAD7FF223D7429C00099E44 /* PhotoRealm.swift in Sources */,
 				DAAD7FEC23D73B9700099E44 /* UserRealm.swift in Sources */,
+				DA56740723E598B10050080F /* FriendsPresenter.swift in Sources */,
 				DAF16B8E238D2E0A00FF58D0 /* SceneDelegate.swift in Sources */,
 				DA6937AB23ABE1B700DF1BA5 /* NewsCollectionCell.swift in Sources */,
 				DA5673FC23E2E8590050080F /* CoreDataStack.swift in Sources */,
