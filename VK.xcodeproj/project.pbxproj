@@ -21,6 +21,7 @@
 		DA5673FE23E2E9A40050080F /* UserCDRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5673FD23E2E9A40050080F /* UserCDRepository.swift */; };
 		DA56740123E2EA030050080F /* UserCD+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5673FF23E2EA030050080F /* UserCD+CoreDataProperties.swift */; };
 		DA56740223E2EA030050080F /* UserCD+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA56740023E2EA030050080F /* UserCD+CoreDataClass.swift */; };
+		DA56740523E447F50050080F /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA56740423E447F40050080F /* UserRepository.swift */; };
 		DA5D606623957534000002D6 /* ProfileForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5D606523957534000002D6 /* ProfileForm.swift */; };
 		DA5D606823957838000002D6 /* FriendsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5D606723957838000002D6 /* FriendsTableView.swift */; };
 		DA5D606A23957FF1000002D6 /* FriendsCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5D606923957FF1000002D6 /* FriendsCollectionView.swift */; };
@@ -117,6 +118,7 @@
 		DA5673FD23E2E9A40050080F /* UserCDRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCDRepository.swift; sourceTree = "<group>"; };
 		DA5673FF23E2EA030050080F /* UserCD+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserCD+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		DA56740023E2EA030050080F /* UserCD+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserCD+CoreDataClass.swift"; sourceTree = "<group>"; };
+		DA56740423E447F40050080F /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
 		DA5D606523957534000002D6 /* ProfileForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileForm.swift; sourceTree = "<group>"; };
 		DA5D606723957838000002D6 /* FriendsTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsTableView.swift; sourceTree = "<group>"; };
 		DA5D606923957FF1000002D6 /* FriendsCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsCollectionView.swift; sourceTree = "<group>"; };
@@ -293,7 +295,8 @@
 		DA5673EF23E1DFCF0050080F /* Realm */ = {
 			isa = PBXGroup;
 			children = (
-				DA5673F923E2E7AD0050080F /* Model */,
+				DA56740323E447D00050080F /* RealmRepository */,
+				DA5673F923E2E7AD0050080F /* RealmModel */,
 			);
 			path = Realm;
 			sourceTree = "<group>";
@@ -317,7 +320,7 @@
 			path = "Old - for del later";
 			sourceTree = "<group>";
 		};
-		DA5673F923E2E7AD0050080F /* Model */ = {
+		DA5673F923E2E7AD0050080F /* RealmModel */ = {
 			isa = PBXGroup;
 			children = (
 				DAAD7FEB23D73B9700099E44 /* UserRealm.swift */,
@@ -325,7 +328,7 @@
 				DAAD7FED23D73DEA00099E44 /* GroupRealm.swift */,
 				DAAD7FF123D7429C00099E44 /* PhotoRealm.swift */,
 			);
-			path = Model;
+			path = RealmModel;
 			sourceTree = "<group>";
 		};
 		DA5673FA23E2E7B70050080F /* Model */ = {
@@ -335,6 +338,14 @@
 				DA5673FF23E2EA030050080F /* UserCD+CoreDataProperties.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		DA56740323E447D00050080F /* RealmRepository */ = {
+			isa = PBXGroup;
+			children = (
+				DA56740423E447F40050080F /* UserRepository.swift */,
+			);
+			path = RealmRepository;
 			sourceTree = "<group>";
 		};
 		DA6442AB23D70536008C2992 /* Extensions */ = {
@@ -799,6 +810,7 @@
 				DA4AE947239FACD1009B6300 /* ParallaxTableView.swift in Sources */,
 				DA5D607223966096000002D6 /* FriendsTableViewCell.swift in Sources */,
 				DAA5E4C823966E7100B09EE7 /* GlobalGroupsCell.swift in Sources */,
+				DA56740523E447F50050080F /* UserRepository.swift in Sources */,
 				DACB2FC223ACEC2500816B0F /* TestViewController.swift in Sources */,
 				DA5D606823957838000002D6 /* FriendsTableView.swift in Sources */,
 				DA5D607023958784000002D6 /* ProfileTableView.swift in Sources */,

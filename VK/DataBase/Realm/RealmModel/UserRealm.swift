@@ -6,18 +6,25 @@ class UserRealm: Object {
     @objc dynamic var firstName = ""
     @objc dynamic var lastName = ""
     @objc dynamic var isClosed = false
-    @objc dynamic var canAccessClosed = false
-    @objc dynamic var photo50 = ""
+    @objc dynamic var canAccessClosed = true
+    @objc dynamic var photo100 = ""
     @objc dynamic var online = 0
-    @objc dynamic var trackCode = ""
-    @objc dynamic var deactivated = 0
-    @objc dynamic var lists = 0
+    @objc dynamic var deactivated = ""
     
-//    override static func primaryKey() -> String? {
-//        return "id"
-//    }
+    override static func primaryKey() -> String? {
+        return "id"
+    }
+    
+    override class func indexedProperties() -> [String] {
+        return ["firstName", "lastName"] //В перспективе добавить online, deactivated
+    }
     
     var groups = List<GroupRealm>()
+    
+    //Удалить если нигде не будешь использовать в коде!
+    func toModel() -> UserVK {
+        return UserVK(id: id, firstName: firstName, lastName: lastName, isClosed: isClosed, canAccessClosed: canAccessClosed, photo100: photo100, online: online, deactivated: deactivated)
+    }
 }
 
 
@@ -25,7 +32,7 @@ class UserRepositoryRealm {
     
    var userRealm: UserRealm!
     
-    func addUser(id: Int, firstName: String, lastName: String, isClosed: Bool, canAccessClosed: Bool, photo50: String, online: Int, trackCode: String, deactivated: Int, lists: Int) {
+    func addUser(id: Int, firstName: String, lastName: String, isClosed: Bool, canAccessClosed: Bool, photo100: String, online: Int, deactivated: String) {
         let realm = try? Realm()
         let newUser = UserRealm()
         newUser.id = id
@@ -33,11 +40,9 @@ class UserRepositoryRealm {
         newUser.lastName = lastName
         newUser.isClosed = isClosed
         newUser.canAccessClosed = canAccessClosed
-        newUser.photo50 = photo50
+        newUser.photo100 = photo100
         newUser.online = online
-        newUser.trackCode = trackCode
         newUser.deactivated = deactivated
-        newUser.lists = lists
         
         try? realm?.write {
             realm?.add(newUser)
@@ -50,7 +55,7 @@ class UserRepositoryRealm {
         return realm.objects(UserRealm.self).filter("id == %@", id).first
     }
     
-    func updateUser(id: Int, firstName: String, lastName: String, isClosed: Bool, canAccessClosed: Bool, photo50: String, online: Int, trackCode: String, deactivated: Int, lists: Int) {
+    func updateUser(id: Int, firstName: String, lastName: String, isClosed: Bool, canAccessClosed: Bool, photo100: String, online: Int, deactivated: String) {
         let realm = try! Realm()
         try! realm.write {
             self.userRealm.id = id
@@ -58,11 +63,9 @@ class UserRepositoryRealm {
             self.userRealm.lastName = lastName
             self.userRealm.isClosed = isClosed
             self.userRealm.canAccessClosed = canAccessClosed
-            self.userRealm.photo50 = photo50
+            self.userRealm.photo100 = photo100
             self.userRealm.online = online
-            self.userRealm.trackCode = trackCode
             self.userRealm.deactivated = deactivated
-            self.userRealm.lists = lists
         }
     }
     
