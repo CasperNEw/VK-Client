@@ -16,13 +16,12 @@ class VKApi {
                                      params: Parameters,
                                      completion: @escaping (Swift.Result<[T], Error>) -> Void) {
         Alamofire.request(requestURL, method: method, parameters: params)
-            .responseData { (result) in
+            .responseData { result in
                 
                 /*
                 //TODO
-                
                 //Надо добавить логику проверки валидности токена
-                
+                 
                 //Удаляем данные из Keychain
                 let keychain = Keychain(service: "UserSecrets")
                 keychain["token"] = nil

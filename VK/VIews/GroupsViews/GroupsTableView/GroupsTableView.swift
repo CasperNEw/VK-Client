@@ -5,6 +5,8 @@ class GroupsTableView: UITableViewController {
     
     var dataGroups = [GroupVK]()
     var vkApi = VKApi()
+    var database = GroupRepository()
+    var customRefreshControl = UIRefreshControl()
     
     @IBOutlet var groupsView: UITableView!
     
@@ -47,17 +49,15 @@ class GroupsTableView: UITableViewController {
     }
     
     override func viewDidLoad() {
-        vkApi.getGroupListForUser(token: Session.instance.token, version: Session.instance.version ,user: Session.instance.userId) { [weak self] result in
-            do {
-                let resultData = try result.get()
-                self?.dataGroups = resultData
-                self?.makeSortedGroups()
-                self?.tableView.reloadData()
-            } catch {
-                print("[Logging] Error retrieving the value: \(error)")
-            }
-        }
+        
+        getGroupsFromApi()
+        getGroupsFromDatabase()
+        
         addSearchController()
+        addRefreshControl()
+        tableView.reloadData()
+        
+        
         
         print("[Logging] load Groups View")
     }
@@ -73,9 +73,50 @@ class GroupsTableView: UITableViewController {
         groupsSearchController.searchBar.placeholder = "Groups search"
         navigationItem.searchController = groupsSearchController
         definesPresentationContext = true
-        
-        //sortedGroups = dataGroups
     }
+    
+    func addRefreshControl() {
+        customRefreshControl.attributedTitle = NSAttributedString(string: "Refreshing ...")
+        customRefreshControl.addTarget(self, action: #selector(refreshTable), for: .valueChanged)
+        tableView.addSubview(customRefreshControl)
+    }
+    
+    @objc func refreshTable() {
+        //print("[Logging] Update CoreData[GroupCD] from server")
+        print("[Logging] Update Realm[GroupRealm] from server")
+
+        getGroupsFromApi()
+        getGroupsFromDatabase()
+        
+        
+        self.customRefreshControl.endRefreshing()
+    }
+    
+    func getGroupsFromApi() {
+        
+        vkApi.getGroupListForUser(token: Session.instance.token, version: Session.instance.version, user: Session.instance.userId) { [weak self] result in
+            switch result {
+            case .success(let groups):
+                //записываем данные в БД Realm
+                self?.database.addGroups(groups: groups)
+            case .failure(let error):
+                //TODO Alert to User in VC
+                print("[Logging] Error retrieving the value: \(error)")
+            }
+        }
+        
+    }
+    
+    func getGroupsFromDatabase() {
+        do {
+            self.dataGroups = Array(try database.getAllGroups()).map{ $0.toModel() }
+            self.makeSortedGroups()
+            self.tableView.reloadData()
+        } catch {
+            print(error)
+        }
+    }
+    
     //Убрал реализацию добавления группы из GlobalGroupsTableView. Добавим реализацию после обработки json для GlobalGroup.
     /*
     @IBAction func addGroup(segue: UIStoryboardSegue) {

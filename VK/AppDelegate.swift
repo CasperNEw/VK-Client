@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let keychain = Keychain(service: "UserSecrets")
         
-        if keychain["token"] != nil {
+        if let token = keychain["token"], let userId = keychain["userId"] {
             
             window = UIWindow(frame: UIScreen.main.bounds)
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -28,12 +28,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             window?.rootViewController = UINavigationController(rootViewController: tabBarVC)
             window?.makeKeyAndVisible()
             
+            //присваиваем значения нашему singleton instance
+            Session.instance.token = token
+            Session.instance.userId = userId
+            Session.instance.version = "5.103"
+            
             print("[Logging] [Keychain] Token exist")
         } else {
             print("[Logging] [Keychain] Token not exist")
         }
         
+        
+        
         /*
+         
+         //Шифрование БД Realm
          if let key = keychain.getKey {
             let config = Realm.Configuration(encryptionKey: key, schemaVersion: 1)
             Realm.Configuration.defaultConfiguration = config
