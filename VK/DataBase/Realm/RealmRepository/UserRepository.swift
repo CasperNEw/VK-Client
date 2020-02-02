@@ -49,7 +49,6 @@ class UserRepository {
                 realm.add(usersToAdd, update: .modified)
             }
             //print(realm.objects(UserRealm.self))
-            print()
         } catch {
             print(error)
         }

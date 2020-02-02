@@ -24,9 +24,9 @@ class ProfileTableView: UITableViewController {
     
     @IBOutlet weak var profileImage: UIImageView!
     
-    var dataPhotos = [PhotoVK]()
+    var dataPhotos = [PhotoSpVK]()
     var dataUserSpecial = [UserSpecial]()
-    var dataPhotosTest = [PhotoVK]()
+    var dataPhotosTest = [PhotoSpVK]()
     
     override func viewDidLoad() {
         super.viewDidLoad()

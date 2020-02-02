@@ -59,7 +59,7 @@ class VKApi {
                 }
         }
     }
-    func getPhotoInAlbum(token: String, version: String, ownerId: String, album: Album, completion: @escaping (Swift.Result<[PhotoVK], Error>) -> Void ) {
+    func getPhotoInAlbum(token: String, version: String, ownerId: String, album: Album, completion: @escaping (Swift.Result<[PhotoSpVK], Error>) -> Void ) {
         let requestURL = vkURL + "photos.get"
         let params = ["access_token": token,
                       "owner_id": ownerId,
@@ -69,6 +69,17 @@ class VKApi {
                       "photo_sizes": "1",
                       "v": version] as [String : Any]
         
+        requestServer(requestURL: requestURL, method: .post, params: params) { completion($0) }
+    }
+    
+    func getUsersPhoto(token: String, version: String, ownerId: String, completion: @escaping (Swift.Result<[PhotoSpVK], Error>) -> Void ) {
+        let requestURL = vkURL + "photos.getAll"
+        let params = ["access_token": token,
+                      "owner_id": ownerId,
+                      "no_service_albums": "0",
+                      "extended": "1",
+                      "photo_sizes": "1",
+                      "v": version] as [String : Any]
         
         requestServer(requestURL: requestURL, method: .post, params: params) { completion($0) }
     }

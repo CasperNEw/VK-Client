@@ -24,6 +24,8 @@
 		DA56740523E447F50050080F /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA56740423E447F40050080F /* UserRepository.swift */; };
 		DA56740723E598B10050080F /* FriendsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA56740623E598B00050080F /* FriendsPresenter.swift */; };
 		DA56740923E59C1F0050080F /* FriendsConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA56740823E59C1F0050080F /* FriendsConfigurator.swift */; };
+		DA56740B23E6AE110050080F /* PhotoVK.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA56740A23E6AE110050080F /* PhotoVK.swift */; };
+		DA56740D23E6C9400050080F /* PhotoRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA56740C23E6C9400050080F /* PhotoRepository.swift */; };
 		DA5D606623957534000002D6 /* ProfileForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5D606523957534000002D6 /* ProfileForm.swift */; };
 		DA5D606823957838000002D6 /* FriendsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5D606723957838000002D6 /* FriendsTableView.swift */; };
 		DA5D606A23957FF1000002D6 /* FriendsCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5D606923957FF1000002D6 /* FriendsCollectionView.swift */; };
@@ -63,7 +65,7 @@
 		DACB2FC223ACEC2500816B0F /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACB2FC123ACEC2500816B0F /* TestViewController.swift */; };
 		DACD6A2123D5298400D1C9DD /* UserVK.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACD6A2023D5298400D1C9DD /* UserVK.swift */; };
 		DACD6A2323D5A8D800D1C9DD /* GroupVK.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACD6A2223D5A8D800D1C9DD /* GroupVK.swift */; };
-		DACD6A2523D5BF0300D1C9DD /* PhotoVK.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACD6A2423D5BF0300D1C9DD /* PhotoVK.swift */; };
+		DACD6A2523D5BF0300D1C9DD /* PhotoSpVK.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACD6A2423D5BF0300D1C9DD /* PhotoSpVK.swift */; };
 		DACD6A2723D5CEC100D1C9DD /* UserSpecial.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACD6A2623D5CEC100D1C9DD /* UserSpecial.swift */; };
 		DAE3726023B89539006FC3F4 /* ProfileCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE3725E23B89539006FC3F4 /* ProfileCollectionCell.swift */; };
 		DAE3726123B89539006FC3F4 /* ProfileCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DAE3725F23B89539006FC3F4 /* ProfileCollectionCell.xib */; };
@@ -123,6 +125,8 @@
 		DA56740423E447F40050080F /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
 		DA56740623E598B00050080F /* FriendsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsPresenter.swift; sourceTree = "<group>"; };
 		DA56740823E59C1F0050080F /* FriendsConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsConfigurator.swift; sourceTree = "<group>"; };
+		DA56740A23E6AE110050080F /* PhotoVK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoVK.swift; sourceTree = "<group>"; };
+		DA56740C23E6C9400050080F /* PhotoRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoRepository.swift; sourceTree = "<group>"; };
 		DA5D606523957534000002D6 /* ProfileForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileForm.swift; sourceTree = "<group>"; };
 		DA5D606723957838000002D6 /* FriendsTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsTableView.swift; sourceTree = "<group>"; };
 		DA5D606923957FF1000002D6 /* FriendsCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsCollectionView.swift; sourceTree = "<group>"; };
@@ -162,7 +166,7 @@
 		DACB2FC123ACEC2500816B0F /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		DACD6A2023D5298400D1C9DD /* UserVK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserVK.swift; sourceTree = "<group>"; };
 		DACD6A2223D5A8D800D1C9DD /* GroupVK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupVK.swift; sourceTree = "<group>"; };
-		DACD6A2423D5BF0300D1C9DD /* PhotoVK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoVK.swift; sourceTree = "<group>"; };
+		DACD6A2423D5BF0300D1C9DD /* PhotoSpVK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSpVK.swift; sourceTree = "<group>"; };
 		DACD6A2623D5CEC100D1C9DD /* UserSpecial.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSpecial.swift; sourceTree = "<group>"; };
 		DAE3725E23B89539006FC3F4 /* ProfileCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCollectionCell.swift; sourceTree = "<group>"; };
 		DAE3725F23B89539006FC3F4 /* ProfileCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileCollectionCell.xib; sourceTree = "<group>"; };
@@ -348,6 +352,7 @@
 			isa = PBXGroup;
 			children = (
 				DA56740423E447F40050080F /* UserRepository.swift */,
+				DA56740C23E6C9400050080F /* PhotoRepository.swift */,
 			);
 			path = RealmRepository;
 			sourceTree = "<group>";
@@ -408,7 +413,8 @@
 				DACD6A2023D5298400D1C9DD /* UserVK.swift */,
 				DACD6A2623D5CEC100D1C9DD /* UserSpecial.swift */,
 				DACD6A2223D5A8D800D1C9DD /* GroupVK.swift */,
-				DACD6A2423D5BF0300D1C9DD /* PhotoVK.swift */,
+				DA56740A23E6AE110050080F /* PhotoVK.swift */,
+				DACD6A2423D5BF0300D1C9DD /* PhotoSpVK.swift */,
 				DA5673E923DEE32E0050080F /* CommonResponse.swift */,
 				DA74265223CD81490054732A /* Session.swift */,
 			);
@@ -806,13 +812,14 @@
 				DA5D606E2395856D000002D6 /* GlobalSearchGroupsTableView.swift in Sources */,
 				DA779EE823A7778500A2E911 /* CustomCollectionViewLayout.swift in Sources */,
 				DA7D1EE92398FB4D009E0514 /* GradientView.swift in Sources */,
-				DACD6A2523D5BF0300D1C9DD /* PhotoVK.swift in Sources */,
+				DACD6A2523D5BF0300D1C9DD /* PhotoSpVK.swift in Sources */,
 				DA56740123E2EA030050080F /* UserCD+CoreDataProperties.swift in Sources */,
 				DAA5E4D22396935A00B09EE7 /* FriendsCollectionCell.swift in Sources */,
 				DAE3726023B89539006FC3F4 /* ProfileCollectionCell.swift in Sources */,
 				DA1C7B89239A388C00FDA5D7 /* FooterWithLike.swift in Sources */,
 				DAA5E4CC239674A900B09EE7 /* GroupsCell.swift in Sources */,
 				DA5673F323E1E03F0050080F /* VK.xcdatamodeld in Sources */,
+				DA56740D23E6C9400050080F /* PhotoRepository.swift in Sources */,
 				DA4AE947239FACD1009B6300 /* ParallaxTableView.swift in Sources */,
 				DA5D607223966096000002D6 /* FriendsTableViewCell.swift in Sources */,
 				DAA5E4C823966E7100B09EE7 /* GlobalGroupsCell.swift in Sources */,
@@ -822,6 +829,7 @@
 				DA5D607023958784000002D6 /* ProfileTableView.swift in Sources */,
 				DA4AE945239F75E6009B6300 /* LikeButton.swift in Sources */,
 				DA5D606A23957FF1000002D6 /* FriendsCollectionView.swift in Sources */,
+				DA56740B23E6AE110050080F /* PhotoVK.swift in Sources */,
 				DA779EDB23A4D8E100A2E911 /* MessageTableView.swift in Sources */,
 				DA56740223E2EA030050080F /* UserCD+CoreDataClass.swift in Sources */,
 				DACD6A2723D5CEC100D1C9DD /* UserSpecial.swift in Sources */,
