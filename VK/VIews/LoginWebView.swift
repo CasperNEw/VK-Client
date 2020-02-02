@@ -1,6 +1,7 @@
 import UIKit
 import Alamofire
 import WebKit
+import KeychainAccess
 
 class LoginWebView: UIViewController {
     
@@ -92,6 +93,13 @@ extension LoginWebView: WKNavigationDelegate {
                 
                 return
         }
+        
+        //Сохраняем данные в Keychain
+        let keychain = Keychain(service: "UserSecrets")
+        
+        keychain["token"] = token
+        keychain["userId"] = userId
+        
         //присваиваем значения нашему singleton instance
         Session.instance.token = token
         Session.instance.userId = userId

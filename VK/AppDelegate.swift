@@ -8,21 +8,30 @@
 
 import UIKit
 import RealmSwift
+import KeychainAccess
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-
-
+    
+    var window: UIWindow?
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        /*
-         if let token = keychain.getToken()
-         Показать основной экран
-         UserSession.defaultSession.token = token
-         
-         */
+        let keychain = Keychain(service: "UserSecrets")
+        
+        if keychain["token"] != nil {
+            
+            window = UIWindow(frame: UIScreen.main.bounds)
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let tabBarVC = storyboard.instantiateViewController(withIdentifier: "MainView")
+            window?.rootViewController = UINavigationController(rootViewController: tabBarVC)
+            window?.makeKeyAndVisible()
+            
+            print("[Logging] [Keychain] Token exist")
+        } else {
+            print("[Logging] [Keychain] Token not exist")
+        }
         
         /*
          if let key = keychain.getKey {
@@ -35,10 +44,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 let config = Realm.Configuration(encryptionKey: key, schemaVersion: 1)
                 Realm.Configuration.defaultConfiguration = config
          }
-         
          */
-        
-        
         
         /*
         //Конфигурация миграции БД Realm

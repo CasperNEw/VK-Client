@@ -1,5 +1,6 @@
 import UIKit
 import Alamofire
+import KeychainAccess
 
 enum RequestError: Error {
     case failedRequest(message: String)
@@ -16,6 +17,25 @@ class VKApi {
                                      completion: @escaping (Swift.Result<[T], Error>) -> Void) {
         Alamofire.request(requestURL, method: method, parameters: params)
             .responseData { (result) in
+                
+                /*
+                //TODO
+                
+                //Надо добавить логику проверки валидности токена
+                
+                //Удаляем данные из Keychain
+                let keychain = Keychain(service: "UserSecrets")
+                keychain["token"] = nil
+                keychain["userId"] = nil
+                
+                var window: UIWindow?
+                window = UIWindow(frame: UIScreen.main.bounds)
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let mainVC = storyboard.instantiateViewController(withIdentifier: "LoginWebView")
+                window?.rootViewController = UINavigationController(rootViewController: mainVC)
+                window?.makeKeyAndVisible()
+                */
+                
                 guard let data = result.value else {
                     completion(.failure(RequestError.failedRequest(message: "[Error] Request failed ")))
                     return

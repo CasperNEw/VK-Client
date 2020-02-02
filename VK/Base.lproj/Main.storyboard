@@ -11,7 +11,7 @@
         <!--Login Web View-->
         <scene sceneID="ToT-Ng-n7p">
             <objects>
-                <viewController id="Ac9-hx-UvX" customClass="LoginWebView" customModule="VK_KonstantinovDS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginWebView" id="Ac9-hx-UvX" customClass="LoginWebView" customModule="VK_KonstantinovDS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="myg-Y3-0Hv">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -995,7 +995,7 @@
         <!--Navigation Controller-->
         <scene sceneID="P0H-cG-1hc">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="q59-0i-6uO" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="MainNavigationController" automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="q59-0i-6uO" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="qFs-G6-YtB">
                         <autoresizingMask key="autoresizingMask"/>

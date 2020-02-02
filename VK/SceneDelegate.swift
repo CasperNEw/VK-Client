@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import KeychainAccess
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -17,7 +18,22 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-        guard let _ = (scene as? UIWindowScene) else { return }
+        guard let windowScene = (scene as? UIWindowScene) else { return }
+        
+        let keychain = Keychain(service: "UserSecrets")
+        
+        if keychain["token"] != nil {
+            
+            window = UIWindow(windowScene: windowScene)
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let tabBarVC = storyboard.instantiateViewController(withIdentifier: "MainView")
+            window?.rootViewController = UINavigationController(rootViewController: tabBarVC)
+            window?.makeKeyAndVisible()
+            
+            print("[Logging] [Keychain] Token exist")
+        } else {
+            print("[Logging] [Keychain] Token not exist")
+        }
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

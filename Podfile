@@ -8,6 +8,7 @@ target 'VK' do
   pod 'Alamofire'
   pod 'Kingfisher'
   pod 'RealmSwift'
+  pod 'KeychainAccess'
 
   # Pods for VK
 
