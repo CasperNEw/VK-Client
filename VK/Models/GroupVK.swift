@@ -1,19 +1,10 @@
 import Foundation
 
-//struct ResponseGroup: Codable {
-//    let response: ResponseDataGroup
-//}
-//
-//struct ResponseDataGroup: Codable {
-//    let count: Int
-//    let items: [GroupVK]
-//}
-
 struct GroupVK: Codable {
     let id: Int
     let name, screenName: String
     let isClosed: Int
-    let type: TypeEnum
+    let type: String
     let isAdmin, isMember, isAdvertiser: Int
     let photo50: String
     let adminLevel: Int?
@@ -29,10 +20,4 @@ struct GroupVK: Codable {
         case photo50 = "photo_50"
         case adminLevel = "admin_level"
     }
-}
-
-enum TypeEnum: String, Codable {
-    case event = "event"
-    case group = "group"
-    case page = "page"
 }

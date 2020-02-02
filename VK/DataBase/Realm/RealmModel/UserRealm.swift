@@ -21,7 +21,6 @@ class UserRealm: Object {
     
     var groups = List<GroupRealm>()
     
-    //Удалить если нигде не будешь использовать в коде!
     func toModel() -> UserVK {
         return UserVK(id: id, firstName: firstName, lastName: lastName, isClosed: isClosed, canAccessClosed: canAccessClosed, photo100: photo100, online: online, deactivated: deactivated)
     }

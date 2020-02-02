@@ -81,6 +81,7 @@
 		DAF16BBC238D2EF400FF58D0 /* LoginForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF16BBB238D2EF400FF58D0 /* LoginForm.swift */; };
 		DAF97A6323AFA0FC00753D94 /* CornerImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF97A6223AFA0FC00753D94 /* CornerImageView.swift */; };
 		DAF97A6523AFD05B00753D94 /* TestTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF97A6423AFD05B00753D94 /* TestTableViewController.swift */; };
+		DAFB07E923E6DDE200365F85 /* GroupRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFB07E823E6DDE200365F85 /* GroupRepository.swift */; };
 		DCD8AC223906837916FDC131 /* Pods_VKTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56488D64A19CAFB1219C0B8F /* Pods_VKTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -188,6 +189,7 @@
 		DAF16BBB238D2EF400FF58D0 /* LoginForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginForm.swift; sourceTree = "<group>"; };
 		DAF97A6223AFA0FC00753D94 /* CornerImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornerImageView.swift; sourceTree = "<group>"; };
 		DAF97A6423AFD05B00753D94 /* TestTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestTableViewController.swift; sourceTree = "<group>"; };
+		DAFB07E823E6DDE200365F85 /* GroupRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupRepository.swift; sourceTree = "<group>"; };
 		F5E46DFDE1EC82F6CACD47FC /* Pods-VKTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VKTests.release.xcconfig"; path = "Target Support Files/Pods-VKTests/Pods-VKTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -353,6 +355,7 @@
 			children = (
 				DA56740423E447F40050080F /* UserRepository.swift */,
 				DA56740C23E6C9400050080F /* PhotoRepository.swift */,
+				DAFB07E823E6DDE200365F85 /* GroupRepository.swift */,
 			);
 			path = RealmRepository;
 			sourceTree = "<group>";
@@ -834,6 +837,7 @@
 				DA56740223E2EA030050080F /* UserCD+CoreDataClass.swift in Sources */,
 				DACD6A2723D5CEC100D1C9DD /* UserSpecial.swift in Sources */,
 				DA74265323CD814A0054732A /* Session.swift in Sources */,
+				DAFB07E923E6DDE200365F85 /* GroupRepository.swift in Sources */,
 				DA5673EA23DEE32E0050080F /* CommonResponse.swift in Sources */,
 				DA8A9B0223D3169A00AD416B /* LoginWebView.swift in Sources */,
 				DAF97A6323AFA0FC00753D94 /* CornerImageView.swift in Sources */,

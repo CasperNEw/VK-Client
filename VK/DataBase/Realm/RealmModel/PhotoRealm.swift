@@ -32,8 +32,7 @@ class PhotoRealm: Object {
         let reposts = PhotoReposts(count: self.repostsCount)
         
         return PhotoVK(id: id, albumID: albumID, ownerID: ownerID, sizes: sizes, text: text, date: date, likes: likes, reposts: reposts)
-        
-        
+    
     }
 }
 
