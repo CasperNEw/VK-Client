@@ -38,6 +38,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("[Logging] [Keychain] Token not exist")
         }
         
+        let config = Realm.Configuration(schemaVersion: 1)
+        Realm.Configuration.defaultConfiguration = config
+        
+        print(config.fileURL)
         
         
         /*

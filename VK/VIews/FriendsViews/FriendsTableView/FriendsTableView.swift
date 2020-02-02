@@ -59,7 +59,7 @@ class FriendsTableView: UITableViewController {
     
     override func viewDidLoad() {
         
-        presenter = FriendsPresenterImplementation()
+        presenter = FriendsPresenterImplementation(database: UserRepository())
         presenter?.viewDidLoad()
         
         addSearchController()

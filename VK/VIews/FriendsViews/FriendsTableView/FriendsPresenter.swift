@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import RealmSwift
 
 protocol FriendsPresenter {
     
@@ -22,15 +23,17 @@ class FriendsPresenterImplementation: FriendsPresenter {
     
     
     private var vkApi: VKApi
-    private var database: UserRepository
+    private var database: UserSourse
     //выносим все данные из ViewController'a в Presenter
-    private var dataFriends = [UserVK]()
-    private var friendsWithSections = [Section<UserVK>]()
+//    private var dataFriends = [UserVK]()
+//    private var friendsWithSections = [Section<UserVK>]()
     //var friendsSection = [Section<UserVK>]()
+    private var friendsResult: Results<UserRealm>!
+    private var friendsWithSectionsResults = [Section<UserRealm>]()
     
-    init() {
+    init(database: UserSourse) {
         vkApi = VKApi()
-        database = UserRepository()
+        self.database = database
     }
     
     func viewDidLoad() {
@@ -39,10 +42,10 @@ class FriendsPresenterImplementation: FriendsPresenter {
     }
     
     func searchFriends(name: String) {
-        do {
+      /*  do {
             self.dataFriends = name.isEmpty ?
                 Array(try database.getAllUsers()).map{ $0.toModel() } :
-                Array(try database.searchusers(name: name)).map{ $0.toModel() }
+                Array(try database.searchUsers(name: name)).map{ $0.toModel() }
             
             //В рамках текущей реализации сдесь должна быть проверка на то какую БД мы используем. То есть возможен сценарий когда dataFriends у нас != 0, но имеется проблема с БД Realm. И при инициализации страницы мы получили исходные данные из CoreData.
              
@@ -54,12 +57,12 @@ class FriendsPresenterImplementation: FriendsPresenter {
             //TODO ??
         } catch {
             print(error)
-        }
+        }*/
     }
 
     private func getUsersFromDatabase() {
         do {
-            self.dataFriends = Array(try database.getAllUsers()).map{ $0.toModel() }
+            self.friendsResult = try database.getAllUsers()
             self.makeSortedSection()
         } catch {
             print(error)
@@ -73,13 +76,16 @@ class FriendsPresenterImplementation: FriendsPresenter {
     
     private func getUsersFromApi() {
         
-        vkApi.getFriendList(token: Session.instance.token, version: Session.instance.version)
-        { [weak self] result in
+        vkApi.getFriendList(token: Session.instance.token, version: Session.instance.version) { result in
             switch result {
             case .success(let users):
-                self?.dataFriends = users
-                self?.database.addUsers(users: users)
-                //TODO Upload DB data ?
+                do {
+                    self.database.addUsers(users: users)
+                    self.friendsResult = try self.database.getAllUsers()
+                    self.makeSortedSection()
+                } catch {
+                    print(error)
+                }
             case .failure(let error):
                 //TODO Alert to User in VC
                 print("[Logging] Error retrieving the value: \(error)")
@@ -89,10 +95,13 @@ class FriendsPresenterImplementation: FriendsPresenter {
     }
     
     func makeSortedSection() {
-        let friendsDictionary = Dictionary.init(grouping: dataFriends ) { $0.lastName.prefix(1) }
-        friendsWithSections = friendsDictionary.map { Section(title: String($0.key), items: $0.value) }
-        friendsWithSections.sort { $0.title < $1.title }
+        let friendsDictionary = Dictionary.init(grouping: friendsResult ) { $0.lastName.prefix(1) }
+        friendsWithSectionsResults = friendsDictionary.map { Section(title: String($0.key), items: $0.value) }
+        friendsWithSectionsResults.sort { $0.title < $1.title }
         //TODO ??
+//        let friendsDictionary = Dictionary.init(grouping: dataFriends ) { $0.lastName.prefix(1) }
+//        friendsWithSections = friendsDictionary.map { Section(title: String($0.key), items: $0.value) }
+//        friendsWithSections.sort { $0.title < $1.title }
     }
     
         

@@ -1,30 +1,33 @@
 import UIKit
 import Kingfisher
+import RealmSwift
 
 class GroupsTableView: UITableViewController {
     
-    var dataGroups = [GroupVK]()
+    //var dataGroups = [GroupVK]()
     var vkApi = VKApi()
     var database = GroupRepository()
     var customRefreshControl = UIRefreshControl()
     
+    var groupsResult: Results<GroupRealm>?
+    var token: NotificationToken?
+    
     @IBOutlet var groupsView: UITableView!
     
     private let groupsSearchController = UISearchController(searchResultsController: nil)
-    var sortedGroups = [GroupVK]()
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sortedGroups.count
+        return groupsResult?.count ?? 0
     }
     //реализация присвоения титулу ячеек значений элементов массива dataGroups, идентификатор CellGroups задается в Storyboard
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "CellGroups", for: indexPath) as? GroupsCell else {
-            return UITableViewCell()
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "CellGroups", for: indexPath) as? GroupsCell,
+              let group = groupsResult?[indexPath.row] else {
+                return UITableViewCell()
         }
-        cell.groupsName.text = sortedGroups[indexPath.row].name
-        
+        cell.groupsName.text = group.name
         //используем Kingfisher для загрузки и кеширования изображений
-        let url = URL(string: sortedGroups[indexPath.row].photo50)
+        let url = URL(string: group.photo50)
         cell.groupImage.kf.setImage(with: url)
         
         return cell
@@ -32,7 +35,7 @@ class GroupsTableView: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //плавная анимация исчезновения выделения
         tableView.deselectRow(at: indexPath, animated: true)
-        print("[Loggin] tapped - \(sortedGroups[indexPath.row].name)")
+        print("[Loggin] tapped - \(String(describing: groupsResult?[indexPath.row].name))")
         //сделаем переключение на alert - Error! так как у нас пока нет внутренностей для групп
         let alert = UIAlertController(title: "Error", message: "Access error", preferredStyle: .alert)
         let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
@@ -41,32 +44,42 @@ class GroupsTableView: UITableViewController {
     }
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
+            
+            //TODO: remove from database & server !
+            /*
             print("[Logging] delete group from favorite - \(sortedGroups[indexPath.row].name)")
             dataGroups.removeAll(where: {$0.name == sortedGroups[indexPath.row].name })
             sortedGroups.remove(at: indexPath.row)
+            */
+            
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
     
     override func viewDidLoad() {
         
-        getGroupsFromApi()
-        getGroupsFromDatabase()
-        
         addSearchController()
         addRefreshControl()
-        tableView.reloadData()
         
-        
+        let hideAction = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        view.addGestureRecognizer(hideAction)
         
         print("[Logging] load Groups View")
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        getGroupsFromApi()
+        getGroupsFromDatabase()
+    }
+    
+    deinit {
+        token?.invalidate()
+    }
+    
     @objc func hideKeyboard() {
         view.endEditing(true)
     }
-    func makeSortedGroups() {
-        sortedGroups = dataGroups
-    }
+    
     func addSearchController() {
         groupsSearchController.searchResultsUpdater = self
         groupsSearchController.obscuresBackgroundDuringPresentation = false
@@ -87,6 +100,7 @@ class GroupsTableView: UITableViewController {
 
         getGroupsFromApi()
         getGroupsFromDatabase()
+        tableView.reloadData()
         
         
         self.customRefreshControl.endRefreshing()
@@ -109,9 +123,21 @@ class GroupsTableView: UITableViewController {
     
     func getGroupsFromDatabase() {
         do {
-            self.dataGroups = Array(try database.getAllGroups()).map{ $0.toModel() }
-            self.makeSortedGroups()
-            self.tableView.reloadData()
+            groupsResult = try database.getAllGroups()
+            token = groupsResult?.observe { [weak self] results in
+                switch results {
+                case .error(let error):
+                    print(error)
+                case .initial:
+                    self?.tableView.reloadData()
+                case let .update(_, deletions, insertions, modifications):
+                    self?.tableView.beginUpdates()
+                    self?.tableView.deleteRows(at: deletions.map { IndexPath(row: $0, section: 0) }, with: .none)
+                    self?.tableView.insertRows(at: insertions.map { IndexPath(row: $0, section: 0) }, with: .none)
+                    self?.tableView.reloadRows(at: modifications.map { IndexPath(row: $0, section: 0) }, with: .none)
+                    self?.tableView.endUpdates()
+                }
+            }
         } catch {
             print(error)
         }
@@ -148,8 +174,7 @@ extension GroupsTableView: UISearchResultsUpdating {
     private func filterContentForSearchText(_ searchText: String) {
         
         do {
-            self.sortedGroups = searchText.isEmpty ? Array(try database.getAllGroups()).map{ $0.toModel() } : Array(try database.searchGroup(name: searchText)).map{ $0.toModel() }
-            
+            groupsResult = searchText.isEmpty ? try database.getAllGroups() : try database.searchGroup(name: searchText)
             self.tableView.reloadData()
         } catch {
             print(error)
