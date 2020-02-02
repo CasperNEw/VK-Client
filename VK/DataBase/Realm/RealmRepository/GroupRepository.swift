@@ -53,7 +53,7 @@ class GroupRepository {
     func searchGroup(name: String) throws -> Results<GroupRealm> {
         do {
             let realm = try Realm()
-            return realm.objects(GroupRealm.self).filter("name CONTAINT[c] %@", name)
+            return realm.objects(GroupRealm.self).filter("name CONTAINS[c] %@", name)
         } catch {
             throw error
         }

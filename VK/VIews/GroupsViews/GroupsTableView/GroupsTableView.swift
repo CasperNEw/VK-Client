@@ -146,10 +146,13 @@ extension GroupsTableView: UISearchResultsUpdating {
         filterContentForSearchText(searchController.searchBar.text!)
     }
     private func filterContentForSearchText(_ searchText: String) {
-        sortedGroups = dataGroups.filter { (group) -> Bool in
-            return searchText.isEmpty ? true : group.name.lowercased().contains(searchText.lowercased())
+        
+        do {
+            self.sortedGroups = searchText.isEmpty ? Array(try database.getAllGroups()).map{ $0.toModel() } : Array(try database.searchGroup(name: searchText)).map{ $0.toModel() }
+            
+            self.tableView.reloadData()
+        } catch {
+            print(error)
         }
-        tableView.reloadData()
     }
-    
 }
