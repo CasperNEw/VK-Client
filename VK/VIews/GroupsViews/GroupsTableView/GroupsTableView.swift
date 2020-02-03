@@ -4,7 +4,6 @@ import RealmSwift
 
 class GroupsTableView: UITableViewController {
     
-    //var dataGroups = [GroupVK]()
     var vkApi = VKApi()
     var database = GroupRepository()
     var customRefreshControl = UIRefreshControl()
@@ -42,16 +41,20 @@ class GroupsTableView: UITableViewController {
         alert.addAction(action)
         present(alert, animated: true, completion: nil)
     }
+    
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            
-            //TODO: remove from database & server !
-            /*
-            print("[Logging] delete group from favorite - \(sortedGroups[indexPath.row].name)")
-            dataGroups.removeAll(where: {$0.name == sortedGroups[indexPath.row].name })
-            sortedGroups.remove(at: indexPath.row)
-            */
-            
+            guard let targetForDelete = groupsResult?[indexPath.row] else { return }
+            do {
+                let realm = try Realm()
+                realm.beginWrite()
+                realm.delete(targetForDelete)
+                try realm.commitWrite()
+                print("[Logging] delete group from favorite - \(targetForDelete.name)")
+            } catch {
+                print(error)
+            }
+            //TODO: remove from server !
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
@@ -114,11 +117,15 @@ class GroupsTableView: UITableViewController {
                 //записываем данные в БД Realm
                 self?.database.addGroups(groups: groups)
             case .failure(let error):
-                //TODO Alert to User in VC
+                //Уведомление пользователя
+                let alert = UIAlertController(title: "Error", message: "There was an error loading your data, check your network connection", preferredStyle: .alert)
+                let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                alert.addAction(action)
+                self?.present(alert, animated: true, completion: nil)
+                
                 print("[Logging] Error retrieving the value: \(error)")
             }
         }
-        
     }
     
     func getGroupsFromDatabase() {
