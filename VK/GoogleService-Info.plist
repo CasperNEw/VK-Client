@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>850296290190-ncb84i69a4pu12f0oa61ishgvg4d8md5.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.850296290190-ncb84i69a4pu12f0oa61ishgvg4d8md5</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCRzxsFf3vmJdxIbEvMp7tMiUY5i6Db3yc</string>
+	<key>GCM_SENDER_ID</key>
+	<string>850296290190</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>CasperNEw.VK</string>
+	<key>PROJECT_ID</key>
+	<string>gb-vk-c7ae9</string>
+	<key>STORAGE_BUCKET</key>
+	<string>gb-vk-c7ae9.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:850296290190:ios:6a55d049ce7b73e4f1c2df</string>
+	<key>DATABASE_URL</key>
+	<string>https://gb-vk-c7ae9.firebaseio.com</string>
+</dict>
+</plist>

@@ -90,7 +90,7 @@ class UserCDRepository: Repository {
         return save()
     }
     
-    func create(entity: UserVK) -> Bool {
+    @discardableResult func create(entity: UserVK) -> Bool {
         
         if get(id: entity.id) != nil {
             return update(entity: entity)

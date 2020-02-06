@@ -5,8 +5,6 @@ protocol FriendsTableViewUpdater: class {
 }
 
 class FriendsTableView: UITableViewController {
-    //по хорошему надо закинуть в отдельный класс и дописать ... CoreData
-    //var presenterCD = UserListPresenterImplementation(database: UserCDRepository(stack: CoreDataStack.shared), api: VKApi())
     
     var presenter: FriendsPresenter?
     

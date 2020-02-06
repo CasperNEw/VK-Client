@@ -1,5 +1,6 @@
 PODS:
   - Alamofire (4.9.1)
+  - GoogleAnalytics (3.17.0)
   - KeychainAccess (4.1.0)
   - Kingfisher (5.13.0):
     - Kingfisher/Core (= 5.13.0)
@@ -12,6 +13,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire
+  - GoogleAnalytics
   - KeychainAccess
   - Kingfisher
   - RealmSwift
@@ -19,6 +21,7 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - Alamofire
+    - GoogleAnalytics
     - KeychainAccess
     - Kingfisher
     - Realm
@@ -26,11 +29,12 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
+  GoogleAnalytics: f42cc53a87a51fe94334821868d9c8481ff47a7b
   KeychainAccess: 445e28864fe6d3458b41fa211bcdc39890e8bd5a
   Kingfisher: 0d334cada987fcddbe9b5cec516406e1ee9d4748
   Realm: 31dc40934081ef740f60feedc46d88473cbfeb40
   RealmSwift: b5199e9a41f67b99f51acf6874a6166f5fbe93d1
 
-PODFILE CHECKSUM: b78ba236fa6e6c01bdedac8c220e465b8191f814
+PODFILE CHECKSUM: c1bcc483ce01a0ed8c00d306cc9a61a661164bcc
 
 COCOAPODS: 1.8.4

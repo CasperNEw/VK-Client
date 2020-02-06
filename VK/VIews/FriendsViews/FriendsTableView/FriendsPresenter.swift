@@ -122,6 +122,10 @@ struct Section<T> {
     var items: [T]
 }
 
+
+//Инициализировалось в FriendsTable View. дописать ... CoreData
+//var presenterCD = UserListPresenterImplementation(database: UserCDRepository(stack: CoreDataStack.shared), api: VKApi())
+
 //CoreData
 protocol UserListPresenter {
     func getUserList(completion: @escaping (Swift.Result<[UserVK], Error>) -> ())
@@ -136,6 +140,7 @@ class UserListPresenterImplementation: UserListPresenter {
         self.vkApi = api
         self.database = database
     }
+    
     func getUserList(completion: @escaping (Swift.Result<[UserVK], Error>) -> ()) {
         vkApi.getFriendList(token: Session.instance.token, version: Session.instance.version)
         { [weak self] result in
@@ -148,6 +153,7 @@ class UserListPresenterImplementation: UserListPresenter {
             }
         }
     }
+    
     func getUsersFromDatabase() -> [UserVK] {
         return database.getAll()
     }
