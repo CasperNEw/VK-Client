@@ -9,7 +9,8 @@ target 'VK' do
   pod 'Kingfisher'
   pod 'RealmSwift'
   pod 'KeychainAccess'
-  pod 'GoogleAnalytics'
+  pod 'Firebase/Analytics'
+  pod 'Firebase/Crashlytics'
 
   # Pods for VK
 

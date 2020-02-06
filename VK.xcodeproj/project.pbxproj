@@ -578,6 +578,7 @@
 				DAF16B85238D2E0A00FF58D0 /* Frameworks */,
 				DAF16B86238D2E0A00FF58D0 /* Resources */,
 				C9404806AA8C61397C627CCA /* [CP] Embed Pods Frameworks */,
+				DA2B82AB23EC58E200BDAC52 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -787,6 +788,24 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-VK/Pods-VK-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		DA2B82AB23EC58E200BDAC52 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/Info.plist",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
 		};
 		E6D16E3957D79DBF4EDD4AAE /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
