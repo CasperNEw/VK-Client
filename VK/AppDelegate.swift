@@ -18,24 +18,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        let keychain = Keychain(service: "UserSecrets")
-        
-        if let token = keychain["token"], let userId = keychain["userId"] {
-            
-            window = UIWindow(frame: UIScreen.main.bounds)
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let tabBarVC = storyboard.instantiateViewController(withIdentifier: "MainView")
-            window?.rootViewController = UINavigationController(rootViewController: tabBarVC)
-            window?.makeKeyAndVisible()
-            
-            //присваиваем значения нашему singleton instance
-            Session.instance.token = token
-            Session.instance.userId = userId
-            Session.instance.version = "5.103"
-            
-            print("[Logging] [Keychain] Token exist")
-        } else {
-            print("[Logging] [Keychain] Token not exist")
+        if #available(iOS 13, *) { /* Наверное перемудрил =) */ } else {
+            let keychain = Keychain(service: "UserSecrets")
+            //Делаем проверку на валидность токена по времени
+            if let expireIn = Int(keychain["expiresIn"] ?? "0") {
+                //На всякий случай компенсируем час
+                let realTime = Int(Date().timeIntervalSince1970) + 3600
+                if expireIn > realTime {
+                    if let token = keychain["token"], let userId = keychain["userId"] {
+                        
+                        window = UIWindow(frame: UIScreen.main.bounds)
+                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                        let tabBarVC = storyboard.instantiateViewController(withIdentifier: "MainView")
+                        window?.rootViewController = UINavigationController(rootViewController: tabBarVC)
+                        window?.makeKeyAndVisible()
+                        
+                        //присваиваем значения нашему singleton instance
+                        Session.instance.token = token
+                        Session.instance.userId = userId
+                        Session.instance.version = "5.103"
+                        
+                        print("[Logging] [Keychain] Token exist")
+                        print("[Logging] [Keychain] Expires through : " + String(((expireIn - realTime) % 86400) / 3600) + " hours," + String(((expireIn - realTime) % 3600) / 60) + " minutes," + String(((expireIn - realTime) % 3600) % 60) + " seconds")
+                    } else {
+                        print("[Logging] [Keychain] Token not exist")
+                    }
+                }
+            }
         }
         
         let config = Realm.Configuration(schemaVersion: 1)

@@ -26,13 +26,6 @@ class VKApi {
                 let keychain = Keychain(service: "UserSecrets")
                 keychain["token"] = nil
                 keychain["userId"] = nil
-                
-                var window: UIWindow?
-                window = UIWindow(frame: UIScreen.main.bounds)
-                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                let mainVC = storyboard.instantiateViewController(withIdentifier: "LoginWebView")
-                window?.rootViewController = UINavigationController(rootViewController: mainVC)
-                window?.makeKeyAndVisible()
                 */
                 
                 guard let data = result.value else {
@@ -44,6 +37,23 @@ class VKApi {
                     completion(.success(result.response.items))
                 } catch {
                     completion(.failure(error))
+                    
+                    /*
+                    //Хотел сделать переход в момент ошибки, но во первых не осилил как правильно распарсить ошибку что бы понимать что дело именно в токене, а во вторых не осилил как сделать переход.
+                     
+                    //Выдает ошибку на навигейшн контроллер, как понял из гугла, ошибка связана с тем что он не может начать делать анимацию во время выполнения другой анимации, задержка выполнения погоды не сделала.
+                     
+                    //Unbalanced calls to begin/end appearance transitions for <UINavigationController: 0x7f89138c1600>.
+                     
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                        var window: UIWindow
+                        window = UIWindow(frame: UIScreen.main.bounds)
+                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                        let mainVC = storyboard.instantiateViewController(withIdentifier: "LoginWebView")
+                        window.rootViewController = UINavigationController(rootViewController: mainVC)
+                        window.makeKeyAndVisible()
+                    }
+                    */
                 }
         }
     }

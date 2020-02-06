@@ -16,25 +16,6 @@ class LoginWebView: UIViewController {
         webView = WKWebView(frame: .zero, configuration: webViewConfig)
         webView.navigationDelegate = self
         
-        /*
-        //реализация с URLComponent
-        var urlVkComponent = URLComponents()
-        urlVkComponent.scheme = "https"
-        urlVkComponent.host = "oauth.vk.com"
-        urlVkComponent.path = "/authorize"
-        urlVkComponent.queryItems = [URLQueryItem(name: "client_id", value: vkSecret),
-                                     URLQueryItem(name: "redirect_uri", value: "https://oauth.vk.com/blank.html"),
-                                     URLQueryItem(name: "display", value: "mobile"),
-                                     URLQueryItem(name: "scope", value: "262150"),
-                                     URLQueryItem(name: "response_type", value: "token"),
-                                     URLQueryItem(name: "v", value: "5.103")]
-        
-        let request = URLRequest(url: urlVkComponent.url!)
-        webView.load(request)
-        view = webView
-        */
-        
-        //реализация с Alamofire
         let params = ["client_id": vkSecret,
                       "redirect_uri": "https://oauth.vk.com/blank.html",
                       "display": "mobile",
@@ -83,7 +64,8 @@ extension LoginWebView: WKNavigationDelegate {
         
         //безопасно извлекаем token и user_id
         guard let token = params["access_token"],
-            let userId = params["user_id"] else {
+            let userId = params["user_id"],
+            let expiresIn = params["expires_in"] else {
                 //сделаем вывод оповещения при невозможности извлечения token и user_id
                 let alert = UIAlertController(title: "Error", message: "Authorization error", preferredStyle: .alert)
                 let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
@@ -94,11 +76,15 @@ extension LoginWebView: WKNavigationDelegate {
                 return
         }
         
+        //Вводим понимание даты, срока валидности нашего токена
+        let realExpire = String(Int(Date().timeIntervalSince1970) + (Int(expiresIn) ?? 0))
+        
         //Сохраняем данные в Keychain
         let keychain = Keychain(service: "UserSecrets")
         
         keychain["token"] = token
         keychain["userId"] = userId
+        keychain["expiresIn"] = realExpire
         
         //присваиваем значения нашему singleton instance
         Session.instance.token = token
@@ -107,16 +93,7 @@ extension LoginWebView: WKNavigationDelegate {
         
         print("[Logging] token = \(Session.instance.token)")
         print("[Logging] user_id = \(Session.instance.userId)")
-        /*
-        //запрос списка друзей текущего пользователя
-        vkApi.getFriendList(token: Session.instance.token)
-        //запрос фотографий конкретного пользователи и конкретного альбома
-        vkApi.getPhotoInAlbum(token: Session.instance.token, user: Session.instance.userId, album: .profile)
-        //запрос списка групп конкретного пользователя
-        vkApi.getGroupListForUser(token: Session.instance.token, user: Session.instance.userId)
-        //поиск групп по ключевым словам
-        vkApi.getFilteredGroupList(token: Session.instance.token, user: Session.instance.userId, text: "Swift Develop")
-        */
+   
         //запрещаем переходы
         decisionHandler(.cancel)
         

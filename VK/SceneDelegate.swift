@@ -20,19 +20,34 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
-        let keychain = Keychain(service: "UserSecrets")
-        
-        if keychain["token"] != nil {
-            
-            window = UIWindow(windowScene: windowScene)
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let tabBarVC = storyboard.instantiateViewController(withIdentifier: "MainView")
-            window?.rootViewController = UINavigationController(rootViewController: tabBarVC)
-            window?.makeKeyAndVisible()
-            
-            print("[Logging] [Keychain] Token exist")
-        } else {
-            print("[Logging] [Keychain] Token not exist")
+        //Проверка, iOS 13 и выше
+        if #available(iOS 13, *) {
+            let keychain = Keychain(service: "UserSecrets")
+            //Делаем проверку на валидность токена по времени
+            if let expireIn = Int(keychain["expiresIn"] ?? "0") {
+                //На всякий случай компенсируем час
+                let realTime = Int(Date().timeIntervalSince1970) + 3600
+                if expireIn > realTime {
+                    if let token = keychain["token"], let userId = keychain["userId"] {
+                        
+                        window = UIWindow(windowScene: windowScene)
+                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                        let tabBarVC = storyboard.instantiateViewController(withIdentifier: "MainView")
+                        window?.rootViewController = UINavigationController(rootViewController: tabBarVC)
+                        window?.makeKeyAndVisible()
+                        
+                        //присваиваем значения нашему singleton instance
+                        Session.instance.token = token
+                        Session.instance.userId = userId
+                        Session.instance.version = "5.103"
+                        
+                        print("[Logging] [Keychain] Token exist")
+                        print("[Logging] [Keychain] Expires through : " + String(((expireIn - realTime) % 86400) / 3600) + " hours," + String(((expireIn - realTime) % 3600) / 60) + " minutes," + String(((expireIn - realTime) % 3600) % 60) + " seconds")
+                    } else {
+                        print("[Logging] [Keychain] Token not exist")
+                    }
+                }
+            }
         }
     }
 
