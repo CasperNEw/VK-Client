@@ -11,29 +11,29 @@ import RealmSwift
 
 protocol FriendsPresenter {
     
-   // func getUsers()
     func viewDidLoad()
+    func apiRequest()
     func searchFriends(name: String)
     
+    func getNumberOfSections() -> Int
+    func getNumberOfRowsInSection(section: Int) -> Int
+    func getSectionIndexTitles() -> [String]?
+    func getTitleForSection(section: Int) -> String?
+    func getModelAtIndex(indexPath: IndexPath) -> UserRealm?
 }
 
 class FriendsPresenterImplementation: FriendsPresenter {
     
-    
-    
-    
     private var vkApi: VKApi
     private var database: UserSourse
-    //выносим все данные из ViewController'a в Presenter
-//    private var dataFriends = [UserVK]()
-//    private var friendsWithSections = [Section<UserVK>]()
-    //var friendsSection = [Section<UserVK>]()
+    private weak var view: FriendsTableViewUpdater?
     private var friendsResult: Results<UserRealm>!
     private var friendsWithSectionsResults = [Section<UserRealm>]()
     
-    init(database: UserSourse) {
+    init(database: UserSourse, view: FriendsTableViewUpdater) {
         vkApi = VKApi()
         self.database = database
+        self.view = view
     }
     
     func viewDidLoad() {
@@ -41,68 +41,114 @@ class FriendsPresenterImplementation: FriendsPresenter {
         getUsersFromApi()
     }
     
+    func apiRequest() {
+        //принудительное обновление
+        getUsersFromApi()
+    }
+    
     func searchFriends(name: String) {
-      /*  do {
-            self.dataFriends = name.isEmpty ?
-                Array(try database.getAllUsers()).map{ $0.toModel() } :
-                Array(try database.searchUsers(name: name)).map{ $0.toModel() }
+        do {
+            self.friendsResult = name.isEmpty ? try database.getAllUsers() : try database.searchUsers(name: name)
             
-            //В рамках текущей реализации сдесь должна быть проверка на то какую БД мы используем. То есть возможен сценарий когда dataFriends у нас != 0, но имеется проблема с БД Realm. И при инициализации страницы мы получили исходные данные из CoreData.
-             
-            let friendsDictionary = Dictionary(grouping : dataFriends) { $0.lastName.prefix(1) }
-            
-            friendsWithSections = friendsDictionary.map { Section(title: String($0.key), items: $0.value) }
-            friendsWithSections.sort { $0.title < $1.title }
-            
-            //TODO ??
+            let friendsDictionary = Dictionary(grouping : friendsResult) { $0.lastName.prefix(1) }
+            friendsWithSectionsResults = friendsDictionary.map { Section(title: String($0.key), items: $0.value) }
+            friendsWithSectionsResults.sort { $0.title < $1.title }
+            self.view?.updateTable()
         } catch {
             print(error)
-        }*/
+        }
     }
 
     private func getUsersFromDatabase() {
         do {
             self.friendsResult = try database.getAllUsers()
             self.makeSortedSection()
+            self.view?.updateTable()
         } catch {
             print(error)
         }
-        
-        /* //or use CoreData database ...
+        /* //or use CoreData database ... ?!
         self.dataFriends = presenterCD.getUsersFromDatabase()
         self.makeSortedSection()
         */
     }
     
     private func getUsersFromApi() {
-        
         vkApi.getFriendList(token: Session.instance.token, version: Session.instance.version) { result in
             switch result {
             case .success(let users):
-                do {
-                    self.database.addUsers(users: users)
-                    self.friendsResult = try self.database.getAllUsers()
-                    self.makeSortedSection()
-                } catch {
-                    print(error)
-                }
+                self.database.addUsers(users: users)
+                self.getUsersFromDatabase()
             case .failure(let error):
-                //TODO Alert to User in VC
                 print("[Logging] Error retrieving the value: \(error)")
             }
         }
-        
     }
     
     func makeSortedSection() {
         let friendsDictionary = Dictionary.init(grouping: friendsResult ) { $0.lastName.prefix(1) }
         friendsWithSectionsResults = friendsDictionary.map { Section(title: String($0.key), items: $0.value) }
         friendsWithSectionsResults.sort { $0.title < $1.title }
-        //TODO ??
-//        let friendsDictionary = Dictionary.init(grouping: dataFriends ) { $0.lastName.prefix(1) }
-//        friendsWithSections = friendsDictionary.map { Section(title: String($0.key), items: $0.value) }
-//        friendsWithSections.sort { $0.title < $1.title }
     }
     
         
+}
+
+extension FriendsPresenterImplementation {
+    
+    func getModelAtIndex(indexPath: IndexPath) -> UserRealm? {
+        return friendsWithSectionsResults[indexPath.section].items[indexPath.row]
+    }
+    
+    func getNumberOfSections() -> Int {
+        return friendsWithSectionsResults.count
+    }
+    
+    func getSectionIndexTitles() -> [String]? {
+        return friendsWithSectionsResults.map { $0.title }
+    }
+    
+    func getTitleForSection(section: Int) -> String? {
+        return friendsWithSectionsResults[section].title
+    }
+    
+    func getNumberOfRowsInSection(section: Int) -> Int {
+        return friendsWithSectionsResults[section].items.count
+    }
+}
+
+struct Section<T> {
+    var title: String
+    var items: [T]
+}
+
+//CoreData
+protocol UserListPresenter {
+    func getUserList(completion: @escaping (Swift.Result<[UserVK], Error>) -> ())
+    func getUsersFromDatabase() -> [UserVK]
+}
+//CoreData
+class UserListPresenterImplementation: UserListPresenter {
+    let vkApi: VKApi
+    let database: UserCDRepository
+    
+    init(database: UserCDRepository, api: VKApi) {
+        self.vkApi = api
+        self.database = database
+    }
+    func getUserList(completion: @escaping (Swift.Result<[UserVK], Error>) -> ()) {
+        vkApi.getFriendList(token: Session.instance.token, version: Session.instance.version)
+        { [weak self] result in
+            switch result {
+            case .success(let users):
+                users.forEach{ self?.database.create(entity: $0) }
+                completion(.success(users))
+            case .failure(let error):
+                print("[Logging] Error retrieving the value: \(error)")
+            }
+        }
+    }
+    func getUsersFromDatabase() -> [UserVK] {
+        return database.getAll()
+    }
 }

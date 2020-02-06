@@ -6,8 +6,18 @@
 //  Copyright © 2020 Дмитрий Константинов. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
-class FriendsConfigurator {
-    
+protocol FriendsConfigurator {
+    func configure(view: FriendsTableView)
+}
+
+class FriendsConfiguratorImplementation: FriendsConfigurator {
+    func configure(view: FriendsTableView) {
+        //view.presenter = FriendsPresenterImplementation(database: UserRepository(), view: self)
+        /*
+         При переходе через код надо добавить при инициализации vc:
+         vc.configurator = FriendsConfiguratorImplementation()
+         */
+    }
 }

@@ -19,9 +19,6 @@ class ProfileTableView: UITableViewController {
     var workPlace = ""
     var count = 0
     
-    //var dataNews = [News(mainAvatar: "Bill Gates", mainName: "Bill Gates", mainDate: "25.12.2019", mainText: "Merry Christmas!", mainImage: ["Swift Dev 001","Swift Dev 001"], secondImage: "", secondName: "", likeCount: 330, commentCount: 0, forwardCount: 10, viewsCount: 808, lastCommentAvatar: "", lastCommentName: "", lastCommentDate: "", lastCommentText: "", lastCommentLikeCount: 0), News(mainAvatar: "Bill Gates", mainName: "Bill Gates", mainDate: "01.01.2020", mainText: "Happy New Year my dear Friends!", mainImage: ["Swift Dev 001","Swift Dev 001","Swift Dev 001","Swift Dev 001"], secondImage: "", secondName: "", likeCount: 417, commentCount: 0, forwardCount: 15, viewsCount: 909, lastCommentAvatar: "", lastCommentName: "", lastCommentDate: "", lastCommentText: "", lastCommentLikeCount: 0), News(mainAvatar: "Bill Gates", mainName: "Bill Gates", mainDate: "09.01.2020", mainText: "Ready for work! Go!", mainImage: ["Swift Dev 001"], secondImage: "", secondName: "", likeCount: 0, commentCount: 0, forwardCount: 1, viewsCount: 555, lastCommentAvatar: "", lastCommentName: "", lastCommentDate: "", lastCommentText: "", lastCommentLikeCount: 0)]
-    
-    
     @IBOutlet weak var profileImage: UIImageView!
     
     var dataPhotos = [PhotoSpVK]()

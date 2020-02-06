@@ -103,8 +103,6 @@ class GroupsTableView: UITableViewController {
 
         getGroupsFromApi()
         getGroupsFromDatabase()
-        tableView.reloadData()
-        
         
         self.customRefreshControl.endRefreshing()
     }
