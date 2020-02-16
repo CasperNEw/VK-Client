@@ -57,6 +57,7 @@
 		DAA5E4CC239674A900B09EE7 /* GroupsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA5E4CB239674A900B09EE7 /* GroupsCell.swift */; };
 		DAA5E4D22396935A00B09EE7 /* FriendsCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA5E4D12396935A00B09EE7 /* FriendsCollectionCell.swift */; };
 		DAA5E4D7239695D000B09EE7 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA5E4D6239695D000B09EE7 /* Group.swift */; };
+		DAAC32C423F866CB00CC88D6 /* GroupsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAAC32C323F866CB00CC88D6 /* GroupsPresenter.swift */; };
 		DAAD7FEC23D73B9700099E44 /* UserRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAAD7FEB23D73B9700099E44 /* UserRealm.swift */; };
 		DAAD7FEE23D73DEA00099E44 /* GroupRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAAD7FED23D73DEA00099E44 /* GroupRealm.swift */; };
 		DAAD7FF023D73F0F00099E44 /* UserSpecialRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAAD7FEF23D73F0F00099E44 /* UserSpecialRealm.swift */; };
@@ -160,6 +161,7 @@
 		DAA5E4CB239674A900B09EE7 /* GroupsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsCell.swift; sourceTree = "<group>"; };
 		DAA5E4D12396935A00B09EE7 /* FriendsCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsCollectionCell.swift; sourceTree = "<group>"; };
 		DAA5E4D6239695D000B09EE7 /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
+		DAAC32C323F866CB00CC88D6 /* GroupsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsPresenter.swift; sourceTree = "<group>"; };
 		DAAD7FEB23D73B9700099E44 /* UserRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRealm.swift; sourceTree = "<group>"; };
 		DAAD7FED23D73DEA00099E44 /* GroupRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupRealm.swift; sourceTree = "<group>"; };
 		DAAD7FEF23D73F0F00099E44 /* UserSpecialRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSpecialRealm.swift; sourceTree = "<group>"; };
@@ -249,6 +251,7 @@
 			isa = PBXGroup;
 			children = (
 				DA5D606B2395818A000002D6 /* GroupsTableView.swift */,
+				DAAC32C323F866CB00CC88D6 /* GroupsPresenter.swift */,
 				DAA5E4CB239674A900B09EE7 /* GroupsCell.swift */,
 			);
 			path = GroupsTableView;
@@ -835,6 +838,7 @@
 				DAF16B8C238D2E0A00FF58D0 /* AppDelegate.swift in Sources */,
 				DACD6A2323D5A8D800D1C9DD /* GroupVK.swift in Sources */,
 				DA5D606C2395818A000002D6 /* GroupsTableView.swift in Sources */,
+				DAAC32C423F866CB00CC88D6 /* GroupsPresenter.swift in Sources */,
 				DA5D606E2395856D000002D6 /* GlobalSearchGroupsTableView.swift in Sources */,
 				DA779EE823A7778500A2E911 /* CustomCollectionViewLayout.swift in Sources */,
 				DA7D1EE92398FB4D009E0514 /* GradientView.swift in Sources */,

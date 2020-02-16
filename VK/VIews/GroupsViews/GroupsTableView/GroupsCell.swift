@@ -5,13 +5,12 @@ class GroupsCell: UITableViewCell {
     @IBOutlet weak var groupsName: UILabel!
     @IBOutlet weak var groupImage: UIImageView!
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
+    func renderCell(model: GroupRealm) {
+        
+        groupsName.text = model.name
+        
+        if let url = URL(string: model.photo50) {
+            groupImage.kf.setImage(with: url)
+        }
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-    }
-
 }

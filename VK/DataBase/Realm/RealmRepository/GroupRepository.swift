@@ -9,7 +9,13 @@
 import Foundation
 import RealmSwift
 
-class GroupRepository {
+protocol GroupSourse {
+    func getAllGroups() throws -> Results<GroupRealm>
+    func addGroups(groups: [GroupVK])
+    func searchGroup(name: String) throws -> Results<GroupRealm>
+}
+
+class GroupRepository: GroupSourse {
     
     func getAllGroups() throws -> Results<GroupRealm> {
         do {

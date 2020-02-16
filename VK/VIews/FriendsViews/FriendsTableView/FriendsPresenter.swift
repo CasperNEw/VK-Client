@@ -122,7 +122,7 @@ struct Section<T> {
     var items: [T]
 }
 
-
+/*
 //Инициализировалось в FriendsTable View. дописать ... CoreData
 //var presenterCD = UserListPresenterImplementation(database: UserCDRepository(stack: CoreDataStack.shared), api: VKApi())
 
@@ -158,3 +158,4 @@ class UserListPresenterImplementation: UserListPresenter {
         return database.getAll()
     }
 }
+*/

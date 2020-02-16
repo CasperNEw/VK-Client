@@ -1,86 +1,48 @@
 import UIKit
-import Kingfisher
-import RealmSwift
+
+protocol GroupsTableViewUpdater: class {
+    func showConnectionAlert()
+    func reloadTable()
+    func updateTable(forDel: [Int], forIns: [Int], forMod: [Int])
+}
 
 class GroupsTableView: UITableViewController {
     
-    var vkApi = VKApi()
-    var database = GroupRepository()
-    var customRefreshControl = UIRefreshControl()
-    
-    var groupsResult: Results<GroupRealm>?
-    var token: NotificationToken?
-    
     @IBOutlet var groupsView: UITableView!
-    
+    var presenter: GroupsPresenter?
+    var customRefreshControl = UIRefreshControl()
     private let groupsSearchController = UISearchController(searchResultsController: nil)
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return groupsResult?.count ?? 0
-    }
-    //реализация присвоения титулу ячеек значений элементов массива dataGroups, идентификатор CellGroups задается в Storyboard
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "CellGroups", for: indexPath) as? GroupsCell,
-              let group = groupsResult?[indexPath.row] else {
-                return UITableViewCell()
-        }
-        cell.groupsName.text = group.name
-        //используем Kingfisher для загрузки и кеширования изображений
-        let url = URL(string: group.photo50)
-        cell.groupImage.kf.setImage(with: url)
-        
-        return cell
-    }
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //плавная анимация исчезновения выделения
-        tableView.deselectRow(at: indexPath, animated: true)
-        print("[Loggin] tapped - \(String(describing: groupsResult?[indexPath.row].name))")
-        //сделаем переключение на alert - Error! так как у нас пока нет внутренностей для групп
-        let alert = UIAlertController(title: "Error", message: "Access error", preferredStyle: .alert)
-        let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-        alert.addAction(action)
-        present(alert, animated: true, completion: nil)
-    }
-    
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            guard let targetForDelete = groupsResult?[indexPath.row] else { return }
-            do {
-                let realm = try Realm()
-                realm.beginWrite()
-                realm.delete(targetForDelete)
-                try realm.commitWrite()
-                print("[Logging] delete group from favorite - \(targetForDelete.name)")
-            } catch {
-                print(error)
-            }
-            //TODO: remove from server !
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        }
-    }
-    
     override func viewDidLoad() {
-        
+        presenter = GroupsPresenterImplementation(database: GroupRepository(), view: self)
         addSearchController()
         addRefreshControl()
-        
-        let hideAction = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
-        view.addGestureRecognizer(hideAction)
-        
         print("[Logging] load Groups View")
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        getGroupsFromApi()
-        getGroupsFromDatabase()
+        presenter?.loadData()
     }
     
-    deinit {
-        token?.invalidate()
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return presenter?.getNumberOfRowsInSection(section: section) ?? 0
     }
     
-    @objc func hideKeyboard() {
-        view.endEditing(true)
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "CellGroups", for: indexPath) as? GroupsCell, let model = presenter?.getModelAtIndex(indexPath: indexPath) else { return UITableViewCell()
+        }
+        cell.renderCell(model: model)
+        return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            presenter?.deleteEntity(indexPath: indexPath)
+        }
     }
     
     func addSearchController() {
@@ -100,76 +62,37 @@ class GroupsTableView: UITableViewController {
     @objc func refreshTable() {
         //print("[Logging] Update CoreData[GroupCD] from server")
         print("[Logging] Update Realm[GroupRealm] from server")
-
-        getGroupsFromApi()
-        getGroupsFromDatabase()
         
+        //обнуляю строку поиска для корректного отображения
+        groupsSearchController.searchBar.text = nil
+        groupsSearchController.isActive = false
+        
+        presenter?.loadData()
         self.customRefreshControl.endRefreshing()
-    }
-    
-    func getGroupsFromApi() {
-        
-        vkApi.getGroupListForUser(token: Session.instance.token, version: Session.instance.version, user: Session.instance.userId) { [weak self] result in
-            switch result {
-            case .success(let groups):
-                //записываем данные в БД Realm
-                self?.database.addGroups(groups: groups)
-            case .failure(let error):
-                //Уведомление пользователя
-                let alert = UIAlertController(title: "Error", message: "There was an error loading your data, check your network connection", preferredStyle: .alert)
-                let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-                alert.addAction(action)
-                self?.present(alert, animated: true, completion: nil)
-                
-                print("[Logging] Error retrieving the value: \(error)")
-            }
-        }
-    }
-    
-    func getGroupsFromDatabase() {
-        do {
-            groupsResult = try database.getAllGroups()
-            token = groupsResult?.observe { [weak self] results in
-                switch results {
-                case .error(let error):
-                    print(error)
-                case .initial:
-                    self?.tableView.reloadData()
-                case let .update(_, deletions, insertions, modifications):
-                    self?.tableView.beginUpdates()
-                    self?.tableView.deleteRows(at: deletions.map { IndexPath(row: $0, section: 0) }, with: .none)
-                    self?.tableView.insertRows(at: insertions.map { IndexPath(row: $0, section: 0) }, with: .none)
-                    self?.tableView.reloadRows(at: modifications.map { IndexPath(row: $0, section: 0) }, with: .none)
-                    self?.tableView.endUpdates()
-                }
-            }
-        } catch {
-            print(error)
-        }
     }
     
     //Убрал реализацию добавления группы из GlobalGroupsTableView. Добавим реализацию после обработки json для GlobalGroup.
     /*
-    @IBAction func addGroup(segue: UIStoryboardSegue) {
-        if segue.identifier == "addGroup" {
-            let globalGView = segue.source as! GlobalSearchGroupsTableView
-            //используем принудительное извлечение опционала, надо подумать как убрать этот косяк
-            if let indexPath = globalGView.tableView.indexPathForSelectedRow {
-                let group = globalGView.sortedGlobalGroups[indexPath.row]
-                if !dataGroups.contains(group) {
-                    print("[Logging] add Group to favorite - \(group)")
-                    dataGroups.append(group)
-                    sortedGroups = dataGroups
-                    tableView.reloadData()
-                }
-            }
-        }
-        //так же сыпет ошибку, но зато переключается ...
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            self.navigationController?.popToRootViewController(animated: true)
-        }
-    }
-    */
+     @IBAction func addGroup(segue: UIStoryboardSegue) {
+     if segue.identifier == "addGroup" {
+     let globalGView = segue.source as! GlobalSearchGroupsTableView
+     //используем принудительное извлечение опционала, надо подумать как убрать этот косяк
+     if let indexPath = globalGView.tableView.indexPathForSelectedRow {
+     let group = globalGView.sortedGlobalGroups[indexPath.row]
+     if !dataGroups.contains(group) {
+     print("[Logging] add Group to favorite - \(group)")
+     dataGroups.append(group)
+     sortedGroups = dataGroups
+     tableView.reloadData()
+     }
+     }
+     }
+     //так же сыпет ошибку, но зато переключается ...
+     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+     self.navigationController?.popToRootViewController(animated: true)
+     }
+     }
+     */
 }
 
 extension GroupsTableView: UISearchResultsUpdating {
@@ -177,12 +100,31 @@ extension GroupsTableView: UISearchResultsUpdating {
         filterContentForSearchText(searchController.searchBar.text!)
     }
     private func filterContentForSearchText(_ searchText: String) {
+        presenter?.searchGroups(name: searchText)
+    }
+}
+
+extension GroupsTableView: GroupsTableViewUpdater {
+    
+    func updateTable(forDel: [Int], forIns: [Int], forMod: [Int]) {
         
-        do {
-            groupsResult = searchText.isEmpty ? try database.getAllGroups() : try database.searchGroup(name: searchText)
-            self.tableView.reloadData()
-        } catch {
-            print(error)
-        }
+        tableView.beginUpdates()
+        tableView.deleteRows(at: forDel.map { IndexPath(row: $0, section: 0) }, with: .none)
+        tableView.insertRows(at: forIns.map { IndexPath(row: $0, section: 0) }, with: .none)
+        tableView.reloadRows(at: forMod.map { IndexPath(row: $0, section: 0) }, with: .none)
+        tableView.endUpdates()
+        
+    }
+    
+    func reloadTable() {
+        tableView.reloadData()
+        
+    }
+    
+    func showConnectionAlert() {
+        let alert = UIAlertController(title: "Error", message: "There was an error loading your data, check your network connection", preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        alert.addAction(action)
+        self.present(alert, animated: true, completion: nil)
     }
 }

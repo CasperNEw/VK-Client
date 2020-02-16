@@ -6,8 +6,8 @@ protocol FriendsTableViewUpdater: class {
 
 class FriendsTableView: UITableViewController {
     
+    @IBOutlet var friendsTView: UITableView!
     var presenter: FriendsPresenter?
-    
     var customRefreshControl = UIRefreshControl()
     private let searchController = UISearchController(searchResultsController: nil)
     
@@ -22,33 +22,20 @@ class FriendsTableView: UITableViewController {
         print("[Logging] load Friends View")
     }
     
-    func addSearchController() {
-        searchController.searchResultsUpdater = self
-        searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "Friends search"
-        navigationItem.searchController = searchController
-        definesPresentationContext = true
+    override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
+        return presenter?.getSectionIndexTitles()
     }
     
-    func addRefreshControl() {
-        customRefreshControl.attributedTitle = NSAttributedString(string: "Refreshing ...")
-        customRefreshControl.addTarget(self, action: #selector(refreshTable), for: .valueChanged)
-        tableView.addSubview(customRefreshControl)
-    }
-    
-    @objc func refreshTable() {
-        print("[Logging] Update CoreData[UserCD] from server")
-        print("[Logging] Update Realm[UserRealm] from server")
-        self.presenter?.apiRequest()
-        self.customRefreshControl.endRefreshing()
-    }
-    
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return presenter?.getNumberOfRowsInSection(section: section) ?? 0
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return presenter?.getTitleForSection(section: section)
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return presenter?.getNumberOfSections() ?? 0
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return presenter?.getNumberOfRowsInSection(section: section) ?? 0
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -60,9 +47,7 @@ class FriendsTableView: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //плавная анимация исчезновения выделения
         tableView.deselectRow(at: indexPath, animated: true)
-        
         /*
          //сделаем переключение на Collection View с пробросом данных
          let main = UIStoryboard( name: "Main", bundle: nil)
@@ -80,18 +65,25 @@ class FriendsTableView: UITableViewController {
         navigationController?.pushViewController(vc, animated: true)
     }
     
-    override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
-        return presenter?.getSectionIndexTitles()
+    func addSearchController() {
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Friends search"
+        navigationItem.searchController = searchController
+        definesPresentationContext = true
     }
     
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return presenter?.getTitleForSection(section: section)
+    func addRefreshControl() {
+        customRefreshControl.attributedTitle = NSAttributedString(string: "Refreshing ...")
+        customRefreshControl.addTarget(self, action: #selector(refreshTable), for: .valueChanged)
+        tableView.addSubview(customRefreshControl)
     }
     
-    @IBOutlet var friendsTView: UITableView!
-    
-    @objc func hideKeyboard() {
-        view.endEditing(true)
+    @objc func refreshTable() {
+        //print("[Logging] Update CoreData[UserCD] from server")
+        print("[Logging] Update Realm[UserRealm] from server")
+        self.presenter?.apiRequest()
+        self.customRefreshControl.endRefreshing()
     }
 }
 
