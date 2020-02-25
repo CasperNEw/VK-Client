@@ -51,7 +51,7 @@ class UserRepository: UserSourse {
                     userRealm.deactivated = user.deactivated ?? ""
                     usersToAdd.append(userRealm)
                 }
-                print("[Logging] Realm get entities - \(usersToAdd.count)")
+                print("[Logging] UserRealm get entities - \(usersToAdd.count)")
                 realm.add(usersToAdd, update: .modified)
             }
             //print(realm.objects(UserRealm.self))

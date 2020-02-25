@@ -23,12 +23,7 @@ import UIKit
     
     func like() {
         liked = !liked
-        
-        if liked {
-            setLiked()
-        } else {
-            disableLike()
-        }
+        liked ? setLiked() : disableLike()
     }
     
     override init(frame: CGRect) {
@@ -42,7 +37,7 @@ import UIKit
     }
     
     private func setupDefault() {
-        setImage(UIImage(named: liked ? "like" : "dislike"), for: .normal)
+        setImage(UIImage(systemName: liked ? "suit.heart.fill" : "suit.heart"), for: .normal)
         setTitle(String(describing: likeCount), for: .normal)
         tintColor = liked ? .red : .darkGray
         setTitleColor( liked ? .red : .darkGray, for: .normal)
@@ -53,16 +48,18 @@ import UIKit
     }
     
     private func setLiked() {
+        //TODO: Api request
         likeCount += 1
-        setImage(UIImage(named: "like"), for: .normal)
+        setImage(UIImage(systemName: "suit.heart.fill"), for: .normal)
         setTitle(String(describing: likeCount), for: .normal)
         tintColor = .red
         animatedLikeButton()
     }
     
     private func disableLike() {
+        //TODO: Api request
         likeCount -= 1
-        setImage(UIImage(named: "dislike"), for: .normal)
+        setImage(UIImage(systemName: "suit.heart"), for: .normal)
         setTitle(String(describing: likeCount), for: .normal)
         tintColor = .darkGray
         animatedLikeButton()

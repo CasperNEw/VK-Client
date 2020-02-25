@@ -19,7 +19,7 @@ class LoginWebView: UIViewController {
         let params = ["client_id": vkSecret,
                       "redirect_uri": "https://oauth.vk.com/blank.html",
                       "display": "mobile",
-                      "scope": "262150",
+                      "scope": "271430",
                       "response_type": "token",
                       "v": "5.103"]
         
@@ -34,7 +34,7 @@ class LoginWebView: UIViewController {
     
     func pushMainView() {
         let main = UIStoryboard( name: "Main", bundle: nil)
-        let vc = main.instantiateViewController(identifier: "MainView") as! ProfileForm
+        let vc = main.instantiateViewController(identifier: "MainView") as! MainTabBar
         navigationController?.pushViewController(vc, animated: true)
     }
 }

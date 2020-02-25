@@ -43,7 +43,7 @@ class GroupRepository: GroupSourse {
                     groupRealm.isAdmin = group.isAdmin
                     groupRealm.isMember = group.isMember
                     groupRealm.isAdvertiser = group.isAdvertiser
-                    groupRealm.photo50 = group.photo50
+                    groupRealm.photo100 = group.photo100
                     groupRealm.adminLevel = group.adminLevel ?? 0
                     
                     groupsToAdd.append(groupRealm)

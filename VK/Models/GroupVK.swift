@@ -6,7 +6,7 @@ struct GroupVK: Codable {
     let isClosed: Int
     let type: String
     let isAdmin, isMember, isAdvertiser: Int
-    let photo50: String
+    let photo100: String
     let adminLevel: Int?
 
     enum CodingKeys: String, CodingKey {
@@ -17,7 +17,7 @@ struct GroupVK: Codable {
         case isAdmin = "is_admin"
         case isMember = "is_member"
         case isAdvertiser = "is_advertiser"
-        case photo50 = "photo_50"
+        case photo100 = "photo_100"
         case adminLevel = "admin_level"
     }
 }

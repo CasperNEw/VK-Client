@@ -13,7 +13,7 @@ class GroupRealm: Object {
     @objc dynamic var isMember = 0
     @objc dynamic var isAdvertiser = 0
     
-    @objc dynamic var photo50 = ""
+    @objc dynamic var photo100 = ""
     @objc dynamic var adminLevel = 0
     
     override static func primaryKey() -> String? {
@@ -26,7 +26,7 @@ class GroupRealm: Object {
     
     func toModel() -> GroupVK {
         
-        return GroupVK(id: id, name: name, screenName: screenName, isClosed: isClosed, type: type, isAdmin: isAdmin, isMember: isMember, isAdvertiser: isAdvertiser, photo50: photo50, adminLevel: adminLevel)
+        return GroupVK(id: id, name: name, screenName: screenName, isClosed: isClosed, type: type, isAdmin: isAdmin, isMember: isMember, isAdvertiser: isAdvertiser, photo100: photo100, adminLevel: adminLevel)
     }
     
 }

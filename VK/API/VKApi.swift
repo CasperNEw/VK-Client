@@ -68,7 +68,7 @@ class VKApi {
         requestServer(requestURL: requestURL, method: .post, params: params) { completion($0) }
     }
     
-    func getUserSpecialInformation(token: String, userId:String, completion: @escaping (Swift.Result<[UserSpecial], Error>) -> Void ) {
+    func getUserSpecialInformation(token: String, userId:String, completion: @escaping (Swift.Result<[AdvancedUserVK], Error>) -> Void ) {
         let requestURL = vkURL + "users.get"
         let params = ["access_token": token,
                       "user_id": userId,
@@ -81,7 +81,7 @@ class VKApi {
             .responseData { (result) in
                 guard let data = result.value else { return }
                 do {
-                    let result = try JSONDecoder().decode(ResponseUserSpecial.self, from: data)
+                    let result = try JSONDecoder().decode(ResponseAdvancedUser.self, from: data)
                     completion(.success(result.response))
                 } catch {
                     completion(.failure(error))
@@ -118,7 +118,7 @@ class VKApi {
         let params = ["access_token": token,
                       "user_id": user,
                       "extended": "1",
-                      "fields": "photo_50",
+                      "fields": "photo_100",
                       "v": version]
         
         requestServer(requestURL: requestURL, method: .post, params: params) { completion($0) }
@@ -140,4 +140,44 @@ class VKApi {
                             print(response.value as? [String: Any] ?? "[Logging] JSON error")
                           })
     }
+    
+    func getNews(token: String, userId:String, from: String?, version: String, completion: @escaping (Swift.Result<ResponseNews, Error>) -> Void ) {
+        let requestURL = vkURL + "newsfeed.get"
+        var params: [String : String]
+        if let myFrom = from {
+            params = ["access_token": token,
+                          "user_id": userId,
+                          "source_ids": "friends,groups,pages",
+                          "filters": "post",
+                          "count": "20",
+                          "fields": "first_name,last_name,name,photo_100,online",
+                          "start_from": myFrom,
+                          "v": version]
+            
+        } else {
+            params = ["access_token": token,
+                          "user_id": userId,
+                          "source_ids": "friends,groups,pages",
+                          "filters": "post",
+                          "count": "20",
+                          "fields": "first_name,last_name,name,photo_100,online",
+                          "v": version]
+        }
+        //Делаем остановку на дозагрузку, как в нативном VK-клиенте. Защита при одновременном срабатывании методов дозагрузки и обновления.
+        Alamofire.SessionManager.default.session.getAllTasks { tasks in tasks.forEach{ $0.cancel()} }
+        
+        Alamofire.request(requestURL,
+                          method: .post,
+                          parameters: params as Parameters)
+            .responseData { (result) in
+                guard let data = result.value else { return }
+                do {
+                    let result = try JSONDecoder().decode(CommonResponseNews.self, from: data)
+                    completion(.success(result.response))
+                } catch {
+                    completion(.failure(error))
+                }
+        }
+    }
+    
 }

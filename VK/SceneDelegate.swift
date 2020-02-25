@@ -42,6 +42,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                         Session.instance.version = "5.103"
                         
                         print("[Logging] [Keychain] Token exist")
+                        print("[Logging] [Keychain] \(token)")
                         print("[Logging] [Keychain] Expires through : " + String(((expireIn - realTime) % 86400) / 3600) + " hours," + String(((expireIn - realTime) % 3600) / 60) + " minutes," + String(((expireIn - realTime) % 3600) % 60) + " seconds")
                     } else {
                         print("[Logging] [Keychain] Token not exist")

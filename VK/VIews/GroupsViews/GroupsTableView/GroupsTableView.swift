@@ -1,6 +1,6 @@
 import UIKit
 
-protocol GroupsTableViewUpdater: class {
+protocol GroupsTableViewUpdater: AnyObject {
     func showConnectionAlert()
     func reloadTable()
     func updateTable(forDel: [Int], forIns: [Int], forMod: [Int])
