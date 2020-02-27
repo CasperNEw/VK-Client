@@ -11,9 +11,7 @@ import Kingfisher
 
 protocol ProfileTableViewUpdater: AnyObject {
     func showConnectionAlert()
-    func showIncorrectDataAlert()
     func reloadTable()
-    func updateTable(forDel: [Int], forIns: [Int], forMod: [Int])
     func setupProfileImage(name: String, date: String, url: URL, processor: CroppingImageProcessor)
 }
 
@@ -29,13 +27,13 @@ class ProfileTableView: UITableViewController {
     var fromVC: Int?
 
     override func viewDidLoad() {
-        presenter = ProfilePresenterImplementation(database: ProfileRepository(), view: self)
+        presenter = ProfilePresenterImplementation(database: ProfileRepository(), databaseWall: WallRepository(), view: self)
         addRefreshControl()
         setupTableForSmoothScroll()
         print("[Logging] load Profile View")
         
         tableView.register(UINib(nibName: "ProfileCell", bundle: nil), forCellReuseIdentifier: "ProfileCell")
-        //tableView.register(UINib(nibName: "UserProfileNewsCell", bundle: nil), forCellReuseIdentifier: "UserProfileNews")
+        tableView.register(UINib(nibName: "NewsCell", bundle: nil), forCellReuseIdentifier: "SimpleNews")
         
         //автоматическое изменение высоты ячейки
         tableView.estimatedRowHeight = 100.0
@@ -56,10 +54,20 @@ class ProfileTableView: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "ProfileCell", for: indexPath) as? ProfileCell, let model = presenter?.getModelAtIndex(indexPath: indexPath) else { return UITableViewCell() }
         
-        cell.renderCell(model: model)
-        return cell
+        if indexPath.row == 0 {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "ProfileCell", for: indexPath) as? ProfileCell, let model = presenter?.getModel() else { return UITableViewCell() }
+            
+            cell.renderCell(model: model)
+            return cell
+        }
+        if indexPath.row > 0 {
+            guard let wallCell = tableView.dequeueReusableCell(withIdentifier: "SimpleNews", for: indexPath) as? NewsCell, let wallModel = presenter?.getWallModelAtIndex(indexPath: indexPath) else { return UITableViewCell() }
+            
+            wallCell.renderWallCell(model: wallModel)
+            return wallCell
+        }
+        return UITableViewCell()
     }
     
     func addRefreshControl() {
@@ -92,22 +100,12 @@ extension ProfileTableView {
 
         if deltaOffset < 1000.0 {
             //presenter?.uploadData()
-            print("[Logging] TODO: upload data")
+            //print("[Logging] TODO: upload data")
         }
     }
 }
 
 extension ProfileTableView: ProfileTableViewUpdater {
-    
-    func updateTable(forDel: [Int], forIns: [Int], forMod: [Int]) {
-        
-        tableView.beginUpdates()
-        tableView.deleteRows(at: forDel.map { IndexPath(row: $0, section: 0) }, with: .none)
-        tableView.insertRows(at: forIns.map { IndexPath(row: $0, section: 0) }, with: .none)
-        tableView.reloadRows(at: forMod.map { IndexPath(row: $0, section: 0) }, with: .none)
-        tableView.endUpdates()
-        
-    }
     
     func reloadTable() {
         tableView.reloadData()
@@ -115,13 +113,6 @@ extension ProfileTableView: ProfileTableViewUpdater {
     
     func showConnectionAlert() {
         let alert = UIAlertController(title: "Error", message: "There was an error loading your data, check your network connection", preferredStyle: .alert)
-        let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-        alert.addAction(action)
-        self.present(alert, animated: true, completion: nil)
-    }
-    
-    func showIncorrectDataAlert() {
-        let alert = UIAlertController(title: "Error", message: "An error occurred while loading data", preferredStyle: .alert)
         let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
         alert.addAction(action)
         self.present(alert, animated: true, completion: nil)

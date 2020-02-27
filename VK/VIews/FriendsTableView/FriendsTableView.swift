@@ -62,7 +62,6 @@ class FriendsTableView: UITableViewController {
             return
         }
         vc.fromVC = presenter?.sendToNextVC(indexPath: indexPath)
-        //vc.user = presenter?.getModelAtIndex(indexPath: indexPath)?.toModel()
         navigationController?.pushViewController(vc, animated: true)
     }
     

@@ -60,6 +60,22 @@ class NewsCell: UITableViewCell {
         }
     }
     
+    func renderWallCell(model: WallRealm) {
+        let entity = NewsRealm()
+        entity.text = model.text
+        entity.likes = model.likes
+        entity.userLikes = model.userLikes
+        entity.views = model.views
+        entity.comments = model.comments
+        entity.reposts = model.reposts
+        entity.date = model.date
+        entity.authorImagePath = model.authorImagePath
+        entity.authorName = model.authorName
+        entity.photos = model.photos
+        
+        renderCell(model: entity)
+     }
+    
     private func prepareDate(modelDate: Int) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "d MMMM в HH:mm"

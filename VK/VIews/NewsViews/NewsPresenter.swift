@@ -70,7 +70,9 @@ class NewsPresenterImplementation: NewsPresenter {
                 }
                 self.database.addNews(posts: posts)
                 self.getNewsFromDatabase()
-                self.nextFrom = result.nextFrom
+                if let nextFrom = result.nextFrom {
+                    self.nextFrom = nextFrom
+                }
                 self.status = true
             case .failure(let error):
                 self.view?.showConnectionAlert()
@@ -124,17 +126,19 @@ class NewsPresenterImplementation: NewsPresenter {
         post.reposts = news.reposts.count
         post.date = news.date
         
-        if news.sourceID > 0 {
-            profiles.forEach { if $0.id == news.sourceID {
-                post.authorName = $0.fullname
-                post.authorImagePath = $0.photo100
+        if let source = news.sourceId {
+            if source > 0 {
+                profiles.forEach { if $0.id == source {
+                    post.authorName = $0.fullname
+                    post.authorImagePath = $0.photo100
+                    }
                 }
             }
-        }
-        if news.sourceID < 0 {
-            groups.forEach { if $0.id == -news.sourceID {
-                post.authorName = $0.name
-                post.authorImagePath = $0.photo100
+            if source < 0 {
+                groups.forEach { if $0.id == -source {
+                    post.authorName = $0.name
+                    post.authorImagePath = $0.photo100
+                    }
                 }
             }
         }

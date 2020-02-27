@@ -42,12 +42,12 @@ class VKApi {
         requestServer(requestURL: requestURL, method: .post, params: params) { completion($0) }
     }
     
-    func getUser(token: String, userId:String, completion: @escaping (Swift.Result<[AdvancedUserVK], Error>) -> Void ) {
+    func getUser(token: String, userId: String, version: String, completion: @escaping (Swift.Result<[AdvancedUserVK], Error>) -> Void ) {
         let requestURL = vkURL + "users.get"
         let params = ["access_token": token,
                       "user_id": userId,
                       "fields": "status,city,career,counters,has_photo,crop_photo,last_seen,online",
-                      "v": "5.103"]
+                      "v": version]
        
         Alamofire.request(requestURL,
                           method: .post,
@@ -136,7 +136,6 @@ class VKApi {
             .responseData { (result) in
                 guard let data = result.value else { return }
                 do {
-                    print(result)
                     let result = try JSONDecoder().decode(CommonResponseNews.self, from: data)
                     completion(.success(result.response))
                 } catch {
@@ -154,6 +153,31 @@ class VKApi {
                     } catch {
                         completion(.failure(error))
                     }
+                    completion(.failure(error))
+                }
+        }
+    }
+    
+    func getWall(token: String, ownerId: String, version: String, completion: @escaping (Swift.Result<ResponseNews, Error>) -> Void ) {
+        let requestURL = vkURL + "wall.get"
+        var params: [String : String]
+        params = ["access_token": token,
+                  "owner_id": ownerId,
+                  "extended": "1",
+                  "filters": "post",
+                  "fields": "first_name,last_name,name,photo_100,online",
+                  "v": version]
+        
+        Alamofire.request(requestURL,
+                          method: .post,
+                          parameters: params as Parameters)
+            .responseData { (result) in
+                guard let data = result.value else { return }
+                do {
+                    print(result)
+                    let result = try JSONDecoder().decode(CommonResponseNews.self, from: data)
+                    completion(.success(result.response))
+                } catch {
                     completion(.failure(error))
                 }
         }

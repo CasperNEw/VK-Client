@@ -16,7 +16,7 @@ struct ResponseNews: Codable {
     let items: [NewsVK]
     let profiles: [UserVK]
     let groups: [GroupVK]
-    let nextFrom: String
+    let nextFrom: String?
 
     enum CodingKeys: String, CodingKey {
         case items, profiles, groups
@@ -25,7 +25,11 @@ struct ResponseNews: Codable {
 }
 
 struct NewsVK: Codable {
-    let sourceID, date: Int
+    let id: Int?
+    let ownerId: Int?
+    let sourceId: Int?
+    let fromId: Int?
+    let date: Int
     let text: String
     let attachments: [Attachment]?
     let comments: CommentsNews
@@ -34,7 +38,10 @@ struct NewsVK: Codable {
     let views: ViewsNews?
 
     enum CodingKeys: String, CodingKey {
-        case sourceID = "source_id"
+        case id
+        case ownerId = "owner_id"
+        case sourceId = "source_id"
+        case fromId = "from_id"
         case date
         case text
         case attachments

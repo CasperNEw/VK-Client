@@ -47,6 +47,8 @@
 		DA7B6F6D24057F6400BC7679 /* ProfileRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7B6F6C24057F6300BC7679 /* ProfileRepository.swift */; };
 		DA7B6F6F2405868000BC7679 /* ProfileVK.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7B6F6E2405868000BC7679 /* ProfileVK.swift */; };
 		DA7B6F71240783BF00BC7679 /* ErrorVK.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7B6F70240783BF00BC7679 /* ErrorVK.swift */; };
+		DA7B6F732408167F00BC7679 /* WallRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7B6F722408167F00BC7679 /* WallRealm.swift */; };
+		DA7B6F752408173C00BC7679 /* WallRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7B6F742408173C00BC7679 /* WallRepository.swift */; };
 		DA7D1EE92398FB4D009E0514 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7D1EE82398FB4D009E0514 /* GradientView.swift */; };
 		DA8A9B0223D3169A00AD416B /* LoginWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8A9B0123D3169A00AD416B /* LoginWebView.swift */; };
 		DA8A9B0523D3413700AD416B /* VKApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8A9B0423D3413700AD416B /* VKApi.swift */; };
@@ -72,8 +74,6 @@
 		DACD6A2723D5CEC100D1C9DD /* AdvancedUserVK.swift in Sources */ = {isa = PBXBuildFile; fileRef = DACD6A2623D5CEC100D1C9DD /* AdvancedUserVK.swift */; };
 		DAE3726023B89539006FC3F4 /* ProfileCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE3725E23B89539006FC3F4 /* ProfileCollectionCell.swift */; };
 		DAE3726123B89539006FC3F4 /* ProfileCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DAE3725F23B89539006FC3F4 /* ProfileCollectionCell.xib */; };
-		DAE3726523B89B1A006FC3F4 /* UserProfileNewsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE3726323B89B1A006FC3F4 /* UserProfileNewsCell.swift */; };
-		DAE3726623B89B1A006FC3F4 /* UserProfileNewsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DAE3726423B89B1A006FC3F4 /* UserProfileNewsCell.xib */; };
 		DAF16B8C238D2E0A00FF58D0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF16B8B238D2E0A00FF58D0 /* AppDelegate.swift */; };
 		DAF16B8E238D2E0A00FF58D0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF16B8D238D2E0A00FF58D0 /* SceneDelegate.swift */; };
 		DAF16B93238D2E0A00FF58D0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAF16B91238D2E0A00FF58D0 /* Main.storyboard */; };
@@ -151,6 +151,8 @@
 		DA7B6F6C24057F6300BC7679 /* ProfileRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileRepository.swift; sourceTree = "<group>"; };
 		DA7B6F6E2405868000BC7679 /* ProfileVK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVK.swift; sourceTree = "<group>"; };
 		DA7B6F70240783BF00BC7679 /* ErrorVK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorVK.swift; sourceTree = "<group>"; };
+		DA7B6F722408167F00BC7679 /* WallRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WallRealm.swift; sourceTree = "<group>"; };
+		DA7B6F742408173C00BC7679 /* WallRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WallRepository.swift; sourceTree = "<group>"; };
 		DA7D1EE82398FB4D009E0514 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		DA8A9B0123D3169A00AD416B /* LoginWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginWebView.swift; sourceTree = "<group>"; };
 		DA8A9B0423D3413700AD416B /* VKApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKApi.swift; sourceTree = "<group>"; };
@@ -176,8 +178,6 @@
 		DACD6A2623D5CEC100D1C9DD /* AdvancedUserVK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedUserVK.swift; sourceTree = "<group>"; };
 		DAE3725E23B89539006FC3F4 /* ProfileCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCollectionCell.swift; sourceTree = "<group>"; };
 		DAE3725F23B89539006FC3F4 /* ProfileCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileCollectionCell.xib; sourceTree = "<group>"; };
-		DAE3726323B89B1A006FC3F4 /* UserProfileNewsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileNewsCell.swift; sourceTree = "<group>"; };
-		DAE3726423B89B1A006FC3F4 /* UserProfileNewsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserProfileNewsCell.xib; sourceTree = "<group>"; };
 		DAF16B88238D2E0A00FF58D0 /* VK_KonstantinovDS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VK_KonstantinovDS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAF16B8B238D2E0A00FF58D0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DAF16B8D238D2E0A00FF58D0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -284,8 +284,6 @@
 				DA45F33623B876B60063CC62 /* ProfileCell.xib */,
 				DAE3725E23B89539006FC3F4 /* ProfileCollectionCell.swift */,
 				DAE3725F23B89539006FC3F4 /* ProfileCollectionCell.xib */,
-				DAE3726323B89B1A006FC3F4 /* UserProfileNewsCell.swift */,
-				DAE3726423B89B1A006FC3F4 /* UserProfileNewsCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -333,6 +331,7 @@
 				DAAD7FEF23D73F0F00099E44 /* ProfileRealm.swift */,
 				DAAD7FED23D73DEA00099E44 /* GroupRealm.swift */,
 				DAAC32DF240428D100CC88D6 /* NewsRealm.swift */,
+				DA7B6F722408167F00BC7679 /* WallRealm.swift */,
 			);
 			path = RealmModel;
 			sourceTree = "<group>";
@@ -353,6 +352,7 @@
 				DA7B6F6C24057F6300BC7679 /* ProfileRepository.swift */,
 				DAFB07E823E6DDE200365F85 /* GroupRepository.swift */,
 				DAAC32E1240428F300CC88D6 /* NewsRepository.swift */,
+				DA7B6F742408173C00BC7679 /* WallRepository.swift */,
 			);
 			path = RealmRepository;
 			sourceTree = "<group>";
@@ -665,7 +665,6 @@
 			files = (
 				DAF16B98238D2E0E00FF58D0 /* LaunchScreen.storyboard in Resources */,
 				DA45F33823B876B60063CC62 /* ProfileCell.xib in Resources */,
-				DAE3726623B89B1A006FC3F4 /* UserProfileNewsCell.xib in Resources */,
 				DA779EE323A7759100A2E911 /* NewsCell.xib in Resources */,
 				DAF16B95238D2E0E00FF58D0 /* Assets.xcassets in Resources */,
 				DA6937AC23ABE1B700DF1BA5 /* NewsCollectionCell.xib in Resources */,
@@ -828,6 +827,7 @@
 				DA56740123E2EA030050080F /* UserCD+CoreDataProperties.swift in Sources */,
 				DAA5E4D22396935A00B09EE7 /* FriendsCollectionCell.swift in Sources */,
 				DAE3726023B89539006FC3F4 /* ProfileCollectionCell.swift in Sources */,
+				DA7B6F752408173C00BC7679 /* WallRepository.swift in Sources */,
 				DA1C7B89239A388C00FDA5D7 /* FooterWithLike.swift in Sources */,
 				DAA5E4CC239674A900B09EE7 /* GroupsCell.swift in Sources */,
 				DA5673F323E1E03F0050080F /* VK.xcdatamodeld in Sources */,
@@ -836,6 +836,7 @@
 				DA4AE947239FACD1009B6300 /* ParallaxTableView.swift in Sources */,
 				DA5D607223966096000002D6 /* FriendsTableViewCell.swift in Sources */,
 				DAA5E4C823966E7100B09EE7 /* GlobalGroupsCell.swift in Sources */,
+				DA7B6F732408167F00BC7679 /* WallRealm.swift in Sources */,
 				DA56740523E447F50050080F /* UserRepository.swift in Sources */,
 				DACB2FC223ACEC2500816B0F /* TestViewController.swift in Sources */,
 				DA5D606823957838000002D6 /* FriendsTableView.swift in Sources */,
@@ -865,7 +866,6 @@
 				DA5D606623957534000002D6 /* MainTabBar.swift in Sources */,
 				DA5673FE23E2E9A40050080F /* UserCDRepository.swift in Sources */,
 				DAAC32CF24016F0A00CC88D6 /* NewsVK.swift in Sources */,
-				DAE3726523B89B1A006FC3F4 /* UserProfileNewsCell.swift in Sources */,
 				DA56740923E59C1F0050080F /* FriendsConfigurator.swift in Sources */,
 				DAF97A6523AFD05B00753D94 /* TestTableViewController.swift in Sources */,
 				DA8A9B0523D3413700AD416B /* VKApi.swift in Sources */,

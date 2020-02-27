@@ -10,6 +10,9 @@ import Foundation
 
 struct PostVK {
     
+    var id: Int?
+    var ownerId: Int?
+    var fromId: Int?
     var text: String
     var likes: Int
     var userLikes: Int

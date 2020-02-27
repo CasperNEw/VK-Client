@@ -15,37 +15,44 @@ protocol ProfilePresenter {
     func viewDidLoad(fromVC: Int?)
     func getNumberOfSections() -> Int
     func getNumberOfRowsInSection(section: Int) -> Int
-    func getModelAtIndex(indexPath: IndexPath) -> ProfileRealm?
+    func getModel() -> ProfileRealm?
+    func getWallModelAtIndex(indexPath: IndexPath) -> WallRealm?
 }
 
 class ProfilePresenterImplementation: ProfilePresenter {
     
     private var vkApi: VKApi
     private var database: ProfileSource
+    private var databaseWall: WallSource
     private weak var view: ProfileTableViewUpdater?
     private var profileResult: Results<ProfileRealm>!
+    private var wallResult: Results<WallRealm>!
     private var token: NotificationToken?
+    private var wallToken: NotificationToken?
     
-    init(database: ProfileSource, view: ProfileTableViewUpdater) {
+    init(database: ProfileSource, databaseWall: WallSource, view: ProfileTableViewUpdater) {
         vkApi = VKApi()
         self.database = database
+        self.databaseWall = databaseWall
         self.view = view
     }
     
     deinit {
         token?.invalidate()
+        wallToken?.invalidate()
     }
     
     func viewDidLoad(fromVC: Int?) {
         getProfileFromApi(id: fromVC)
+        getWallFromApi(id: fromVC)
     }
     
     private func getProfileFromApi(id: Int?) {
         
         var idForRequest = Session.instance.userId
-        id != nil ? idForRequest = String(id!) : view?.showIncorrectDataAlert()
+        id != nil ? idForRequest = String(id!) : nil
         
-        vkApi.getUser(token: Session.instance.token, userId: idForRequest) { [weak self] result in
+        vkApi.getUser(token: Session.instance.token, userId: idForRequest, version: Session.instance.version) { [weak self] result in
             switch result {
             case .success(let result):
                 if let user = result.first {
@@ -78,10 +85,41 @@ class ProfilePresenterImplementation: ProfilePresenter {
             if let model = profileResult.first?.toModel() {
                 getProfileImageData(profile: model)
             }
-            tokenInitializaion()
+            self.view?.reloadTable()
         } catch {
             print(error)
         }
+    }
+    
+    private func getWallFromApi(id: Int?) {
+        var idForRequest = Session.instance.userId
+        id != nil ? idForRequest = String(id!) : nil
+        
+        vkApi.getWall(token: Session.instance.token, ownerId: idForRequest, version: Session.instance.version) { result in
+            switch result {
+            case .success(let result):
+                var posts = [PostVK]()
+                result.items.forEach {
+                    if let post = self.postCreation(news: $0, profiles: result.profiles, groups: result.groups) { posts.append(post) }
+                }
+                self.databaseWall.addWall(posts: posts)
+                self.getWallFromDatabase(id: idForRequest)
+            case .failure(let error):
+                self.view?.showConnectionAlert()
+                print("[Logging] Error retrieving the value: \(error)")
+            }
+        }
+    }
+    
+    private func getWallFromDatabase(id: String) {
+        do {
+            guard let idForRequest = Int(id) else { return }
+            wallResult = try databaseWall.getWall(ownerId: idForRequest)
+            self.view?.reloadTable()
+        } catch {
+            print(error)
+        }
+
     }
     
     private func getProfileImageData(profile: ProfileVK) {
@@ -110,20 +148,6 @@ class ProfilePresenterImplementation: ProfilePresenter {
         formatter.locale = Locale(identifier: "ru")
         let date = Date(timeIntervalSince1970: Double(lastSeen))
         return formatter.string(from: date)
-    }
-    
-    private func tokenInitializaion() {
-        
-        token = profileResult?.observe { [weak self] results in
-            switch results {
-            case .error(let error):
-                print(error)
-            case .initial:
-                self?.view?.reloadTable()
-            case let .update(_, deletions, insertions, modifications):
-                self?.view?.updateTable(forDel: deletions, forIns: insertions, forMod: modifications)
-            }
-        }
     }
     
     private func profileCreation(user: AdvancedUserVK, photos: [PhotoVK]) -> ProfileVK {
@@ -165,12 +189,75 @@ class ProfilePresenterImplementation: ProfilePresenter {
         
         return profile
     }
+    
+    private func postCreation(news: NewsVK, profiles: [UserVK], groups: [GroupVK]) -> PostVK? {
+        
+        var post = PostVK(id: 0, ownerId: 0, text: "", likes: 0, userLikes: 0, views: 0, comments: 0, reposts: 0, date: 0, authorImagePath: "", authorName: "", photos: [])
+        var photos = [String]()
+        
+        post.id = news.id
+        post.ownerId = news.ownerId
+        post.text = news.text
+        post.likes = news.likes.count
+        post.userLikes = news.likes.userLikes
+        if let views = news.views?.count {
+            post.views = views
+        } else {
+            post.views = 0
+        }
+        post.comments = news.comments.count
+        post.reposts = news.reposts.count
+        post.date = news.date
+        
+        if let source = news.fromId {
+            if source > 0 {
+                profiles.forEach { if $0.id == source {
+                    post.authorName = $0.fullname
+                    post.authorImagePath = $0.photo100
+                    }
+                }
+            }
+            if source < 0 {
+                groups.forEach { if $0.id == -source {
+                    post.authorName = $0.name
+                    post.authorImagePath = $0.photo100
+                    }
+                }
+            }
+        }
+        
+        if let attachments = news.attachments {
+            for attachment in attachments {
+                if attachment.type == "photo" {
+                    attachment.photo?.sizes.forEach {
+                        if $0.type == "r" {
+                            photos.append($0.url)
+                        }
+                    }
+                }
+            }
+        }
+        
+        post.photos = photos
+        
+        if post.text == "" {
+            if post.photos == [] {
+                return nil
+            }
+        }
+        
+        return post
+    }
 }
 
 extension ProfilePresenterImplementation {
     
-    func getModelAtIndex(indexPath: IndexPath) -> ProfileRealm? {
+    func getModel() -> ProfileRealm? {
         return profileResult?.first
+    }
+    
+    func getWallModelAtIndex(indexPath: IndexPath) -> WallRealm? {
+        return wallResult?[indexPath.row - 1]
     }
     
     func getNumberOfSections() -> Int {
@@ -178,6 +265,6 @@ extension ProfilePresenterImplementation {
     }
     
     func getNumberOfRowsInSection(section: Int) -> Int {
-        return  1
+        return (profileResult?.count ?? 0) + (wallResult?.count ?? 0)
     }
 }

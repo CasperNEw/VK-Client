@@ -378,6 +378,7 @@
                             <outlet property="delegate" destination="7fe-ZR-2hk" id="K4q-u6-wPX"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" id="mc4-kq-duJ"/>
                     <connections>
                         <outlet property="profileDate" destination="s2Q-hU-7BR" id="0bB-LP-S8U"/>
                         <outlet property="profileImage" destination="Xi7-TI-OBX" id="V60-Ha-CeG"/>
@@ -386,7 +387,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fCe-DL-aqK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5253.6000000000004" y="3636.9458128078818"/>
+            <point key="canvasLocation" x="6196" y="3636.9458128078818"/>
         </scene>
         <!--Test Table View Controller-->
         <scene sceneID="kG8-Of-FlK">
@@ -597,7 +598,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bmF-oi-RGM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6196" y="3637"/>
+            <point key="canvasLocation" x="7138.3999999999996" y="3636.9458128078818"/>
         </scene>
         <!--Photo Collection View Collection View Controller-->
         <scene sceneID="y7z-vu-cLi">
@@ -645,13 +646,13 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bCe-dy-Zhn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7100" y="3637"/>
+            <point key="canvasLocation" x="8042.3999999999996" y="3636.9458128078818"/>
         </scene>
-        <!--My Friends-->
+        <!--Navigation Controller-->
         <scene sceneID="VvS-Uk-7Fc">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="cvo-CX-Qgs" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="My Friends" image="person.2" catalog="system" badgeValue="F" selectedImage="person.2.fill" id="yXc-6I-TgN">
+                    <tabBarItem key="tabBarItem" title="" image="rectangle.stack.person.crop" catalog="system" selectedImage="rectangle.stack.person.crop" id="yXc-6I-TgN">
                         <color key="badgeColor" red="0.27450980390000002" green="0.50196078430000002" blue="0.76078431369999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBarItem>
                     <toolbarItems/>
@@ -684,17 +685,18 @@
                         <segue destination="jcr-eW-rrd" kind="relationship" relationship="viewControllers" id="p7R-Ua-82g"/>
                         <segue destination="cvo-CX-Qgs" kind="relationship" relationship="viewControllers" id="dcj-hX-aom"/>
                         <segue destination="c3i-Lm-S7X" kind="relationship" relationship="viewControllers" id="xe6-kk-zmj"/>
+                        <segue destination="PbZ-IS-6mn" kind="relationship" relationship="viewControllers" id="yR3-Rr-C1t"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iDz-W5-R4q" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3179.7101449275365" y="2478.3482142857142"/>
         </scene>
-        <!--My Groups-->
+        <!--Navigation Controller-->
         <scene sceneID="qwF-zU-BhI">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="c3i-Lm-S7X" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="My Groups" image="rectangle.grid.1x2" catalog="system" badgeValue="G" selectedImage="rectangle.grid.1x2.fill" id="Spf-qV-Wb7">
+                    <tabBarItem key="tabBarItem" title="" image="folder.badge.person.crop" catalog="system" selectedImage="folder.badge.person.crop" id="Spf-qV-Wb7">
                         <color key="badgeColor" red="0.27450980390000002" green="0.50196078430000002" blue="0.76078431369999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBarItem>
                     <toolbarItems/>
@@ -712,11 +714,11 @@
             </objects>
             <point key="canvasLocation" x="5255.1999999999998" y="2085.960591133005"/>
         </scene>
-        <!--News-->
+        <!--Navigation Controller-->
         <scene sceneID="LYO-am-v0l">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="jcr-eW-rrd" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="News" image="rectangle.stack" catalog="system" badgeValue="N" selectedImage="rectangle.stack.fill" id="YNc-Lh-IYi">
+                    <tabBarItem key="tabBarItem" title="" image="rectangle.stack" catalog="system" selectedImage="rectangle.stack" id="YNc-Lh-IYi">
                         <color key="badgeColor" red="0.27450980390000002" green="0.50196078430000002" blue="0.76078431369999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBarItem>
                     <toolbarItems/>
@@ -799,19 +801,38 @@
             </objects>
             <point key="canvasLocation" x="1378" y="2478"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="48l-3V-ugo">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="PbZ-IS-6mn" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="" image="person.crop.rectangle" catalog="system" selectedImage="person.crop.rectangle" id="TlU-fK-a4l">
+                        <color key="badgeColor" red="0.27450980390000002" green="0.50196078430000002" blue="0.76078431369999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </tabBarItem>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="WFG-ju-U7a">
+                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="7fe-ZR-2hk" kind="relationship" relationship="rootViewController" id="60Y-8K-CdN"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hnG-WQ-9Ur" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5253.6000000000004" y="3636.9458128078818"/>
+        </scene>
     </scenes>
     <resources>
         <image name="CircleInd" width="160" height="160"/>
         <image name="Swift Dev 001" width="333.33334350585938" height="187.66667175292969"/>
         <image name="VK_logo" width="210" height="210"/>
+        <image name="folder.badge.person.crop" catalog="system" width="64" height="42"/>
         <image name="magnifyingglass" catalog="system" width="64" height="56"/>
         <image name="magnifyingglass.circle" catalog="system" width="64" height="60"/>
-        <image name="person.2" catalog="system" width="64" height="40"/>
-        <image name="person.2.fill" catalog="system" width="64" height="40"/>
-        <image name="rectangle.grid.1x2" catalog="system" width="64" height="50"/>
-        <image name="rectangle.grid.1x2.fill" catalog="system" width="64" height="50"/>
+        <image name="person.crop.rectangle" catalog="system" width="64" height="46"/>
         <image name="rectangle.stack" catalog="system" width="64" height="60"/>
-        <image name="rectangle.stack.fill" catalog="system" width="64" height="60"/>
+        <image name="rectangle.stack.person.crop" catalog="system" width="64" height="60"/>
         <image name="spamfight" width="225" height="160"/>
     </resources>
 </document>
