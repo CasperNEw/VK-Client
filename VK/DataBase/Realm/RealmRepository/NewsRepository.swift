@@ -44,8 +44,8 @@ class NewsRepository: NewsSource {
                     post.photos.forEach { postRealm.photos.append($0)  }
                     newsToAdd.append(postRealm)
                 }
-                print("[Logging] NewsRealm get entities - \(newsToAdd.count)")
                 realm.add(newsToAdd, update: .modified)
+                print("[Logging] NewsRealm get entities - \(newsToAdd.count)")
             }
         } catch {
             print(error)

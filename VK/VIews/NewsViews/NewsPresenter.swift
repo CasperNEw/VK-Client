@@ -10,7 +10,7 @@ import Foundation
 import RealmSwift
 
 protocol NewsPresenter {
-    func loadData()
+    func viewDidLoad()
     func uploadData()
     func searchNews(text: String)
     
@@ -39,7 +39,7 @@ class NewsPresenterImplementation: NewsPresenter {
         token?.invalidate()
     }
     
-    func loadData() {
+    func viewDidLoad() {
         getNewsFromApi()
     }
     
@@ -61,7 +61,7 @@ class NewsPresenterImplementation: NewsPresenter {
     
     private func getNewsFromApi(from: String? = nil) {
         
-        vkApi.getNews(token: Session.instance.token, userId: Session.instance.userId, from: from, version: Session.instance.version) { result in
+        vkApi.getNewsList(token: Session.instance.token, userId: Session.instance.userId, from: from, version: Session.instance.version) { result in
             switch result {
             case .success(let result):
                 var posts = [PostVK]()
@@ -115,7 +115,11 @@ class NewsPresenterImplementation: NewsPresenter {
         post.text = news.text
         post.likes = news.likes.count
         post.userLikes = news.likes.userLikes
-        post.views = news.views.count
+        if let views = news.views?.count {
+            post.views = views
+        } else {
+            post.views = 0
+        }
         post.comments = news.comments.count
         post.reposts = news.reposts.count
         post.date = news.date
@@ -155,10 +159,8 @@ class NewsPresenterImplementation: NewsPresenter {
             }
         }
         
-        print(post)
         return post
     }
-    
 }
 
 extension NewsPresenterImplementation {

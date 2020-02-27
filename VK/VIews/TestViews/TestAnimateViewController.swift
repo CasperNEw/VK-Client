@@ -6,7 +6,4 @@ class TestAnimateViewController: UIViewController {
         super.viewDidLoad()
         navigationController?.isNavigationBarHidden = false
     }
-    
-    
-    
 }

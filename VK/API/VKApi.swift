@@ -18,16 +18,6 @@ class VKApi {
         Alamofire.request(requestURL, method: method, parameters: params)
             .responseData { result in
                 
-                /*
-                //TODO
-                //Надо добавить логику проверки валидности токена
-                 
-                //Удаляем данные из Keychain
-                let keychain = Keychain(service: "UserSecrets")
-                keychain["token"] = nil
-                keychain["userId"] = nil
-                */
-                
                 guard let data = result.value else {
                     completion(.failure(RequestError.failedRequest(message: "[Error] Request failed ")))
                     return
@@ -36,24 +26,8 @@ class VKApi {
                     let result = try JSONDecoder().decode(CommonResponse<T>.self, from: data)
                     completion(.success(result.response.items))
                 } catch {
+                    //TODO: Error processing
                     completion(.failure(error))
-                    
-                    /*
-                    //Хотел сделать переход в момент ошибки, но во первых не осилил как правильно распарсить ошибку что бы понимать что дело именно в токене, а во вторых не осилил как сделать переход.
-                     
-                    //Выдает ошибку на навигейшн контроллер, как понял из гугла, ошибка связана с тем что он не может начать делать анимацию во время выполнения другой анимации, задержка выполнения погоды не сделала.
-                     
-                    //Unbalanced calls to begin/end appearance transitions for <UINavigationController: 0x7f89138c1600>.
-                     
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                        var window: UIWindow
-                        window = UIWindow(frame: UIScreen.main.bounds)
-                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                        let mainVC = storyboard.instantiateViewController(withIdentifier: "LoginWebView")
-                        window.rootViewController = UINavigationController(rootViewController: mainVC)
-                        window.makeKeyAndVisible()
-                    }
-                    */
                 }
         }
     }
@@ -68,19 +42,21 @@ class VKApi {
         requestServer(requestURL: requestURL, method: .post, params: params) { completion($0) }
     }
     
-    func getUserSpecialInformation(token: String, userId:String, completion: @escaping (Swift.Result<[AdvancedUserVK], Error>) -> Void ) {
+    func getUser(token: String, userId:String, completion: @escaping (Swift.Result<[AdvancedUserVK], Error>) -> Void ) {
         let requestURL = vkURL + "users.get"
         let params = ["access_token": token,
                       "user_id": userId,
-                      "fields": "photo_200, status, city, career, counters",
+                      "fields": "status,city,career,counters,has_photo,crop_photo,last_seen,online",
                       "v": "5.103"]
-        
+       
         Alamofire.request(requestURL,
                           method: .post,
                           parameters: params)
             .responseData { (result) in
                 guard let data = result.value else { return }
                 do {
+                    print(data)
+                    print(params)
                     let result = try JSONDecoder().decode(ResponseAdvancedUser.self, from: data)
                     completion(.success(result.response))
                 } catch {
@@ -88,20 +64,8 @@ class VKApi {
                 }
         }
     }
-    func getPhotoInAlbum(token: String, version: String, ownerId: String, album: Album, completion: @escaping (Swift.Result<[PhotoSpVK], Error>) -> Void ) {
-        let requestURL = vkURL + "photos.get"
-        let params = ["access_token": token,
-                      "owner_id": ownerId,
-                      "album_id": album,
-                      "rev": "1",
-                      "extended": "1",
-                      "photo_sizes": "1",
-                      "v": version] as [String : Any]
-        
-        requestServer(requestURL: requestURL, method: .post, params: params) { completion($0) }
-    }
     
-    func getUsersPhoto(token: String, version: String, ownerId: String, completion: @escaping (Swift.Result<[PhotoSpVK], Error>) -> Void ) {
+    func getUserPhoto(token: String, version: String, ownerId: String, completion: @escaping (Swift.Result<[PhotoVK], Error>) -> Void ) {
         let requestURL = vkURL + "photos.getAll"
         let params = ["access_token": token,
                       "owner_id": ownerId,
@@ -113,12 +77,12 @@ class VKApi {
         requestServer(requestURL: requestURL, method: .post, params: params) { completion($0) }
     }
     
-    func getGroupListForUser(token: String, version: String, user: String, completion: @escaping (Swift.Result<[GroupVK], Error>) -> Void ) {
+    func getGroupList(token: String, version: String, user: String, completion: @escaping (Swift.Result<[GroupVK], Error>) -> Void ) {
         let requestURL = vkURL + "groups.get"
         let params = ["access_token": token,
                       "user_id": user,
                       "extended": "1",
-                      "fields": "photo_100",
+                      "fields": "activity,photo_100,members_count",
                       "v": version]
         
         requestServer(requestURL: requestURL, method: .post, params: params) { completion($0) }
@@ -141,7 +105,7 @@ class VKApi {
                           })
     }
     
-    func getNews(token: String, userId:String, from: String?, version: String, completion: @escaping (Swift.Result<ResponseNews, Error>) -> Void ) {
+    func getNewsList(token: String, userId:String, from: String?, version: String, completion: @escaping (Swift.Result<ResponseNews, Error>) -> Void ) {
         let requestURL = vkURL + "newsfeed.get"
         var params: [String : String]
         if let myFrom = from {
@@ -172,9 +136,24 @@ class VKApi {
             .responseData { (result) in
                 guard let data = result.value else { return }
                 do {
+                    print(result)
                     let result = try JSONDecoder().decode(CommonResponseNews.self, from: data)
                     completion(.success(result.response))
                 } catch {
+                    
+                    //Пример обработки определенной ошибки (5: токен привязан к другому IP адресу)
+                    do {
+                        let result = try JSONDecoder().decode(ResponseErrorVK.self, from: data)
+                        if result.error.errorCode == 5 {
+                            let keychain = Keychain(service: "UserSecrets")
+                            keychain["token"] = nil
+                            keychain["userId"] = nil
+                            print("[Logging] Your data is cleared, please restart the application")
+                        }
+                        completion(.failure(error))
+                    } catch {
+                        completion(.failure(error))
+                    }
                     completion(.failure(error))
                 }
         }

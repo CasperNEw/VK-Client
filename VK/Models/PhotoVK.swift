@@ -42,13 +42,4 @@ struct PhotoSize: Codable {
     let type: String
     let url: String
     let width, height: Int
-    
-    func toRealm() -> PhotoSizesRealm {
-        let photoRealm = PhotoSizesRealm()
-        photoRealm.type = type
-        photoRealm.url = url
-        photoRealm.width = width
-        photoRealm.height = height
-        return photoRealm
-    }
 }

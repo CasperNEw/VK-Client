@@ -31,7 +31,7 @@ struct NewsVK: Codable {
     let comments: CommentsNews
     let likes: LikesNews
     let reposts: RepostsNews
-    let views: ViewsNews
+    let views: ViewsNews?
 
     enum CodingKeys: String, CodingKey {
         case sourceID = "source_id"

@@ -26,7 +26,6 @@ class NewsRealm: Object {
     }
     
     var photos = List<String>()
-    //@objc dynamic var photos = [String]()
     
     func toModel() -> PostVK {
         

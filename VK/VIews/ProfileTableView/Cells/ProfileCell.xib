@@ -9,7 +9,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" restorationIdentifier="ProfileInfo" selectionStyle="default" indentationWidth="10" reuseIdentifier="UserProfileInfo" id="KGk-i7-Jjw" userLabel="UserProfileInfo" customClass="UserProfileInfoCell" customModule="VK_KonstantinovDS" customModuleProvider="target">
+        <tableViewCell contentMode="scaleToFill" restorationIdentifier="ProfileCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="ProfileCell" id="KGk-i7-Jjw" userLabel="ProfileCell" customClass="ProfileCell" customModule="VK_KonstantinovDS" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="492" height="250"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
@@ -198,12 +198,15 @@
             </constraints>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="cityStackView" destination="EqB-NV-Zxi" id="HsR-TE-H5Q"/>
                 <outlet property="currentCity" destination="y68-9X-w16" id="rvI-gs-5Xf"/>
                 <outlet property="friendsCountButton" destination="bA6-jm-Q9g" id="pcf-4c-1AY"/>
                 <outlet property="photoCollection" destination="kIg-lT-UqY" id="cqa-q0-CgE"/>
                 <outlet property="placeOfWorkButton" destination="aht-Rm-DN1" id="nCO-QR-VU6"/>
                 <outlet property="statusMessage" destination="uXA-LO-Q7k" id="Zty-KW-EkT"/>
+                <outlet property="statusStackView" destination="Emq-pG-8gq" id="Ahe-af-VSE"/>
                 <outlet property="subscribesCountButton" destination="Km5-pN-ege" id="Wjv-56-pdx"/>
+                <outlet property="workPlaceStackView" destination="MgC-O0-F6B" id="pC2-Ta-Uw8"/>
             </connections>
             <point key="canvasLocation" x="259.4202898550725" y="194.86607142857142"/>
         </tableViewCell>

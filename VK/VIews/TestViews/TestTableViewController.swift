@@ -47,12 +47,7 @@ class TestTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "SimpleMessage", for: indexPath) as? MessageCell else { return UITableViewCell() }
-        cell.username.text = "Mark Zuckerberg"
-        cell.avatar.image = UIImage(named: "Mark Zuckerberg")
-        cell.message.text = "Test row \(indexPath.row)"
-        cell.time.text = "Today"
-        return cell
+        return UITableViewCell()
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -92,7 +87,7 @@ class TestTableViewController: UITableViewController {
         view.addGestureRecognizer(hideAction)
         
         //добавляем возможность отслеживания положения контента на TableView
-        (tableView as? UIScrollView)?.delegate = self
+        //(tableView as? UIScrollView)?.delegate = self
     }
     //добавляем необходимые для нашей "магии" переменные
     var offsetBool = false

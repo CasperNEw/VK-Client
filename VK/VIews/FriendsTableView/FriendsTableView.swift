@@ -58,10 +58,11 @@ class FriendsTableView: UITableViewController {
         
         //сделаем переключение на ProfileView с пробросом данных
         let main = UIStoryboard(name: "Main", bundle: nil)
-        guard let vc = main.instantiateViewController(identifier: "ProfileTableView") as? UserProfileTableView else {
+        guard let vc = main.instantiateViewController(identifier: "ProfileTableView") as? ProfileTableView else {
             return
         }
-        vc.user = presenter?.getModelAtIndex(indexPath: indexPath)?.toModel()
+        vc.fromVC = presenter?.sendToNextVC(indexPath: indexPath)
+        //vc.user = presenter?.getModelAtIndex(indexPath: indexPath)?.toModel()
         navigationController?.pushViewController(vc, animated: true)
     }
     

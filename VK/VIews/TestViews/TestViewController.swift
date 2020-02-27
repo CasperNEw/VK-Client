@@ -72,7 +72,7 @@ class TestViewController: UIViewController {
     
     @IBAction func parallaxButtonPush(_ sender: Any) {
         let main = UIStoryboard( name: "Main", bundle: nil)
-        let vc = main.instantiateViewController(identifier: "GroupInfoView") as! UserProfileTableView
+        let vc = main.instantiateViewController(identifier: "GroupInfoView") as! ProfileTableView
         navigationController?.pushViewController(vc, animated: true)
     }
     

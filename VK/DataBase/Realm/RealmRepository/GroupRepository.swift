@@ -12,7 +12,7 @@ import RealmSwift
 protocol GroupSourse {
     func getAllGroups() throws -> Results<GroupRealm>
     func addGroups(groups: [GroupVK])
-    func searchGroup(name: String) throws -> Results<GroupRealm>
+    func searchGroups(name: String) throws -> Results<GroupRealm>
 }
 
 class GroupRepository: GroupSourse {
@@ -40,23 +40,24 @@ class GroupRepository: GroupSourse {
                     groupRealm.screenName = group.screenName
                     groupRealm.isClosed = group.isClosed
                     groupRealm.type = group.type
-                    groupRealm.isAdmin = group.isAdmin
-                    groupRealm.isMember = group.isMember
-                    groupRealm.isAdvertiser = group.isAdvertiser
+                    groupRealm.isAdmin = group.isAdmin ?? -1
+                    groupRealm.isMember = group.isMember ?? -1
+                    groupRealm.isAdvertiser = group.isAdvertiser ?? -1
+                    groupRealm.activity = group.activity ?? ""
+                    groupRealm.membersCount = group.membersCount ?? 0
                     groupRealm.photo100 = group.photo100
-                    groupRealm.adminLevel = group.adminLevel ?? 0
+                    groupRealm.adminLevel = group.adminLevel ?? -1
                     
                     groupsToAdd.append(groupRealm)
                 }
                 realm.add(groupsToAdd, update: .modified)
             }
-            //print(realm.objects(GroupRealm.self))
         } catch {
             print(error)
         }
     }
     
-    func searchGroup(name: String) throws -> Results<GroupRealm> {
+    func searchGroups(name: String) throws -> Results<GroupRealm> {
         do {
             let realm = try Realm()
             return realm.objects(GroupRealm.self).filter("name CONTAINS[c] %@", name)

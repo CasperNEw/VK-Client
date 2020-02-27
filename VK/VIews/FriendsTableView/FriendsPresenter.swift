@@ -14,6 +14,7 @@ protocol FriendsPresenter {
     func viewDidLoad()
     func apiRequest()
     func searchFriends(name: String)
+    func sendToNextVC(indexPath: IndexPath) -> Int
     
     func getNumberOfSections() -> Int
     func getNumberOfRowsInSection(section: Int) -> Int
@@ -42,13 +43,13 @@ class FriendsPresenterImplementation: FriendsPresenter {
     }
     
     func apiRequest() {
-        //принудительное обновление
         getUsersFromApi()
     }
     
     func searchFriends(name: String) {
         do {
             self.friendsResult = name.isEmpty ? try database.getAllUsers() : try database.searchUsers(name: name)
+            if name == "Online" { self.friendsResult = try database.getOnline() }
             
             let friendsDictionary = Dictionary(grouping : friendsResult) { $0.lastName.prefix(1) }
             friendsWithSectionsResults = friendsDictionary.map { Section(title: String($0.key), items: $0.value) }
@@ -57,6 +58,10 @@ class FriendsPresenterImplementation: FriendsPresenter {
         } catch {
             print(error)
         }
+    }
+    
+    func sendToNextVC(indexPath: IndexPath) -> Int {
+        return friendsWithSectionsResults[indexPath.section].items[indexPath.row].id
     }
 
     private func getUsersFromDatabase() {

@@ -12,6 +12,7 @@ protocol UserSourse {
     func getAllUsers() throws -> Results<UserRealm>
     func addUsers(users: [UserVK])
     func searchUsers(name: String) throws -> Results<UserRealm>
+    func getOnline() throws -> Results<UserRealm>
 }
 
 class UserRepository: UserSourse {
@@ -29,6 +30,15 @@ class UserRepository: UserSourse {
         do {
             let realm = try Realm()
             return realm.objects(UserRealm.self).filter("firstName CONTAINS[c] %@ OR lastName CONTAINS[c] %@", name, name)
+        } catch {
+            throw error
+        }
+    }
+    
+    func getOnline() throws -> Results<UserRealm> {
+        do {
+            let realm = try Realm()
+            return realm.objects(UserRealm.self).filter("online == 1")
         } catch {
             throw error
         }
@@ -54,7 +64,6 @@ class UserRepository: UserSourse {
                 print("[Logging] UserRealm get entities - \(usersToAdd.count)")
                 realm.add(usersToAdd, update: .modified)
             }
-            //print(realm.objects(UserRealm.self))
         } catch {
             print(error)
         }

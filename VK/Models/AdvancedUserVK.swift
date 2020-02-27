@@ -7,85 +7,69 @@ struct ResponseAdvancedUser: Codable {
 struct AdvancedUserVK: Codable {
     let id: Int
     let firstName, lastName: String
-    let isClosed, canAccessClosed: Bool
+    var fullname: String { return firstName + " " + lastName }
     let city: City?
-    let photo200: String?
+    let hasPhoto, online: Int
     let status: String?
+    let lastSeen: LastSeen
+    let cropPhoto: CropPhoto?
     let counters: Counters
     let career: [Career]?
-    /*
-     has_photo int?
-     crop_photo object
-     last_seen int???
-     online
-     
-     
-     */
+    
     enum CodingKeys: String, CodingKey {
-        case id
-        case firstName = "first_name"
-        case lastName = "last_name"
-        case isClosed = "is_closed"
-        case canAccessClosed = "can_access_closed"
-        case city
-        case photo200 = "photo_200"
-        case status, counters, career
-    }
+           case id
+           case firstName = "first_name"
+           case lastName = "last_name"
+           case city
+           case hasPhoto = "has_photo"
+           case online, status
+           case lastSeen = "last_seen"
+           case cropPhoto = "crop_photo"
+           case counters, career
+       }
 }
 
 struct City: Codable {
-    let id: Int?
     let title: String?
 }
 
+struct LastSeen: Codable {
+    let time, platform: Int
+}
+
+struct CropPhoto: Codable {
+    let photo: Photo
+    let crop, rect: Crop
+}
+
+struct Photo: Codable {
+    let sizes: [Size]
+}
+
+struct Crop: Codable {
+    let x, y, x2, y2: Double
+}
+
 struct Counters: Codable {
-    let albums: Int?
-    let videos: Int?
-    let audios: Int?
     let photos: Int?
-    let notes: Int?
     let friends: Int?
-    let groups: Int?
-    let onlineFriends: Int?
     let mutualFriends: Int?
-    let userVideos: Int?
     let followers: Int?
-    let pages: Int?
     
     enum CodingKeys: String, CodingKey {
-        case albums
-        case videos
-        case audios
         case photos
-        case notes
         case friends
-        case groups
-        case onlineFriends = "online_friends"
-        case mutualFriends = "mutual_Friends"
-        case userVideos = "user_videos"
+        case mutualFriends = "mutual_friends"
         case followers
-        case pages
     }
 }
     
 struct Career: Codable {
-    let groupId: Int?
     let company: String?
-    let countryId: Int?
-    let cityId: Int?
-    let cityName: String?
-    let from: Int?
-    let until: Int?
-    let position: String?
-    
-    enum CodingKeys: String, CodingKey {
-        case groupId = "group_id"
-        case company
-        case countryId = "country_id"
-        case cityId = "city_id"
-        case cityName = "city_name"
-        case from
-        case until
-        case position
-    }
+}
+
+struct Size: Codable {
+    let type: String
+    let url: String
+    let width, height: Int
 }

@@ -1,17 +1,17 @@
 //
-//  UserProfilePresenter.swift
+//  GroupsPresenter.swift
 //  VK
 //
-//  Created by Дмитрий Константинов on 19.02.2020.
+//  Created by Дмитрий Константинов on 15.02.2020.
 //  Copyright © 2020 Дмитрий Константинов. All rights reserved.
 //
 
 import Foundation
 import RealmSwift
 
-protocol UserProfilePresenter {
+protocol GroupsPresenter {
     
-    func loadData()
+    func viewDidLoad()
     func searchGroups(name: String)
     func deleteEntity(indexPath: IndexPath)
     
@@ -20,7 +20,7 @@ protocol UserProfilePresenter {
     func getModelAtIndex(indexPath: IndexPath) -> GroupRealm?
 }
 
-class UserProfilePresenterImplementation: UserProfilePresenter {
+class GroupsPresenterImplementation: GroupsPresenter {
     
     private var vkApi: VKApi
     private var database: GroupSourse
@@ -38,42 +38,14 @@ class UserProfilePresenterImplementation: UserProfilePresenter {
         token?.invalidate()
     }
     
-    func getUserData() {
-        
-//        if let id = user?.id {
-//            vkApi.getPhotoInAlbum(token: Session.instance.token, version: Session.instance.version, ownerId: String(id), album: .profile) { [weak self] result in
-//                do {
-//                    let resultData = try result.get()
-//                    self?.dataPhotos = resultData
-//
-//                    self?.tableView.reloadData()
-//                } catch {
-//                    print("[Logging] Error retrieving the value: \(error)")
-//                }
-//            }
-//            vkApi.getUserSpecialInformation(token: Session.instance.token, userId: String(id)) { [weak self] result in
-//                do {
-//                    let resultData = try result.get()
-//                    self?.dataUserSpecial = resultData
-//                    self?.loadMainPhoto()
-//                    self?.loadCellData()
-//                    self?.tableView.reloadData()
-//                } catch {
-//                    print("[Logging] Error retrieving the value: \(error)")
-//                }
-//            }
-//        } else { return }
-        
-    }
-    
-    func loadData() {
+    func viewDidLoad() {
         getGroupsFromApi()
     }
     
     func searchGroups(name: String) {
         
         do {
-            groupsResult = name.isEmpty ? try database.getAllGroups() : try database.searchGroup(name: name)
+            groupsResult = name.isEmpty ? try database.getAllGroups() : try database.searchGroups(name: name)
             tokenInitializaion()
         } catch {
             print(error)
@@ -82,7 +54,7 @@ class UserProfilePresenterImplementation: UserProfilePresenter {
     
     func deleteEntity(indexPath: IndexPath) {
         deleteFromDatabase(indexPath: indexPath)
-        //deleteFromServer()
+        //TODO: deleteFromServer()
     }
     
     private func deleteFromDatabase(indexPath: IndexPath) {
@@ -100,7 +72,7 @@ class UserProfilePresenterImplementation: UserProfilePresenter {
     }
     
     private func getGroupsFromApi() {
-        vkApi.getGroupListForUser(token: Session.instance.token, version: Session.instance.version, user: Session.instance.userId) { result in
+        vkApi.getGroupList(token: Session.instance.token, version: Session.instance.version, user: Session.instance.userId) { result in
             switch result {
             case .success(let groups):
                 self.database.addGroups(groups: groups)
@@ -137,7 +109,7 @@ class UserProfilePresenterImplementation: UserProfilePresenter {
     
 }
 
-extension UserProfilePresenterImplementation {
+extension GroupsPresenterImplementation {
     
     func getModelAtIndex(indexPath: IndexPath) -> GroupRealm? {
         return groupsResult?[indexPath.row]

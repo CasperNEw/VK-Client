@@ -12,7 +12,7 @@ class FriendsTableViewCell: UITableViewCell {
         let lastName = model.lastName
         
         friendsName.text = firstName + " " + lastName
-        
+        if model.online == 1 { friendsName.text = firstName + " " + lastName + " * online" }
         if let url = URL(string: model.photo100) {
             cornerShadowView.imageView.kf.setImage(with: url)
         }

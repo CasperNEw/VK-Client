@@ -1,25 +1,41 @@
-import UIKit
+//
+//  ProfileTableView.swift
+//  VK
+//
+//  Created by Дмитрий Константинов on 11.12.2019.
+//  Copyright © 2019 Дмитрий Константинов. All rights reserved.
+//
 
-protocol NewsTableViewUpdater: AnyObject {
+import UIKit
+import Kingfisher
+
+protocol ProfileTableViewUpdater: AnyObject {
     func showConnectionAlert()
+    func showIncorrectDataAlert()
     func reloadTable()
     func updateTable(forDel: [Int], forIns: [Int], forMod: [Int])
+    func setupProfileImage(name: String, date: String, url: URL, processor: CroppingImageProcessor)
 }
 
-class NewsTableView: UITableViewController {
+class ProfileTableView: UITableViewController {
     
-    var arrayIndexPath = 0
-    var presenter: NewsPresenter?
+    @IBOutlet weak var profileImage: UIImageView!
+    @IBOutlet weak var profileName: UILabel!
+    @IBOutlet weak var profileDate: UILabel!
+    
+    var presenter: ProfilePresenter?
     var customRefreshControl = UIRefreshControl()
-    private let newsSearchController = UISearchController(searchResultsController: nil)
     
+    var fromVC: Int?
+
     override func viewDidLoad() {
-        presenter = NewsPresenterImplementation(database: NewsRepository(), view: self)
-        addSearchController()
+        presenter = ProfilePresenterImplementation(database: ProfileRepository(), view: self)
         addRefreshControl()
         setupTableForSmoothScroll()
+        print("[Logging] load Profile View")
         
-        tableView.register(UINib(nibName: "NewsCell", bundle: nil), forCellReuseIdentifier: "SimpleNews")
+        tableView.register(UINib(nibName: "ProfileCell", bundle: nil), forCellReuseIdentifier: "ProfileCell")
+        //tableView.register(UINib(nibName: "UserProfileNewsCell", bundle: nil), forCellReuseIdentifier: "UserProfileNews")
         
         //автоматическое изменение высоты ячейки
         tableView.estimatedRowHeight = 100.0
@@ -27,8 +43,9 @@ class NewsTableView: UITableViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        presenter?.viewDidLoad()
+        presenter?.viewDidLoad(fromVC: fromVC)
     }
+    
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
@@ -37,20 +54,12 @@ class NewsTableView: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return presenter?.getNumberOfRowsInSection(section: section) ?? 0
     }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "SimpleNews", for: indexPath) as? NewsCell, let model = presenter?.getModelAtIndex(indexPath: indexPath) else { return UITableViewCell()
-        }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "ProfileCell", for: indexPath) as? ProfileCell, let model = presenter?.getModelAtIndex(indexPath: indexPath) else { return UITableViewCell() }
         
         cell.renderCell(model: model)
         return cell
-    }
-    
-    func addSearchController() {
-        newsSearchController.searchResultsUpdater = self
-        newsSearchController.obscuresBackgroundDuringPresentation = false
-        newsSearchController.searchBar.placeholder = "News search"
-        navigationItem.searchController = newsSearchController
-        definesPresentationContext = true
     }
     
     func addRefreshControl() {
@@ -60,13 +69,9 @@ class NewsTableView: UITableViewController {
     }
     
     @objc func refreshTable() {
-        print("[Logging] Update Realm[NewsRealm] from server")
+        print("[Logging] Update Realm[ProfileRealm] from server")
         
-        //обнуляю строку поиска для корректного отображения
-        newsSearchController.searchBar.text = nil
-        newsSearchController.isActive = false
-        
-        presenter?.viewDidLoad()
+        presenter?.viewDidLoad(fromVC: fromVC)
         self.customRefreshControl.endRefreshing()
     }
     
@@ -77,16 +82,7 @@ class NewsTableView: UITableViewController {
     }
 }
 
-extension NewsTableView: UISearchResultsUpdating {
-    func updateSearchResults(for searchController: UISearchController) {
-        filterContentForSearchText(searchController.searchBar.text!)
-    }
-    private func filterContentForSearchText(_ searchText: String) {
-        presenter?.searchNews(text: searchText)
-    }
-}
-
-extension NewsTableView {
+extension ProfileTableView {
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
@@ -95,13 +91,13 @@ extension NewsTableView {
         let deltaOffset = maximumOffset - currentOffset
 
         if deltaOffset < 1000.0 {
-            presenter?.uploadData()
+            //presenter?.uploadData()
+            print("[Logging] TODO: upload data")
         }
     }
 }
 
-
-extension NewsTableView: NewsTableViewUpdater {
+extension ProfileTableView: ProfileTableViewUpdater {
     
     func updateTable(forDel: [Int], forIns: [Int], forMod: [Int]) {
         
@@ -118,10 +114,24 @@ extension NewsTableView: NewsTableViewUpdater {
     }
     
     func showConnectionAlert() {
-        
         let alert = UIAlertController(title: "Error", message: "There was an error loading your data, check your network connection", preferredStyle: .alert)
         let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
         alert.addAction(action)
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    func showIncorrectDataAlert() {
+        let alert = UIAlertController(title: "Error", message: "An error occurred while loading data", preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        alert.addAction(action)
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func setupProfileImage(name: String, date: String, url: URL, processor: CroppingImageProcessor) {
+        
+        profileName.text = name
+        profileDate.text = date
+        profileImage.contentMode = .scaleAspectFill
+        profileImage.kf.setImage(with: url, options: [.processor(processor)])
     }
 }

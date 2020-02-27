@@ -21,7 +21,7 @@ class GroupsTableView: UITableViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        presenter?.loadData()
+        presenter?.viewDidLoad()
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -29,8 +29,8 @@ class GroupsTableView: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "CellGroups", for: indexPath) as? GroupsCell, let model = presenter?.getModelAtIndex(indexPath: indexPath) else { return UITableViewCell()
-        }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "CellGroups", for: indexPath) as? GroupsCell, let model = presenter?.getModelAtIndex(indexPath: indexPath) else { return UITableViewCell() }
+        
         cell.renderCell(model: model)
         return cell
     }
@@ -60,14 +60,13 @@ class GroupsTableView: UITableViewController {
     }
     
     @objc func refreshTable() {
-        //print("[Logging] Update CoreData[GroupCD] from server")
         print("[Logging] Update Realm[GroupRealm] from server")
         
         //обнуляю строку поиска для корректного отображения
         groupsSearchController.searchBar.text = nil
         groupsSearchController.isActive = false
         
-        presenter?.loadData()
+        presenter?.viewDidLoad()
         self.customRefreshControl.endRefreshing()
     }
     
@@ -113,12 +112,10 @@ extension GroupsTableView: GroupsTableViewUpdater {
         tableView.insertRows(at: forIns.map { IndexPath(row: $0, section: 0) }, with: .none)
         tableView.reloadRows(at: forMod.map { IndexPath(row: $0, section: 0) }, with: .none)
         tableView.endUpdates()
-        
     }
     
     func reloadTable() {
         tableView.reloadData()
-        
     }
     
     func showConnectionAlert() {
