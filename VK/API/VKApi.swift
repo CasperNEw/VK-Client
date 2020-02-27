@@ -88,21 +88,19 @@ class VKApi {
         requestServer(requestURL: requestURL, method: .post, params: params) { completion($0) }
     }
     
-    //пока не используем данный метод, попозже перепишем ;)
-    func getFilteredGroupList(token: String, version: String, user: String, text: String) {
+    func getSearchGroup(token: String, version: String, offset: Int, text: String, completion: @escaping (Swift.Result<[GroupVK], Error>) -> Void ) {
         let requestURL = vkURL + "groups.search"
         let params = ["access_token": token,
-                      "user_id": user,
                       "q": text,
                       "is_member": "1",
+                      "fields": "activity,photo_100,members_count",
+                      "count": "20",
+                      "offset": String(offset),
                       "type": "group",
                       "v": version]
         
-        Alamofire.request(requestURL,
-                          method: .post,
-                          parameters: params).responseJSON(completionHandler: { (response) in
-                            print(response.value as? [String: Any] ?? "[Logging] JSON error")
-                          })
+        Alamofire.SessionManager.default.session.getAllTasks { tasks in tasks.forEach{ $0.cancel()} }
+        requestServer(requestURL: requestURL, method: .post, params: params) { completion($0) }
     }
     
     func getNewsList(token: String, userId:String, from: String?, version: String, completion: @escaping (Swift.Result<ResponseNews, Error>) -> Void ) {

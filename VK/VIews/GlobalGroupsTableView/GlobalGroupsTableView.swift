@@ -1,23 +1,21 @@
 import UIKit
 
-protocol GroupsTableViewUpdater: AnyObject {
+protocol GlobalGroupsTableViewUpdater: AnyObject {
     func showConnectionAlert()
     func reloadTable()
     func updateTable(forDel: [Int], forIns: [Int], forMod: [Int])
 }
 
-class GroupsTableView: UITableViewController {
-    
-    @IBOutlet var groupsView: UITableView!
-    var presenter: GroupsPresenter?
-    var customRefreshControl = UIRefreshControl()
-    private let groupsSearchController = UISearchController(searchResultsController: nil)
+class GlobalGroupsTableView: UITableViewController {
+
+
+    var presenter: GlobalGroupsPresenter?
+    private let searchController = UISearchController(searchResultsController: nil)
     
     override func viewDidLoad() {
-        presenter = GroupsPresenterImplementation(database: GroupRepository(), view: self)
+        presenter = GlobalGroupsPresenterImplementation(database: GlobalGroupRepository(), view: self)
         addSearchController()
-        addRefreshControl()
-        print("[Logging] load Groups View")
+        print("[Logging] load Global Groups View")
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -29,7 +27,9 @@ class GroupsTableView: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "GroupsCell", for: indexPath) as? GroupsCell, let model = presenter?.getModelAtIndex(indexPath: indexPath) else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "GlobalGroupsCell", for: indexPath) as? GlobalGroupsCell, let model = presenter?.getModelAtIndex(indexPath: indexPath) else {
+            return UITableViewCell()
+        }
         
         cell.renderCell(model: model)
         return cell
@@ -41,46 +41,48 @@ class GroupsTableView: UITableViewController {
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            presenter?.deleteEntity(indexPath: indexPath)
+            //presenter?.deleteEntity(indexPath: indexPath)
         }
     }
     
+    // TODO: viewDidUnload realm.deleteAll()
+
     func addSearchController() {
-        groupsSearchController.searchResultsUpdater = self
-        groupsSearchController.obscuresBackgroundDuringPresentation = false
-        groupsSearchController.searchBar.placeholder = "Groups search"
-        navigationItem.searchController = groupsSearchController
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Groups search"
+        navigationItem.searchController = searchController
         definesPresentationContext = true
-    }
-    
-    func addRefreshControl() {
-        customRefreshControl.attributedTitle = NSAttributedString(string: "Refreshing ...")
-        customRefreshControl.addTarget(self, action: #selector(refreshTable), for: .valueChanged)
-        tableView.addSubview(customRefreshControl)
-    }
-    
-    @objc func refreshTable() {
-        print("[Logging] Update Realm[GroupRealm] from server")
-        
-        //обнуляю строку поиска для корректного отображения
-        groupsSearchController.searchBar.text = nil
-        groupsSearchController.isActive = false
-        
-        presenter?.viewDidLoad()
-        self.customRefreshControl.endRefreshing()
     }
 }
 
-extension GroupsTableView: UISearchResultsUpdating {
+extension GlobalGroupsTableView: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         filterContentForSearchText(searchController.searchBar.text!)
     }
     private func filterContentForSearchText(_ searchText: String) {
-        presenter?.searchGroups(name: searchText)
+        presenter?.searchGroupsFromApi(name: searchText)
     }
 }
 
-extension GroupsTableView: GroupsTableViewUpdater {
+extension GlobalGroupsTableView {
+    
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        let currentOffset = scrollView.contentOffset.y
+        let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height
+        let deltaOffset = maximumOffset - currentOffset
+
+        if deltaOffset < 800.0 {
+            if let searchText = searchController.searchBar.text {
+                presenter?.uploadFromApi(name: searchText)
+            }
+        }
+    }
+}
+
+
+extension GlobalGroupsTableView: GlobalGroupsTableViewUpdater {
     
     func updateTable(forDel: [Int], forIns: [Int], forMod: [Int]) {
         

@@ -45,6 +45,8 @@ class NewsTableView: UITableViewController {
         return cell
     }
     
+    // TODO: viewDidUnload realm.deleteAll() (<20)
+    
     func addSearchController() {
         newsSearchController.searchResultsUpdater = self
         newsSearchController.obscuresBackgroundDuringPresentation = false
