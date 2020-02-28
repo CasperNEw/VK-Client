@@ -96,19 +96,13 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Friends" id="Sg2-ZN-0fE">
-                        <barButtonItem key="rightBarButtonItem" title="Logout" id="Qx8-32-LQR">
-                            <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
-                            <connections>
-                                <segue destination="Bjf-oL-ADQ" kind="unwind" unwindAction="goToLofinFormWithUnwindSegue:" id="wZm-EG-sGN"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="backBarButtonItem" title=" " id="4Xp-3y-uGF"/>
                     </navigationItem>
                     <connections>
                         <outlet property="friendsTView" destination="hum-Ds-FNu" id="tma-KS-IZp"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wRz-He-62q" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <exit id="Bjf-oL-ADQ" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="6188" y="1265.7635467980297"/>
         </scene>
@@ -183,7 +177,8 @@
                         </connections>
                     </tableView>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Groups" id="8Uj-EW-YRI">
+                    <navigationItem key="navigationItem" title="Groups" leftItemsSupplementBackButton="YES" id="8Uj-EW-YRI">
+                        <barButtonItem key="backBarButtonItem" title=" " id="3RC-wQ-qD9"/>
                         <barButtonItem key="rightBarButtonItem" image="magnifyingglass.circle" catalog="system" id="oPO-4y-UEp">
                             <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                             <connections>
@@ -327,7 +322,7 @@
             </objects>
             <point key="canvasLocation" x="1377" y="4017"/>
         </scene>
-        <!--Profile Table View-->
+        <!--Profile-->
         <scene sceneID="dRn-1K-NCH">
             <objects>
                 <tableViewController storyboardIdentifier="ProfileTableView" id="7fe-ZR-2hk" customClass="ProfileTableView" customModule="VK_KonstantinovDS" customModuleProvider="target" sceneMemberID="viewController">
@@ -378,7 +373,9 @@
                             <outlet property="delegate" destination="7fe-ZR-2hk" id="K4q-u6-wPX"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="mc4-kq-duJ"/>
+                    <navigationItem key="navigationItem" title="Profile" id="mc4-kq-duJ">
+                        <barButtonItem key="backBarButtonItem" title=" " id="fUV-Q9-f8b"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="profileDate" destination="s2Q-hU-7BR" id="0bB-LP-S8U"/>
                         <outlet property="profileImage" destination="Xi7-TI-OBX" id="V60-Ha-CeG"/>
@@ -433,7 +430,7 @@
             </objects>
             <point key="canvasLocation" x="3178" y="4017"/>
         </scene>
-        <!--News Table View-->
+        <!--News-->
         <scene sceneID="oPr-Qq-vPO">
             <objects>
                 <tableViewController id="ZqH-yY-hHH" customClass="NewsTableView" customModule="VK_KonstantinovDS" customModuleProvider="target" sceneMemberID="viewController">
@@ -457,7 +454,7 @@
                             <outlet property="delegate" destination="ZqH-yY-hHH" id="oO2-QH-If4"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="qeF-1V-PmH"/>
+                    <navigationItem key="navigationItem" title="News" id="qeF-1V-PmH"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HYZ-cQ-Unc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -675,7 +672,9 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="sYo-7l-REi">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.27450980392156865" green="0.50196078430000002" blue="0.76078431372549016" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -719,7 +718,9 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="1hB-UU-3rh">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.27450980392156865" green="0.50196078431372548" blue="0.76078431372549016" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -741,6 +742,9 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="7tv-Ja-OlQ">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -828,6 +832,9 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="WFG-ju-U7a">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>

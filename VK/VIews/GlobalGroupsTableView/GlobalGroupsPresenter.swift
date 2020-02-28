@@ -14,6 +14,7 @@ protocol GlobalGroupsPresenter {
     func viewDidLoad()
     func searchGroupsFromApi(name: String)
     func uploadFromApi(name: String)
+    func sendToNextVC(indexPath: IndexPath) -> Int
     
     func getNumberOfSections() -> Int
     func getNumberOfRowsInSection(section: Int) -> Int
@@ -26,7 +27,6 @@ class GlobalGroupsPresenterImplementation: GlobalGroupsPresenter {
     private var database: GlobalGroupSourse
     private weak var view: GlobalGroupsTableViewUpdater?
     private var groupsResult: Results<GroupRealm>!
-    //private var groupsSearchResult: Results<GroupRealm>!
     private var token: NotificationToken?
     
     private var offset = 0
@@ -41,6 +41,11 @@ class GlobalGroupsPresenterImplementation: GlobalGroupsPresenter {
     
     deinit {
         token?.invalidate()
+        do {
+        try database.deleteGroups()
+        } catch {
+            print(error)
+        }
     }
     
     func viewDidLoad() {
@@ -87,7 +92,9 @@ class GlobalGroupsPresenterImplementation: GlobalGroupsPresenter {
         }
     }
     
-    
+    func sendToNextVC(indexPath: IndexPath) -> Int {
+           return -groupsResult[indexPath.row].id
+       }
     
     private func getGroupsFromApi() {
         vkApi.getGroupList(token: Session.instance.token, version: Session.instance.version, user: Session.instance.userId) { result in

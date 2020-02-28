@@ -12,6 +12,7 @@ protocol NewsSource {
     func getAllNews() throws -> Results<NewsRealm>
     func addNews(posts: [PostVK])
     func searchNews(text: String) throws -> Results<NewsRealm>
+    func saveLastNews() throws
 }
 
 class NewsRepository: NewsSource {
@@ -61,4 +62,24 @@ class NewsRepository: NewsSource {
         }
     }
     
+    func saveLastNews() throws {
+        print("[Logging] SAVE NEWS")
+        do {
+            let realm = try Realm()
+            let news = realm.objects(NewsRealm.self).sorted(byKeyPath: "date")
+        
+            if news.count > 20 {
+                var newsToSave = [NewsRealm]()
+                for i in 1...20 {
+                    newsToSave.append(news[news.count - i])
+                }
+                try realm.write {
+                    realm.delete(realm.objects(NewsRealm.self))
+                    realm.add(newsToSave, update: .modified)
+                }
+            }
+        } catch {
+            throw error
+        }
+    }
 }

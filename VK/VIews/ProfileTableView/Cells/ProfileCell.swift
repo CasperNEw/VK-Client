@@ -8,6 +8,7 @@ class ProfileCell: UITableViewCell {
     @IBOutlet weak var currentCity: UILabel!
     @IBOutlet weak var placeOfWorkButton: UIButton!
     @IBOutlet weak var photoCollection: UICollectionView!
+    private var count = 0
     
     
     @IBAction func friendsCountButtonTapped(_ sender: Any) {
@@ -27,6 +28,7 @@ class ProfileCell: UITableViewCell {
     }
     
     @IBOutlet weak var statusStackView: UIStackView!
+    @IBOutlet weak var friendsStackView: UIStackView!
     @IBOutlet weak var cityStackView: UIStackView!
     @IBOutlet weak var workPlaceStackView: UIStackView!
     
@@ -43,15 +45,10 @@ class ProfileCell: UITableViewCell {
         currentCity.text = model.city
         placeOfWorkButton.setTitle(model.career, for: .normal)
         
-        if model.status == "" {
-            statusStackView.isHidden = true
-        }
-        if model.city == "" {
-            cityStackView.isHidden = true
-        }
-        if model.career == "" {
-            workPlaceStackView.isHidden = true
-        }
+        if model.status == "" { statusStackView.isHidden = true }
+        if model.friendsCount == 0 { friendsStackView.isHidden = true }
+        if model.city == "" { cityStackView.isHidden = true }
+        if model.career == "" { workPlaceStackView.isHidden = true }
         
         if model.photos.count > 0 {
             self.model = model

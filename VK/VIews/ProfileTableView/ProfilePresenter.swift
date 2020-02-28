@@ -13,6 +13,7 @@ import Kingfisher
 protocol ProfilePresenter {
 
     func viewDidLoad(fromVC: Int?)
+    func uploadData(fromVC: Int?)
     func getNumberOfSections() -> Int
     func getNumberOfRowsInSection(section: Int) -> Int
     func getModel() -> ProfileRealm?
@@ -30,6 +31,9 @@ class ProfilePresenterImplementation: ProfilePresenter {
     private var token: NotificationToken?
     private var wallToken: NotificationToken?
     
+    private var offset = 0
+    private var status = false
+    
     init(database: ProfileSource, databaseWall: WallSource, view: ProfileTableViewUpdater) {
         vkApi = VKApi()
         self.database = database
@@ -40,6 +44,11 @@ class ProfilePresenterImplementation: ProfilePresenter {
     deinit {
         token?.invalidate()
         wallToken?.invalidate()
+        do {
+            try databaseWall.deleteWall()
+        } catch {
+            print(error)
+        }
     }
     
     func viewDidLoad(fromVC: Int?) {
@@ -47,7 +56,36 @@ class ProfilePresenterImplementation: ProfilePresenter {
         getWallFromApi(id: fromVC)
     }
     
+    func uploadData(fromVC: Int?) {
+        if status {
+            status = false
+            getWallFromApi(id: fromVC, offset: offset)
+        }
+    }
+    
     private func getProfileFromApi(id: Int?) {
+        
+        if id ?? 0 < 0 {
+            guard let testId = id else { return }
+            let groupId = String(-testId)
+            
+            vkApi.getGroup(token: Session.instance.token, groupId: groupId, version: Session.instance.version) { [weak self] result in
+                switch result {
+                case .success(let result):
+                    if let group = result.first {
+                        if let profile = self?.profileGroupCreation(group: group) {
+                        self?.database.addProfile(profile: profile)
+                        self?.getProfileFromDatabase(id: groupId)
+                        }
+                    }
+                case .failure(let error):
+                    self?.view?.showConnectionAlert()
+                    print("[Logging] Error retrieving the value: \(error)")
+                }
+            }
+        }
+        
+        if id ?? 0 < 0 { return }
         
         var idForRequest = Session.instance.userId
         id != nil ? idForRequest = String(id!) : nil
@@ -91,11 +129,12 @@ class ProfilePresenterImplementation: ProfilePresenter {
         }
     }
     
-    private func getWallFromApi(id: Int?) {
+    private func getWallFromApi(id: Int?, offset: Int? = 0) {
+        
         var idForRequest = Session.instance.userId
         id != nil ? idForRequest = String(id!) : nil
         
-        vkApi.getWall(token: Session.instance.token, ownerId: idForRequest, version: Session.instance.version) { result in
+        vkApi.getWall(token: Session.instance.token, ownerId: idForRequest, version: Session.instance.version, offset: offset ?? 0) { result in
             switch result {
             case .success(let result):
                 var posts = [PostVK]()
@@ -104,6 +143,10 @@ class ProfilePresenterImplementation: ProfilePresenter {
                 }
                 self.databaseWall.addWall(posts: posts)
                 self.getWallFromDatabase(id: idForRequest)
+                if result.items.count == 20 {
+                    self.status = true
+                    self.offset += 20
+                }
             case .failure(let error):
                 self.view?.showConnectionAlert()
                 print("[Logging] Error retrieving the value: \(error)")
@@ -134,8 +177,13 @@ class ProfilePresenterImplementation: ProfilePresenter {
             let processor = CroppingImageProcessor(size: CGSize(width: width, height: height), anchor: CGPoint(x: x, y: y))
             
             let name = profile.fullname
-            let date = prepareLastSeen(online: profile.online, lastSeen: profile.lastSeenTime)
             
+            if profile.lastSeenTime == 0 {
+                view?.setupProfileImage(name: name, date: "", url: url, processor: processor)
+                return
+            }
+            
+            let date = prepareLastSeen(online: profile.online, lastSeen: profile.lastSeenTime)
             view?.setupProfileImage(name: name, date: date, url: url, processor: processor)
         }
     }
@@ -186,6 +234,39 @@ class ProfilePresenterImplementation: ProfilePresenter {
                 }
             }
         }
+        
+        return profile
+    }
+    
+    private func profileGroupCreation(group: AdvancedGroupVK) -> ProfileVK {
+        
+        var profile = ProfileVK(id: 0, firstName: "", lastName: "", online: 0, lastSeenTime: 0, lastSeenPlatform: 0, status: "", friendsCount: 0, mutualFriendsCount: 0, followersCount: 0, city: "", career: "", photoPath: "", photoWidth: 0.0, photoHeight: 0.0, photoRectX1: 0.0, photoRectY1: 0.0, photoRectX2: 0.0, photoRectY2: 0.0, photos: [])
+        
+        profile.id = group.id
+        profile.firstName = group.name
+        profile.followersCount = group.membersCount
+        profile.city = group.city?.title ?? "vk.com"
+        profile.career = group.site
+        if profile.career == "" { profile.career = group.screenName }
+        
+        group.cropPhoto?.photo.sizes.forEach {
+            if $0.type == "r" {
+                profile.photoPath = $0.url
+                profile.photoWidth = Double($0.width)
+                profile.photoHeight = Double($0.height)
+            }
+        }
+        
+        if profile.photoPath == "" {
+            profile.photoPath = group.photo100
+            profile.photoWidth = Double(100)
+            profile.photoHeight = Double(100)
+        }
+        
+        profile.photoRectX1 = group.cropPhoto?.rect.x ?? 0.0
+        profile.photoRectY1 = group.cropPhoto?.rect.y ?? 0.0
+        profile.photoRectX2 = group.cropPhoto?.rect.x2 ?? 100.0
+        profile.photoRectY2 = group.cropPhoto?.rect.y2 ?? 100.0
         
         return profile
     }

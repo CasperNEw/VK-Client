@@ -98,9 +98,8 @@ extension ProfileTableView {
         let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height
         let deltaOffset = maximumOffset - currentOffset
 
-        if deltaOffset < 1000.0 {
-            //presenter?.uploadData()
-            //print("[Logging] TODO: upload data")
+        if deltaOffset < 800.0 {
+            presenter?.uploadData(fromVC: fromVC)
         }
     }
 }
@@ -124,5 +123,8 @@ extension ProfileTableView: ProfileTableViewUpdater {
         profileDate.text = date
         profileImage.contentMode = .scaleAspectFill
         profileImage.kf.setImage(with: url, options: [.processor(processor)])
+        
+        profileName.textColor = .white
+        profileDate.textColor = .white
     }
 }

@@ -164,6 +164,7 @@
                             </collectionView>
                         </subviews>
                         <constraints>
+                            <constraint firstAttribute="height" relation="lessThanOrEqual" constant="226" id="199-EY-B3u"/>
                             <constraint firstItem="NAf-P9-ZS8" firstAttribute="leading" secondItem="MQX-nj-bCL" secondAttribute="leading" id="1YA-bN-EI3"/>
                             <constraint firstItem="skZ-Sx-TZM" firstAttribute="leading" secondItem="MQX-nj-bCL" secondAttribute="leading" id="21W-pI-Q8t"/>
                             <constraint firstItem="kIg-lT-UqY" firstAttribute="top" secondItem="NAf-P9-ZS8" secondAttribute="bottom" constant="8" id="35A-vW-4az"/>
@@ -201,6 +202,7 @@
                 <outlet property="cityStackView" destination="EqB-NV-Zxi" id="HsR-TE-H5Q"/>
                 <outlet property="currentCity" destination="y68-9X-w16" id="rvI-gs-5Xf"/>
                 <outlet property="friendsCountButton" destination="bA6-jm-Q9g" id="pcf-4c-1AY"/>
+                <outlet property="friendsStackView" destination="skZ-Sx-TZM" id="DM9-Sh-RU8"/>
                 <outlet property="photoCollection" destination="kIg-lT-UqY" id="cqa-q0-CgE"/>
                 <outlet property="placeOfWorkButton" destination="aht-Rm-DN1" id="nCO-QR-VU6"/>
                 <outlet property="statusMessage" destination="uXA-LO-Q7k" id="Zty-KW-EkT"/>

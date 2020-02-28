@@ -55,8 +55,6 @@ class VKApi {
             .responseData { (result) in
                 guard let data = result.value else { return }
                 do {
-                    print(data)
-                    print(params)
                     let result = try JSONDecoder().decode(ResponseAdvancedUser.self, from: data)
                     completion(.success(result.response))
                 } catch {
@@ -86,6 +84,27 @@ class VKApi {
                       "v": version]
         
         requestServer(requestURL: requestURL, method: .post, params: params) { completion($0) }
+    }
+    
+    func getGroup(token: String, groupId: String, version: String, completion: @escaping (Swift.Result<[AdvancedGroupVK], Error>) -> Void ) {
+        let requestURL = vkURL + "groups.getById"
+        let params = ["access_token": token,
+                      "group_id": groupId,
+                      "fields": "crop_photo,screen_name,city,members_count,site",
+                      "v": version]
+       
+        Alamofire.request(requestURL,
+                          method: .post,
+                          parameters: params)
+            .responseData { (result) in
+                guard let data = result.value else { return }
+                do {
+                    let result = try JSONDecoder().decode(ResponseAdvancedGroup.self, from: data)
+                    completion(.success(result.response))
+                } catch {
+                    completion(.failure(error))
+                }
+        }
     }
     
     func getSearchGroup(token: String, version: String, offset: Int, text: String, completion: @escaping (Swift.Result<[GroupVK], Error>) -> Void ) {
@@ -156,13 +175,15 @@ class VKApi {
         }
     }
     
-    func getWall(token: String, ownerId: String, version: String, completion: @escaping (Swift.Result<ResponseNews, Error>) -> Void ) {
+    func getWall(token: String, ownerId: String, version: String, offset: Int, completion: @escaping (Swift.Result<ResponseNews, Error>) -> Void ) {
         let requestURL = vkURL + "wall.get"
         var params: [String : String]
         params = ["access_token": token,
                   "owner_id": ownerId,
                   "extended": "1",
                   "filters": "post",
+                  "count": "20",
+                  "offset": String(offset),
                   "fields": "first_name,last_name,name,photo_100,online",
                   "v": version]
         
@@ -172,7 +193,6 @@ class VKApi {
             .responseData { (result) in
                 guard let data = result.value else { return }
                 do {
-                    print(result)
                     let result = try JSONDecoder().decode(CommonResponseNews.self, from: data)
                     completion(.success(result.response))
                 } catch {

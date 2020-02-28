@@ -48,14 +48,7 @@ class FriendsTableView: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        /*
-         //сделаем переключение на Collection View с пробросом данных
-         let main = UIStoryboard( name: "Main", bundle: nil)
-         let vc = main.instantiateViewController(identifier: "PhotoFreindsCollection") as! FriendsCollectionView
-         vc.user = friendsSection[indexPath.section].items[indexPath.row].fullname
-         navigationController?.pushViewController(vc, animated: true)
-         */
-        
+ 
         //сделаем переключение на ProfileView с пробросом данных
         let main = UIStoryboard(name: "Main", bundle: nil)
         guard let vc = main.instantiateViewController(identifier: "ProfileTableView") as? ProfileTableView else {

@@ -51,6 +51,7 @@
 		DA7B6F752408173C00BC7679 /* WallRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7B6F742408173C00BC7679 /* WallRepository.swift */; };
 		DA7B6F7724083D0300BC7679 /* GlobalGroupsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7B6F7624083D0300BC7679 /* GlobalGroupsPresenter.swift */; };
 		DA7B6F7A240843C300BC7679 /* GlobalGroupRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7B6F79240843C300BC7679 /* GlobalGroupRepository.swift */; };
+		DA7B6F7C2409625D00BC7679 /* AdvancedGroupVK.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7B6F7B2409625D00BC7679 /* AdvancedGroupVK.swift */; };
 		DA7D1EE92398FB4D009E0514 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7D1EE82398FB4D009E0514 /* GradientView.swift */; };
 		DA8A9B0223D3169A00AD416B /* LoginWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8A9B0123D3169A00AD416B /* LoginWebView.swift */; };
 		DA8A9B0523D3413700AD416B /* VKApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8A9B0423D3413700AD416B /* VKApi.swift */; };
@@ -156,6 +157,7 @@
 		DA7B6F742408173C00BC7679 /* WallRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WallRepository.swift; sourceTree = "<group>"; };
 		DA7B6F7624083D0300BC7679 /* GlobalGroupsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalGroupsPresenter.swift; sourceTree = "<group>"; };
 		DA7B6F79240843C300BC7679 /* GlobalGroupRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalGroupRepository.swift; sourceTree = "<group>"; };
+		DA7B6F7B2409625D00BC7679 /* AdvancedGroupVK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedGroupVK.swift; sourceTree = "<group>"; };
 		DA7D1EE82398FB4D009E0514 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		DA8A9B0123D3169A00AD416B /* LoginWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginWebView.swift; sourceTree = "<group>"; };
 		DA8A9B0423D3413700AD416B /* VKApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKApi.swift; sourceTree = "<group>"; };
@@ -400,6 +402,7 @@
 				DACD6A2623D5CEC100D1C9DD /* AdvancedUserVK.swift */,
 				DA7B6F6E2405868000BC7679 /* ProfileVK.swift */,
 				DACD6A2223D5A8D800D1C9DD /* GroupVK.swift */,
+				DA7B6F7B2409625D00BC7679 /* AdvancedGroupVK.swift */,
 				DAAC32CE24016F0900CC88D6 /* NewsVK.swift */,
 				DAAC32D0240284F800CC88D6 /* PostVK.swift */,
 				DA56740A23E6AE110050080F /* PhotoVK.swift */,
@@ -828,6 +831,7 @@
 				DA7D1EE92398FB4D009E0514 /* GradientView.swift in Sources */,
 				DA56740123E2EA030050080F /* UserCD+CoreDataProperties.swift in Sources */,
 				DAA5E4D22396935A00B09EE7 /* FriendsCollectionCell.swift in Sources */,
+				DA7B6F7C2409625D00BC7679 /* AdvancedGroupVK.swift in Sources */,
 				DAE3726023B89539006FC3F4 /* ProfileCollectionCell.swift in Sources */,
 				DA7B6F752408173C00BC7679 /* WallRepository.swift in Sources */,
 				DA1C7B89239A388C00FDA5D7 /* FooterWithLike.swift in Sources */,

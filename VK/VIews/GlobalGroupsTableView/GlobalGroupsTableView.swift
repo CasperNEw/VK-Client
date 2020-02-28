@@ -37,20 +37,19 @@ class GlobalGroupsTableView: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-    }
-    
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            //presenter?.deleteEntity(indexPath: indexPath)
+        
+        let main = UIStoryboard(name: "Main", bundle: nil)
+        guard let vc = main.instantiateViewController(identifier: "ProfileTableView") as? ProfileTableView else {
+            return
         }
+        vc.fromVC = presenter?.sendToNextVC(indexPath: indexPath)
+        navigationController?.pushViewController(vc, animated: true)
     }
     
-    // TODO: viewDidUnload realm.deleteAll()
-
     func addSearchController() {
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "Groups search"
+        searchController.searchBar.placeholder = "Global search"
         navigationItem.searchController = searchController
         definesPresentationContext = true
     }
@@ -80,7 +79,6 @@ extension GlobalGroupsTableView {
         }
     }
 }
-
 
 extension GlobalGroupsTableView: GlobalGroupsTableViewUpdater {
     

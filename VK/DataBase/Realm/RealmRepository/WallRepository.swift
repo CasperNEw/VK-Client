@@ -12,6 +12,7 @@ protocol WallSource {
     func getWall(ownerId: Int) throws -> Results<WallRealm>
     func addWall(posts: [PostVK])
     func searchOnWall(text: String) throws -> Results<WallRealm>
+    func deleteWall() throws
 }
 
 class WallRepository: WallSource {
@@ -62,6 +63,17 @@ class WallRepository: WallSource {
         do {
             let realm = try Realm()
             return realm.objects(WallRealm.self).filter("text CONTAINS[c] %@", text)
+        } catch {
+            throw error
+        }
+    }
+    
+    func deleteWall() throws {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                realm.delete(realm.objects(WallRealm.self))
+            }
         } catch {
             throw error
         }

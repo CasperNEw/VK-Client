@@ -37,6 +37,13 @@ class GroupsTableView: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        let main = UIStoryboard(name: "Main", bundle: nil)
+        guard let vc = main.instantiateViewController(identifier: "ProfileTableView") as? ProfileTableView else {
+            return
+        }
+        vc.fromVC = presenter?.sendToNextVC(indexPath: indexPath)
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {

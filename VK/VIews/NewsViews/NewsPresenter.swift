@@ -37,6 +37,11 @@ class NewsPresenterImplementation: NewsPresenter {
     
     deinit {
         token?.invalidate()
+        do {
+            try database.saveLastNews()
+        } catch {
+            print(error)
+        }
     }
     
     func viewDidLoad() {

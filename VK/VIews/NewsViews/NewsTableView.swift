@@ -45,8 +45,6 @@ class NewsTableView: UITableViewController {
         return cell
     }
     
-    // TODO: viewDidUnload realm.deleteAll() (<20)
-    
     func addSearchController() {
         newsSearchController.searchResultsUpdater = self
         newsSearchController.obscuresBackgroundDuringPresentation = false
@@ -96,12 +94,11 @@ extension NewsTableView {
         let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height
         let deltaOffset = maximumOffset - currentOffset
 
-        if deltaOffset < 1000.0 {
+        if deltaOffset < 800.0 {
             presenter?.uploadData()
         }
     }
 }
-
 
 extension NewsTableView: NewsTableViewUpdater {
     

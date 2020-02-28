@@ -10,22 +10,13 @@ import Foundation
 import RealmSwift
 
 protocol GlobalGroupSourse {
-    func getAllGroups() throws -> Results<GroupRealm>
     func getUserGroups() throws -> Results<GroupRealm>
     func addGroups(groups: [GroupVK])
     func searchGroups(name: String) throws -> Results<GroupRealm>
+    func deleteGroups() throws
 }
 
 class GlobalGroupRepository: GlobalGroupSourse {
-    
-    func getAllGroups() throws -> Results<GroupRealm> {
-        do {
-            let realm = try Realm()
-            return realm.objects(GroupRealm.self)
-        } catch {
-            throw error
-        }
-    }
     
     func getUserGroups() throws -> Results<GroupRealm> {
         do {
@@ -56,7 +47,7 @@ class GlobalGroupRepository: GlobalGroupSourse {
                     groupRealm.activity = group.activity ?? ""
                     groupRealm.membersCount = group.membersCount ?? 0
                     groupRealm.photo100 = group.photo100
-                    groupRealm.adminLevel = group.adminLevel ?? -1
+                    groupRealm.adminLevel = 15
                     
                     groupsToAdd.append(groupRealm)
                 }
@@ -71,6 +62,19 @@ class GlobalGroupRepository: GlobalGroupSourse {
         do {
             let realm = try Realm()
             return realm.objects(GroupRealm.self).filter("name CONTAINS[c] %@", name)
+        } catch {
+            throw error
+        }
+    }
+    
+    func deleteGroups() throws {
+        print("[Logging] SAVE NEWS")
+        do {
+            let realm = try Realm()
+            
+            try realm.write {
+                realm.delete(realm.objects(GroupRealm.self).filter("adminLevel = 15"))
+            }
         } catch {
             throw error
         }

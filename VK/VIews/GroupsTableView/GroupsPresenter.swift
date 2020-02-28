@@ -14,6 +14,7 @@ protocol GroupsPresenter {
     func viewDidLoad()
     func searchGroups(name: String)
     func deleteEntity(indexPath: IndexPath)
+    func sendToNextVC(indexPath: IndexPath) -> Int
     
     func getNumberOfSections() -> Int
     func getNumberOfRowsInSection(section: Int) -> Int
@@ -50,6 +51,10 @@ class GroupsPresenterImplementation: GroupsPresenter {
         } catch {
             print(error)
         }
+    }
+    
+    func sendToNextVC(indexPath: IndexPath) -> Int {
+        return -groupsResult[indexPath.row].id
     }
     
     func deleteEntity(indexPath: IndexPath) {
