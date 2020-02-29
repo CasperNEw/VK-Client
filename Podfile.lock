@@ -74,6 +74,8 @@ PODS:
     - GoogleUtilities/Logger
   - GoogleUtilities/UserDefaults (6.5.1):
     - GoogleUtilities/Logger
+  - ImageViewer.swift (3.0.12):
+    - SDWebImage
   - KeychainAccess (4.1.0)
   - Kingfisher (5.13.0):
     - Kingfisher/Core (= 5.13.0)
@@ -89,11 +91,15 @@ PODS:
   - Realm/Headers (4.3.1)
   - RealmSwift (4.3.1):
     - Realm (= 4.3.1)
+  - SDWebImage (5.5.2):
+    - SDWebImage/Core (= 5.5.2)
+  - SDWebImage/Core (5.5.2)
 
 DEPENDENCIES:
   - Alamofire
   - Firebase/Analytics
   - Firebase/Crashlytics
+  - ImageViewer.swift (~> 3.0)
   - KeychainAccess
   - Kingfisher
   - RealmSwift
@@ -114,12 +120,14 @@ SPEC REPOS:
     - GoogleDataTransport
     - GoogleDataTransportCCTSupport
     - GoogleUtilities
+    - ImageViewer.swift
     - KeychainAccess
     - Kingfisher
     - nanopb
     - PromisesObjC
     - Realm
     - RealmSwift
+    - SDWebImage
 
 SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
@@ -136,13 +144,15 @@ SPEC CHECKSUMS:
   GoogleDataTransport: 0048df6388dab1c254799f2a30365b1dffe20422
   GoogleDataTransportCCTSupport: f880d70972efa2ed1be4e9173a0f4c5f3dc2d176
   GoogleUtilities: 06eb53bb579efe7099152735900dd04bf09e7275
+  ImageViewer.swift: d4769c57ff8aef6da7e01bb9283f8554469b2498
   KeychainAccess: 445e28864fe6d3458b41fa211bcdc39890e8bd5a
   Kingfisher: 0d334cada987fcddbe9b5cec516406e1ee9d4748
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
   Realm: 31dc40934081ef740f60feedc46d88473cbfeb40
   RealmSwift: b5199e9a41f67b99f51acf6874a6166f5fbe93d1
+  SDWebImage: 4d5c027c935438f341ed33dbac53ff9f479922ca
 
-PODFILE CHECKSUM: d8a3579832af983b1b94d305cf96957b779a2aca
+PODFILE CHECKSUM: 349cd5775549fab87d4f4ca056e715a122b83a12
 
 COCOAPODS: 1.8.4

@@ -1,6 +1,6 @@
 import UIKit
 
-protocol FriendsTableViewUpdater: class {
+protocol FriendsTableViewUpdater: AnyObject {
     func updateTable()
 }
 
@@ -75,6 +75,11 @@ class FriendsTableView: UITableViewController {
     @objc func refreshTable() {
         //print("[Logging] Update CoreData[UserCD] from server")
         print("[Logging] Update Realm[UserRealm] from server")
+        
+        //обнуляю строку поиска для корректного отображения
+        searchController.searchBar.text = nil
+        searchController.isActive = false
+        
         self.presenter?.apiRequest()
         self.customRefreshControl.endRefreshing()
     }

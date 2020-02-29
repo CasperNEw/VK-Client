@@ -86,7 +86,6 @@ class NewsPresenterImplementation: NewsPresenter {
         }
     }
     
-        
     private func getNextFrom() -> String? {
         return nextFrom
     }

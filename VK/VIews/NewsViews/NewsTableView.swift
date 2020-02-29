@@ -11,7 +11,7 @@ class NewsTableView: UITableViewController {
     var arrayIndexPath = 0
     var presenter: NewsPresenter?
     var customRefreshControl = UIRefreshControl()
-    private let newsSearchController = UISearchController(searchResultsController: nil)
+    private let searchController = UISearchController(searchResultsController: nil)
     
     override func viewDidLoad() {
         presenter = NewsPresenterImplementation(database: NewsRepository(), view: self)
@@ -46,10 +46,10 @@ class NewsTableView: UITableViewController {
     }
     
     func addSearchController() {
-        newsSearchController.searchResultsUpdater = self
-        newsSearchController.obscuresBackgroundDuringPresentation = false
-        newsSearchController.searchBar.placeholder = "News search"
-        navigationItem.searchController = newsSearchController
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "News search"
+        navigationItem.searchController = searchController
         definesPresentationContext = true
     }
     
@@ -63,8 +63,8 @@ class NewsTableView: UITableViewController {
         print("[Logging] Update Realm[NewsRealm] from server")
         
         //обнуляю строку поиска для корректного отображения
-        newsSearchController.searchBar.text = nil
-        newsSearchController.isActive = false
+        searchController.searchBar.text = nil
+        searchController.isActive = false
         
         presenter?.viewDidLoad()
         self.customRefreshControl.endRefreshing()

@@ -8,6 +8,7 @@ target 'VK' do
   pod 'Alamofire'
   pod 'Kingfisher'
   pod 'RealmSwift'
+  pod 'ImageViewer.swift', '~> 3.0'
   pod 'KeychainAccess'
   pod 'Firebase/Analytics'
   pod 'Firebase/Crashlytics'

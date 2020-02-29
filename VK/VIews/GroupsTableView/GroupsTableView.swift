@@ -11,7 +11,7 @@ class GroupsTableView: UITableViewController {
     @IBOutlet var groupsView: UITableView!
     var presenter: GroupsPresenter?
     var customRefreshControl = UIRefreshControl()
-    private let groupsSearchController = UISearchController(searchResultsController: nil)
+    private let searchController = UISearchController(searchResultsController: nil)
     
     override func viewDidLoad() {
         presenter = GroupsPresenterImplementation(database: GroupRepository(), view: self)
@@ -53,10 +53,10 @@ class GroupsTableView: UITableViewController {
     }
     
     func addSearchController() {
-        groupsSearchController.searchResultsUpdater = self
-        groupsSearchController.obscuresBackgroundDuringPresentation = false
-        groupsSearchController.searchBar.placeholder = "Groups search"
-        navigationItem.searchController = groupsSearchController
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Groups search"
+        navigationItem.searchController = searchController
         definesPresentationContext = true
     }
     
@@ -70,8 +70,8 @@ class GroupsTableView: UITableViewController {
         print("[Logging] Update Realm[GroupRealm] from server")
         
         //обнуляю строку поиска для корректного отображения
-        groupsSearchController.searchBar.text = nil
-        groupsSearchController.isActive = false
+        searchController.searchBar.text = nil
+        searchController.isActive = false
         
         presenter?.viewDidLoad()
         self.customRefreshControl.endRefreshing()

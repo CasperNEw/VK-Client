@@ -1,5 +1,6 @@
 import UIKit
 import Kingfisher
+import ImageViewer_swift
 
 class NewsCell: UITableViewCell {
 
@@ -115,6 +116,18 @@ extension NewsCell: UICollectionViewDelegate, UICollectionViewDataSource {
         
         if let url = URL(string: model.photos[indexPath.row]) {
             cell.collectionImage.kf.setImage(with: url)
+        }
+        // Setup Image Viewer with [URL]
+        var urls = [URL]()
+        model.photos.forEach { if let url = URL(string: $0) { urls.append(url) } }
+        
+        let config = UIImage.SymbolConfiguration(pointSize: UIFont.systemFontSize, weight: .bold, scale: .large)
+        if let image = UIImage(systemName: "chevron.left", withConfiguration: config) {
+            let newImage = image.withTintColor(.darkGray, renderingMode: .alwaysOriginal)
+            let options: [ImageViewerOption] = [.closeIcon(newImage)]
+            cell.collectionImage.setupImageViewer(urls: urls, initialIndex: indexPath.row, options: options)
+        } else {
+            cell.collectionImage.setupImageViewer(urls: urls, initialIndex: indexPath.row)
         }
         
         cell.collectionImage.contentMode = .scaleAspectFill
