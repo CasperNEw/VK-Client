@@ -29,6 +29,7 @@ class ProfileTableView: UITableViewController {
     override func viewDidLoad() {
         presenter = ProfilePresenterImplementation(database: ProfileRepository(), databaseWall: WallRepository(), view: self)
         addRefreshControl()
+        updateNavigationItem()
         setupTableForSmoothScroll()
         print("[Logging] load Profile View")
         
@@ -81,6 +82,10 @@ class ProfileTableView: UITableViewController {
         
         presenter?.viewDidLoad(fromVC: fromVC)
         self.customRefreshControl.endRefreshing()
+    }
+    
+    func updateNavigationItem() {
+        navigationController?.navigationBar.tintColor = .darkGray
     }
     
     func setupTableForSmoothScroll() {

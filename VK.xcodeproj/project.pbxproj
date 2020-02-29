@@ -182,7 +182,7 @@
 		DACD6A2623D5CEC100D1C9DD /* AdvancedUserVK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedUserVK.swift; sourceTree = "<group>"; };
 		DAE3725E23B89539006FC3F4 /* ProfileCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCollectionCell.swift; sourceTree = "<group>"; };
 		DAE3725F23B89539006FC3F4 /* ProfileCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileCollectionCell.xib; sourceTree = "<group>"; };
-		DAF16B88238D2E0A00FF58D0 /* VK_KonstantinovDS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VK_KonstantinovDS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DAF16B88238D2E0A00FF58D0 /* VK Client.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "VK Client.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAF16B8B238D2E0A00FF58D0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DAF16B8D238D2E0A00FF58D0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		DAF16B92238D2E0A00FF58D0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -504,7 +504,7 @@
 		DAF16B89238D2E0A00FF58D0 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				DAF16B88238D2E0A00FF58D0 /* VK_KonstantinovDS.app */,
+				DAF16B88238D2E0A00FF58D0 /* VK Client.app */,
 				DAF16B9E238D2E0E00FF58D0 /* VKTests.xctest */,
 				DAF16BA9238D2E0E00FF58D0 /* VKUITests.xctest */,
 			);
@@ -579,7 +579,7 @@
 			);
 			name = VK;
 			productName = VK;
-			productReference = DAF16B88238D2E0A00FF58D0 /* VK_KonstantinovDS.app */;
+			productReference = DAF16B88238D2E0A00FF58D0 /* VK Client.app */;
 			productType = "com.apple.product-type.application";
 		};
 		DAF16B9D238D2E0E00FF58D0 /* VKTests */ = {
@@ -1069,7 +1069,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = CasperNEw.VK;
-				PRODUCT_NAME = VK_KonstantinovDS;
+				PRODUCT_NAME = "VK Client";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1087,7 +1087,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = CasperNEw.VK;
-				PRODUCT_NAME = VK_KonstantinovDS;
+				PRODUCT_NAME = "VK Client";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

@@ -15,10 +15,12 @@ class GlobalGroupsTableView: UITableViewController {
     override func viewDidLoad() {
         presenter = GlobalGroupsPresenterImplementation(database: GlobalGroupRepository(), view: self)
         addSearchController()
+        updateNavigationItem()
         print("[Logging] load Global Groups View")
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        if searchController.isActive == true { return }
         presenter?.viewDidLoad()
     }
     
@@ -52,6 +54,10 @@ class GlobalGroupsTableView: UITableViewController {
         searchController.searchBar.placeholder = "Global search"
         navigationItem.searchController = searchController
         definesPresentationContext = true
+    }
+    
+    func updateNavigationItem() {
+        navigationController?.navigationBar.tintColor = .darkGray
     }
 }
 
