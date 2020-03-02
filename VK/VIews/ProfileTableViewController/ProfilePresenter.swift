@@ -73,12 +73,13 @@ class ProfilePresenterImplementation: ProfilePresenter {
                 switch result {
                 case .success(let result):
                     if let group = result.first {
-                        if let profile = self?.profileGroupCreation(group: group) {
-                        self?.database.addProfile(profile: profile)
-                        self?.getProfileFromDatabase(id: groupId)
+                        if let profile = self?.creatingGroupProfileFromData(group: group) {
+                            self?.database.addProfile(profile: profile)
+                            self?.getProfileFromDatabase(id: groupId)
                         }
                     }
                 case .failure(let error):
+                    self?.view?.endRefreshing()
                     self?.view?.showConnectionAlert()
                     print("[Logging] Error retrieving the value: \(error)")
                 }
@@ -98,17 +99,19 @@ class ProfilePresenterImplementation: ProfilePresenter {
                         switch result {
                         case .success(let result):
                             
-                            if let profile = self?.profileCreation(user: user, photos: result) {
+                            if let profile = self?.creatingUserProfileFromData(user: user, photos: result) {
                                 self?.database.addProfile(profile: profile)
                                 self?.getProfileFromDatabase(id: idForRequest)
                             }
                         case .failure(let error):
+                            self?.view?.endRefreshing()
                             self?.view?.showConnectionAlert()
                             print("[Logging] Error retrieving the value: \(error)")
                         }
                     }
                 }
             case .failure(let error):
+                self?.view?.endRefreshing()
                 self?.view?.showConnectionAlert()
                 print("[Logging] Error retrieving the value: \(error)")
             }
@@ -122,8 +125,10 @@ class ProfilePresenterImplementation: ProfilePresenter {
             if let model = profileResult.first?.toModel() {
                 getProfileImageData(profile: model)
             }
+            self.view?.endRefreshing()
             self.view?.reloadTable()
         } catch {
+            self.view?.endRefreshing()
             print(error)
         }
     }
@@ -132,13 +137,14 @@ class ProfilePresenterImplementation: ProfilePresenter {
         
         var idForRequest = Session.instance.userId
         id != nil ? idForRequest = String(id!) : nil
+        if offset == nil { self.offset = 0 }
         
         vkApi.getWall(token: Session.instance.token, ownerId: idForRequest, version: Session.instance.version, offset: offset ?? 0) { result in
             switch result {
             case .success(let result):
                 var posts = [PostVK]()
                 result.items.forEach {
-                    if let post = self.postCreation(news: $0, profiles: result.profiles, groups: result.groups) { posts.append(post) }
+                    if let post = self.creatingPostFromData(news: $0, profiles: result.profiles, groups: result.groups) { posts.append(post) }
                 }
                 self.databaseWall.addWall(posts: posts)
                 self.getWallFromDatabase(id: idForRequest)
@@ -147,6 +153,7 @@ class ProfilePresenterImplementation: ProfilePresenter {
                     self.offset += 20
                 }
             case .failure(let error):
+                self.view?.endRefreshing()
                 self.view?.showConnectionAlert()
                 print("[Logging] Error retrieving the value: \(error)")
             }
@@ -157,8 +164,10 @@ class ProfilePresenterImplementation: ProfilePresenter {
         do {
             guard let idForRequest = Int(id) else { return }
             wallResult = try databaseWall.getWall(ownerId: idForRequest)
+            self.view?.endRefreshing()
             self.view?.reloadTable()
         } catch {
+            self.view?.endRefreshing()
             print(error)
         }
 
@@ -197,7 +206,7 @@ class ProfilePresenterImplementation: ProfilePresenter {
         return formatter.string(from: date)
     }
     
-    private func profileCreation(user: AdvancedUserVK, photos: [PhotoVK]) -> ProfileVK {
+    private func creatingUserProfileFromData(user: AdvancedUserVK, photos: [PhotoVK]) -> ProfileVK {
         
         var profile = ProfileVK(id: 0, firstName: "", lastName: "", online: 0, lastSeenTime: 0, lastSeenPlatform: 0, status: "", friendsCount: 0, mutualFriendsCount: 0, followersCount: 0, city: "", career: "", photoPath: "", photoWidth: 0.0, photoHeight: 0.0, photoRectX1: 0.0, photoRectY1: 0.0, photoRectX2: 0.0, photoRectY2: 0.0, photos: [])
         
@@ -237,7 +246,7 @@ class ProfilePresenterImplementation: ProfilePresenter {
         return profile
     }
     
-    private func profileGroupCreation(group: AdvancedGroupVK) -> ProfileVK {
+    private func creatingGroupProfileFromData(group: AdvancedGroupVK) -> ProfileVK {
         
         var profile = ProfileVK(id: 0, firstName: "", lastName: "", online: 0, lastSeenTime: 0, lastSeenPlatform: 0, status: "", friendsCount: 0, mutualFriendsCount: 0, followersCount: 0, city: "", career: "", photoPath: "", photoWidth: 0.0, photoHeight: 0.0, photoRectX1: 0.0, photoRectY1: 0.0, photoRectX2: 0.0, photoRectY2: 0.0, photos: [])
         
@@ -270,10 +279,9 @@ class ProfilePresenterImplementation: ProfilePresenter {
         return profile
     }
     
-    private func postCreation(news: NewsVK, profiles: [UserVK], groups: [GroupVK]) -> PostVK? {
+    private func creatingPostFromData(news: NewsVK, profiles: [UserVK], groups: [GroupVK]) -> PostVK? {
         
         var post = PostVK(id: 0, ownerId: 0, text: "", likes: 0, userLikes: 0, views: 0, comments: 0, reposts: 0, date: 0, authorImagePath: "", authorName: "", photos: [])
-        var photos = [String]()
         
         post.id = news.id
         post.ownerId = news.ownerId
@@ -288,6 +296,15 @@ class ProfilePresenterImplementation: ProfilePresenter {
         post.comments = news.comments.count
         post.reposts = news.reposts.count
         post.date = news.date
+        
+        getPostAuthor(news: news, profiles: profiles, groups: groups, post: &post)
+        getPostPhotos(news: news, post: &post)
+        
+        if post.text == "", post.photos == [] { return nil }
+        return post
+    }
+    
+    private func getPostAuthor(news: NewsVK, profiles: [UserVK], groups: [GroupVK], post: inout PostVK) {
         
         if let source = news.fromId {
             if source > 0 {
@@ -305,29 +322,23 @@ class ProfilePresenterImplementation: ProfilePresenter {
                 }
             }
         }
+    }
+    
+    private func getPostPhotos(news: NewsVK, post: inout PostVK) {
         
         if let attachments = news.attachments {
             for attachment in attachments {
                 if attachment.type == "photo" {
                     attachment.photo?.sizes.forEach {
                         if $0.type == "r" {
-                            photos.append($0.url)
+                            post.photos.append($0.url)
                         }
                     }
                 }
             }
         }
-        
-        post.photos = photos
-        
-        if post.text == "" {
-            if post.photos == [] {
-                return nil
-            }
-        }
-        
-        return post
     }
+    
 }
 
 extension ProfilePresenterImplementation {

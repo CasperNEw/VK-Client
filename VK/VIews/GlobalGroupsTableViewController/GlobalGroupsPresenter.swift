@@ -12,8 +12,8 @@ import RealmSwift
 protocol GlobalGroupsPresenter {
     
     func viewDidLoad()
-    func searchGroupsFromApi(name: String)
-    func uploadFromApi(name: String)
+    func filterContent(searchText: String)
+    func uploadContent(searchText: String)
     func sendToNextVC(indexPath: IndexPath) -> Int
     
     func getNumberOfSections() -> Int
@@ -52,33 +52,33 @@ class GlobalGroupsPresenterImplementation: GlobalGroupsPresenter {
         getGroupsFromApi()
     }
     
-    func uploadFromApi(name: String) {
+    func uploadContent(searchText: String) {
         if status {
             status = false
-            searchGroupsFromApi(name: name)
+            filterContent(searchText: searchText)
         }
     }
     
-    func searchGroupsFromApi(name: String) {
+    func filterContent(searchText: String) {
         
-        if self.searchName != name {
-            self.searchName = name
+        if self.searchName != searchText {
+            self.searchName = searchText
             self.offset = 0
         }
         
         do {
-            if name == "" {
+            if searchText == "" {
                 groupsResult = try database.getUserGroups()
                 offset = 0
                 tokenInitializaion()
                 return
             }
             
-            vkApi.getSearchGroup(token: Session.instance.token, version: Session.instance.version, offset: offset, text: name) { result in
+            vkApi.getSearchGroup(token: Session.instance.token, version: Session.instance.version, offset: offset, text: searchText) { result in
                 switch result {
                 case .success(let groups):
                     self.database.addGroups(groups: groups)
-                    self.getSortedGroupsFromDatabase(name: name)
+                    self.getSortedGroupsFromDatabase(name: searchText)
                     self.offset += 20
                     self.status = true
                 case .failure(let error):

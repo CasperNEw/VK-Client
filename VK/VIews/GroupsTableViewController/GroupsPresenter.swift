@@ -12,7 +12,7 @@ import RealmSwift
 protocol GroupsPresenter {
     
     func viewDidLoad()
-    func searchGroups(name: String)
+    func filterContent(searchText: String)
     func deleteEntity(indexPath: IndexPath)
     func sendToNextVC(indexPath: IndexPath) -> Int
     
@@ -43,10 +43,10 @@ class GroupsPresenterImplementation: GroupsPresenter {
         getGroupsFromApi()
     }
     
-    func searchGroups(name: String) {
+    func filterContent(searchText: String) {
         
         do {
-            groupsResult = name.isEmpty ? try database.getAllGroups() : try database.searchGroups(name: name)
+            groupsResult = searchText.isEmpty ? try database.getAllGroups() : try database.searchGroups(name: searchText)
             tokenInitializaion()
         } catch {
             print(error)
@@ -83,6 +83,7 @@ class GroupsPresenterImplementation: GroupsPresenter {
                 self.database.addGroups(groups: groups)
                 self.getGroupsFromDatabase()
             case .failure(let error):
+                self.view?.endRefreshing()
                 self.view?.showConnectionAlert()
                 print("[Logging] Error retrieving the value: \(error)")
             }
@@ -92,8 +93,10 @@ class GroupsPresenterImplementation: GroupsPresenter {
     private func getGroupsFromDatabase() {
         do {
             groupsResult = try database.getAllGroups()
+            view?.endRefreshing()
             tokenInitializaion()
         } catch {
+            view?.endRefreshing()
             print(error)
         }
     }

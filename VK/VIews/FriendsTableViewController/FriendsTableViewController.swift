@@ -2,6 +2,7 @@ import UIKit
 
 protocol FriendsTableViewControllerUpdater: AnyObject {
     func updateTable()
+    func endRefreshing()
 }
 
 class FriendsTableViewController: UITableViewController {
@@ -17,7 +18,7 @@ class FriendsTableViewController: UITableViewController {
         presenter?.viewDidLoad()
         addSearchController()
         addRefreshControl()
-        print("[Logging] load Friends View")
+        print("[Logging] load Friends View Controller")
     }
     
     override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
@@ -71,14 +72,11 @@ class FriendsTableViewController: UITableViewController {
     }
     
     @objc func refreshTable() {
-        print("[Logging] Update Realm[UserRealm] from server")
-        
         //обнуляю строку поиска для корректного отображения
         searchController.searchBar.text = nil
         searchController.isActive = false
         
-        self.presenter?.apiRequest()
-        self.customRefreshControl.endRefreshing()
+        self.presenter?.refreshTable()
     }
 }
 
@@ -89,12 +87,17 @@ extension FriendsTableViewController: UISearchResultsUpdating {
     }
     
     private func filterContentForSearchText(_ searchText: String) {
-        presenter?.searchFriends(name: searchText)
+        presenter?.filterContent(searchText: searchText)
         tableView.reloadData()
     }
 }
 
 extension FriendsTableViewController: FriendsTableViewControllerUpdater {
+    
+    func endRefreshing() {
+        self.customRefreshControl.endRefreshing()
+    }
+    
     func updateTable() {
         tableView.reloadData()
     }

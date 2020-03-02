@@ -12,6 +12,7 @@ import Kingfisher
 protocol ProfileTableViewControllerUpdater: AnyObject {
     func showConnectionAlert()
     func reloadTable()
+    func endRefreshing()
     func setupProfileImage(name: String, date: String, url: URL, processor: CroppingImageProcessor)
 }
 
@@ -81,7 +82,6 @@ class ProfileTableViewController: UITableViewController {
         print("[Logging] Update Realm[ProfileRealm] from server")
         
         presenter?.viewDidLoad(fromVC: fromVC)
-        self.customRefreshControl.endRefreshing()
     }
     
     func updateNavigationItem() {
@@ -113,6 +113,10 @@ extension ProfileTableViewController: ProfileTableViewControllerUpdater {
     
     func reloadTable() {
         tableView.reloadData()
+    }
+    
+    func endRefreshing() {
+        self.customRefreshControl.endRefreshing()
     }
     
     func showConnectionAlert() {

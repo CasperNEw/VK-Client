@@ -66,7 +66,7 @@ extension GlobalGroupsTableViewController: UISearchResultsUpdating {
         filterContentForSearchText(searchController.searchBar.text!)
     }
     private func filterContentForSearchText(_ searchText: String) {
-        presenter?.searchGroupsFromApi(name: searchText)
+        presenter?.filterContent(searchText: searchText)
     }
 }
 
@@ -80,7 +80,7 @@ extension GlobalGroupsTableViewController {
 
         if deltaOffset < 800.0 {
             if let searchText = searchController.searchBar.text {
-                presenter?.uploadFromApi(name: searchText)
+                presenter?.uploadContent(searchText: searchText)
             }
         }
     }

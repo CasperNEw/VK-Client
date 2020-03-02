@@ -4,6 +4,7 @@ protocol NewsTableViewControllerUpdater: AnyObject {
     func showConnectionAlert()
     func reloadTable()
     func updateTable(forDel: [Int], forIns: [Int], forMod: [Int])
+    func endRefreshing()
 }
 
 class NewsTableViewController: UITableViewController {
@@ -67,7 +68,6 @@ class NewsTableViewController: UITableViewController {
         searchController.isActive = false
         
         presenter?.viewDidLoad()
-        self.customRefreshControl.endRefreshing()
     }
     
     func setupTableForSmoothScroll() {
@@ -82,7 +82,7 @@ extension NewsTableViewController: UISearchResultsUpdating {
         filterContentForSearchText(searchController.searchBar.text!)
     }
     private func filterContentForSearchText(_ searchText: String) {
-        presenter?.searchNews(text: searchText)
+        presenter?.filterContent(searchText: searchText)
     }
 }
 
@@ -122,5 +122,9 @@ extension NewsTableViewController: NewsTableViewControllerUpdater {
         let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
         alert.addAction(action)
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    func endRefreshing() {
+        self.customRefreshControl.endRefreshing()
     }
 }

@@ -4,6 +4,7 @@ protocol GroupsTableViewControllerUpdater: AnyObject {
     func showConnectionAlert()
     func reloadTable()
     func updateTable(forDel: [Int], forIns: [Int], forMod: [Int])
+    func endRefreshing()
 }
 
 class GroupsTableViewController: UITableViewController {
@@ -74,7 +75,6 @@ class GroupsTableViewController: UITableViewController {
         searchController.isActive = false
         
         presenter?.viewDidLoad()
-        self.customRefreshControl.endRefreshing()
     }
 }
 
@@ -83,7 +83,7 @@ extension GroupsTableViewController: UISearchResultsUpdating {
         filterContentForSearchText(searchController.searchBar.text!)
     }
     private func filterContentForSearchText(_ searchText: String) {
-        presenter?.searchGroups(name: searchText)
+        presenter?.filterContent(searchText: searchText)
     }
 }
 
@@ -107,5 +107,9 @@ extension GroupsTableViewController: GroupsTableViewControllerUpdater {
         let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
         alert.addAction(action)
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    func endRefreshing() {
+        self.customRefreshControl.endRefreshing()
     }
 }

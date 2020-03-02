@@ -12,8 +12,8 @@ import RealmSwift
 protocol FriendsPresenter {
     
     func viewDidLoad()
-    func apiRequest()
-    func searchFriends(name: String)
+    func refreshTable()
+    func filterContent(searchText: String)
     func sendToNextVC(indexPath: IndexPath) -> Int
     
     func getNumberOfSections() -> Int
@@ -42,14 +42,14 @@ class FriendsPresenterImplementation: FriendsPresenter {
         getUsersFromApi()
     }
     
-    func apiRequest() {
+    func refreshTable() {
         getUsersFromApi()
     }
     
-    func searchFriends(name: String) {
+    func filterContent(searchText: String) {
         do {
-            self.friendsResult = name.isEmpty ? try database.getAllUsers() : try database.searchUsers(name: name)
-            if name == "Online" { self.friendsResult = try database.getOnline() }
+            self.friendsResult = searchText.isEmpty ? try database.getAllUsers() : try database.searchUsers(name: searchText)
+            if searchText == "Online" { self.friendsResult = try database.getOnline() }
             
             let friendsDictionary = Dictionary(grouping : friendsResult) { $0.lastName.prefix(1) }
             friendsWithSectionsResults = friendsDictionary.map { Section(title: String($0.key), items: $0.value) }
@@ -69,8 +69,10 @@ class FriendsPresenterImplementation: FriendsPresenter {
             self.friendsResult = try database.getAllUsers()
 
             self.makeSortedSection()
+            self.view?.endRefreshing()
             self.view?.updateTable()
         } catch {
+            self.view?.endRefreshing()
             print(error)
         }
     }
@@ -82,6 +84,7 @@ class FriendsPresenterImplementation: FriendsPresenter {
                 self.database.addUsers(users: users)
                 self.getUsersFromDatabase()
             case .failure(let error):
+                self.view?.endRefreshing()
                 print("[Logging] Error retrieving the value: \(error)")
             }
         }

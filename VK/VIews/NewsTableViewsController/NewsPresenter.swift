@@ -12,7 +12,7 @@ import RealmSwift
 protocol NewsPresenter {
     func viewDidLoad()
     func uploadData()
-    func searchNews(text: String)
+    func filterContent(searchText: String)
     
     func getNumberOfSections() -> Int
     func getNumberOfRowsInSection(section: Int) -> Int
@@ -55,9 +55,9 @@ class NewsPresenterImplementation: NewsPresenter {
         }
     }
 
-    func searchNews(text: String) {
+    func filterContent(searchText: String) {
         do {
-            newsResult = text.isEmpty ? try database.getAllNews() : try database.searchNews(text: text)
+            newsResult = searchText.isEmpty ? try database.getAllNews() : try database.searchNews(text: searchText)
             tokenInitializaion()
         } catch {
             print(error)
@@ -72,11 +72,6 @@ class NewsPresenterImplementation: NewsPresenter {
                 let posts = result.items.compactMap {
                     self.postCreation(news: $0, profiles: result.profiles, groups: result.groups)
                 }
-//                var posts = [PostVK]()
-//                result.items.forEach {
-//                    if let post = self.postCreation(news: $0, profiles: result.profiles, groups: result.groups) { posts.append(post) }
-//                }
-
                 self.database.addNews(posts: posts)
                 self.getNewsFromDatabase()
                 if let nextFrom = result.nextFrom {
@@ -84,6 +79,7 @@ class NewsPresenterImplementation: NewsPresenter {
                 }
                 self.status = true
             case .failure(let error):
+                self.view?.endRefreshing()
                 self.view?.showConnectionAlert()
                 print("[Logging] Error retrieving the value: \(error)")
             }
@@ -97,8 +93,10 @@ class NewsPresenterImplementation: NewsPresenter {
     private func getNewsFromDatabase() {
         do {
             newsResult = try database.getAllNews()
+            self.view?.endRefreshing()
             tokenInitializaion()
         } catch {
+            self.view?.endRefreshing()
             print(error)
         }
     }
@@ -120,7 +118,6 @@ class NewsPresenterImplementation: NewsPresenter {
     private func postCreation(news: NewsVK, profiles: [UserVK], groups: [GroupVK]) -> PostVK? {
         
         var post = PostVK(text: "", likes: 0, userLikes: 0, views: 0, comments: 0, reposts: 0, date: 0, authorImagePath: "", authorName: "", photos: [])
-        var photos = [String]()
         
         post.text = news.text
         post.likes = news.likes.count
@@ -134,8 +131,16 @@ class NewsPresenterImplementation: NewsPresenter {
         post.reposts = news.reposts.count
         post.date = news.date
         
-        //new methods
-        if let source = news.sourceId {
+        getPostAuthor(news: news, profiles: profiles, groups: groups, post: &post)
+        getPostPhotos(news: news, post: &post)
+        
+        if post.text == "", post.photos == [] { return nil }
+        return post
+    }
+    
+    private func getPostAuthor(news: NewsVK, profiles: [UserVK], groups: [GroupVK], post: inout PostVK) {
+        
+        if let source = news.fromId {
             if source > 0 {
                 profiles.forEach { if $0.id == source {
                     post.authorName = $0.fullname
@@ -151,26 +156,21 @@ class NewsPresenterImplementation: NewsPresenter {
                 }
             }
         }
+    }
+    
+    private func getPostPhotos(news: NewsVK, post: inout PostVK) {
         
         if let attachments = news.attachments {
             for attachment in attachments {
                 if attachment.type == "photo" {
                     attachment.photo?.sizes.forEach {
                         if $0.type == "r" {
-                            photos.append($0.url)
+                            post.photos.append($0.url)
                         }
                     }
                 }
             }
         }
-        
-        post.photos = photos
-        
-        if post.text == "", post.photos == [] {
-            return nil
-        }
-        
-        return post
     }
 }
 
