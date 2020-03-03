@@ -16,6 +16,7 @@
 		DA4C20FD240EABF80018A3A2 /* NewsTableViewCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4C20FC240EABF80018A3A2 /* NewsTableViewCellModel.swift */; };
 		DA4C20FF240ECF1F0018A3A2 /* FriendsTableViewCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4C20FE240ECF1F0018A3A2 /* FriendsTableViewCellModel.swift */; };
 		DA4C2101240ED23D0018A3A2 /* GroupsTableViewCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4C2100240ED23D0018A3A2 /* GroupsTableViewCellModel.swift */; };
+		DA4C2114240EE9240018A3A2 /* Friends.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA4C2113240EE9240018A3A2 /* Friends.storyboard */; };
 		DA5673EA23DEE32E0050080F /* CommonResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5673E923DEE32E0050080F /* CommonResponse.swift */; };
 		DA56740523E447F50050080F /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA56740423E447F40050080F /* UserRepository.swift */; };
 		DA56740723E598B10050080F /* FriendsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA56740623E598B00050080F /* FriendsPresenter.swift */; };
@@ -107,6 +108,7 @@
 		DA4C20FC240EABF80018A3A2 /* NewsTableViewCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsTableViewCellModel.swift; sourceTree = "<group>"; };
 		DA4C20FE240ECF1F0018A3A2 /* FriendsTableViewCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsTableViewCellModel.swift; sourceTree = "<group>"; };
 		DA4C2100240ED23D0018A3A2 /* GroupsTableViewCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsTableViewCellModel.swift; sourceTree = "<group>"; };
+		DA4C2113240EE9240018A3A2 /* Friends.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Friends.storyboard; sourceTree = "<group>"; };
 		DA5673E923DEE32E0050080F /* CommonResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonResponse.swift; sourceTree = "<group>"; };
 		DA56740423E447F40050080F /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
 		DA56740623E598B00050080F /* FriendsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsPresenter.swift; sourceTree = "<group>"; };
@@ -268,6 +270,7 @@
 			children = (
 				DAF16B96238D2E0E00FF58D0 /* LaunchScreen.storyboard */,
 				DAF16B91238D2E0A00FF58D0 /* Main.storyboard */,
+				DA4C2113240EE9240018A3A2 /* Friends.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -606,6 +609,7 @@
 				DAF16B95238D2E0E00FF58D0 /* Assets.xcassets in Resources */,
 				DA6937AC23ABE1B700DF1BA5 /* NewsCollectionViewCell.xib in Resources */,
 				DA2B82AA23EC4DF700BDAC52 /* GoogleService-Info.plist in Resources */,
+				DA4C2114240EE9240018A3A2 /* Friends.storyboard in Resources */,
 				DAE3726123B89539006FC3F4 /* ProfileCollectionViewCell.xib in Resources */,
 				DAF16B93238D2E0A00FF58D0 /* Main.storyboard in Resources */,
 			);
