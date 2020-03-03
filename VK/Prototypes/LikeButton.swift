@@ -1,11 +1,3 @@
-//реализация кастомного UIButton с "лайком" и счетчиком
-//для работы надо добавить изображения лайка под именами like dislike
-//
-//@IBAction func setLike(_ sender: Any) {
-//    (sender as! LikeButton).like()
-//}
-
-
 import UIKit
 
 @IBDesignable class LikeButton: UIButton {

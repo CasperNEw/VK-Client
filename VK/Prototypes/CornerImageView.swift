@@ -1,5 +1,3 @@
-//Реализация класса для custom Image View с круглой формой и анимацией
-
 import UIKit
 
 class CornerImageView: UIImageView {

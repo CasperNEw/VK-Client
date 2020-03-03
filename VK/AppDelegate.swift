@@ -56,23 +56,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let config = Realm.Configuration(schemaVersion: 1)
         Realm.Configuration.defaultConfiguration = config
         
+        print("[Logging] Realm database config path :")
         print(config.fileURL as Any)
-        
-        
-        /*
-         
-         //Шифрование БД Realm
-         if let key = keychain.getKey {
-            let config = Realm.Configuration(encryptionKey: key, schemaVersion: 1)
-            Realm.Configuration.defaultConfiguration = config
-         } else {
-            var key = key.withUnsafeMutableBytes { bytes in
-                SecRandomCopyBytes(kSecRandomDefault, 64, bytes)
-                записываем в keychain
-                let config = Realm.Configuration(encryptionKey: key, schemaVersion: 1)
-                Realm.Configuration.defaultConfiguration = config
-         }
-         */
         
         /*
         //Конфигурация миграции БД Realm
@@ -82,8 +67,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 if (oldSchemaVersion < 1) { /*Migration code*/ }
             })
         Realm.Configuration.defaultConfiguration = config
-        let realm = try! Realm()
-         // realm.deleteAll() //Принудительное очищение БД
         */
         
         return true

@@ -90,7 +90,7 @@ class FriendsPresenterImplementation: FriendsPresenter {
         }
     }
     
-    func makeSortedSection() {
+    private func makeSortedSection() {
         let friendsDictionary = Dictionary.init(grouping: friendsResult ) { $0.lastName.prefix(1) }
         friendsWithSectionsResults = friendsDictionary.map { Section(title: String($0.key), items: $0.value) }
         friendsWithSectionsResults.sort { $0.title < $1.title }

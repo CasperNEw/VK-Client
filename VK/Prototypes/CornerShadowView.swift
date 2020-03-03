@@ -1,8 +1,3 @@
-//Реализация класса для custom View с возможностью создания радиуса, ободка и тени
-//внутри View данного класса создается объект (Subview) UIImageView
-//радиус реализуется на Subview, а тень реализуется на самом View
-//upd^ добавлена анимация по нажатию на View
-
 import UIKit
 
 class CornerShadowView: UIView {
@@ -61,7 +56,6 @@ class CornerShadowView: UIView {
         layer.shadowOffset = CGSize(width: 1, height: 1)
         layer.masksToBounds = false
         
-        //imageView.layer.cornerRadius = bounds.size.height / 2 //реализация круга
         imageView.layer.cornerRadius = cornerRadius
         imageView.layer.masksToBounds = true
     }

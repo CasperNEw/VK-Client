@@ -14,6 +14,7 @@ protocol ProfilePresenter {
 
     func viewDidLoad(fromVC: Int?)
     func uploadData(fromVC: Int?)
+    
     func getNumberOfSections() -> Int
     func getNumberOfRowsInSection(section: Int) -> Int
     func getModel() -> ProfileRealm?
@@ -223,25 +224,7 @@ class ProfilePresenterImplementation: ProfilePresenter {
         profile.city = user.city?.title ?? ""
         profile.career = user.career?.first?.company ?? ""
         
-        user.cropPhoto?.photo.sizes.forEach {
-            if $0.type == "r" {
-                profile.photoPath = $0.url
-                profile.photoWidth = Double($0.width)
-                profile.photoHeight = Double($0.height)
-            }
-        }
-        profile.photoRectX1 = user.cropPhoto?.rect.x ?? 0.0
-        profile.photoRectY1 = user.cropPhoto?.rect.y ?? 0.0
-        profile.photoRectX2 = user.cropPhoto?.rect.x2 ?? 0.0
-        profile.photoRectY2 = user.cropPhoto?.rect.y2 ?? 0.0
-        
-        photos.forEach {
-            $0.sizes.forEach {
-                if $0.type == "r" {
-                    profile.photos.append($0.url)
-                }
-            }
-        }
+        getUserProfilePhotos(user: user, photos: photos, profile: &profile)
         
         return profile
     }
@@ -257,24 +240,7 @@ class ProfilePresenterImplementation: ProfilePresenter {
         profile.career = group.site
         if profile.career == "" { profile.career = group.screenName }
         
-        group.cropPhoto?.photo.sizes.forEach {
-            if $0.type == "r" {
-                profile.photoPath = $0.url
-                profile.photoWidth = Double($0.width)
-                profile.photoHeight = Double($0.height)
-            }
-        }
-        
-        if profile.photoPath == "" {
-            profile.photoPath = group.photo100
-            profile.photoWidth = Double(100)
-            profile.photoHeight = Double(100)
-        }
-        
-        profile.photoRectX1 = group.cropPhoto?.rect.x ?? 0.0
-        profile.photoRectY1 = group.cropPhoto?.rect.y ?? 0.0
-        profile.photoRectX2 = group.cropPhoto?.rect.x2 ?? 100.0
-        profile.photoRectY2 = group.cropPhoto?.rect.y2 ?? 100.0
+        getGroupProfilePhotos(group: group, profile: &profile)
         
         return profile
     }
@@ -338,6 +304,52 @@ class ProfilePresenterImplementation: ProfilePresenter {
             }
         }
     }
+    
+    private func getUserProfilePhotos(user: AdvancedUserVK, photos: [PhotoVK], profile: inout ProfileVK) {
+        
+        user.cropPhoto?.photo.sizes.forEach {
+            if $0.type == "r" {
+                profile.photoPath = $0.url
+                profile.photoWidth = Double($0.width)
+                profile.photoHeight = Double($0.height)
+            }
+        }
+        profile.photoRectX1 = user.cropPhoto?.rect.x ?? 0.0
+        profile.photoRectY1 = user.cropPhoto?.rect.y ?? 0.0
+        profile.photoRectX2 = user.cropPhoto?.rect.x2 ?? 0.0
+        profile.photoRectY2 = user.cropPhoto?.rect.y2 ?? 0.0
+        
+        photos.forEach {
+            $0.sizes.forEach {
+                if $0.type == "r" {
+                    profile.photos.append($0.url)
+                }
+            }
+        }
+    }
+    
+    private func getGroupProfilePhotos(group: AdvancedGroupVK, profile: inout ProfileVK) {
+        
+        group.cropPhoto?.photo.sizes.forEach {
+               if $0.type == "r" {
+                   profile.photoPath = $0.url
+                   profile.photoWidth = Double($0.width)
+                   profile.photoHeight = Double($0.height)
+               }
+           }
+           
+           if profile.photoPath == "" {
+               profile.photoPath = group.photo100
+               profile.photoWidth = Double(100)
+               profile.photoHeight = Double(100)
+           }
+           
+           profile.photoRectX1 = group.cropPhoto?.rect.x ?? 0.0
+           profile.photoRectY1 = group.cropPhoto?.rect.y ?? 0.0
+           profile.photoRectX2 = group.cropPhoto?.rect.x2 ?? 100.0
+           profile.photoRectY2 = group.cropPhoto?.rect.y2 ?? 100.0
+    }
+    
     
 }
 
