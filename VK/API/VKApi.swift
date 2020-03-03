@@ -9,9 +9,9 @@ enum RequestError: Error {
 
 class VKApi {
     
-    let vkURL = "https://api.vk.com/method/"
+    private let vkURL = "https://api.vk.com/method/"
     
-    func requestServer<T: Decodable>(requestURL: String,
+    private func requestServer<T: Decodable>(requestURL: String,
                                      method: HTTPMethod = .post,
                                      params: Parameters,
                                      completion: @escaping (Swift.Result<[T], Error>) -> Void) {

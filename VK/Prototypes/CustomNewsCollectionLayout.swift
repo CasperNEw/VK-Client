@@ -10,12 +10,13 @@ enum CollectionCustomNewsSize {
 }
 
 class CustomNewsCollectionLayout: UICollectionViewLayout {
-    var cacheAttributes = [IndexPath: UICollectionViewLayoutAttributes]() //хранит информацию по текущей ячейке
-    var rowOne = 2 //количество ячеек в "первой" линии
-    var rowTwo = 2 //количество ячеек во "второй" линии
-    var rowThree = 2 //количество ячеек в "третей" линии
-    var cellHeight: CGFloat = 100 //задаем дефолтную высоту ячеек
-    var containerHeight: CGFloat = 0 //переменная для подсчета общей высоты контента в View
+    //хранит информацию по текущей ячейке
+    private var cacheAttributes = [IndexPath: UICollectionViewLayoutAttributes]()
+    private var rowOne = 2 //количество ячеек в "первой" линии
+    private var rowTwo = 2 //количество ячеек во "второй" линии
+    private var rowThree = 2 //количество ячеек в "третей" линии
+    private var cellHeight: CGFloat = 100 //задаем дефолтную высоту ячеек
+    private var containerHeight: CGFloat = 0 //переменная для подсчета общей высоты контента в View
     
     override func prepare() {
         guard let collection = collectionView else { return }

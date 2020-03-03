@@ -55,9 +55,6 @@
                                         <state key="normal" title="Friends &amp; mutual friends count">
                                             <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                         </state>
-                                        <connections>
-                                            <action selector="friendsCountButtonTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="bW4-Sy-YPW"/>
-                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -78,9 +75,6 @@
                                         <state key="normal" title="Subscribes">
                                             <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                         </state>
-                                        <connections>
-                                            <action selector="subscribesCountButtonTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="DMb-go-mwt"/>
-                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -120,9 +114,6 @@
                                         <state key="normal" title="Work Place">
                                             <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                         </state>
-                                        <connections>
-                                            <action selector="placeOfWorkButtonTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="MAv-Vf-cLY"/>
-                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -143,9 +134,6 @@
                                         <state key="normal" title="Detailed information">
                                             <color key="titleColor" systemColor="systemBlueColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
-                                        <connections>
-                                            <action selector="detailedInformationTapped:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="567-o0-PXO"/>
-                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>

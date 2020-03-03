@@ -9,9 +9,8 @@ protocol NewsTableViewControllerUpdater: AnyObject {
 
 class NewsTableViewController: UITableViewController {
     
-    var arrayIndexPath = 0
-    var presenter: NewsPresenter?
-    var customRefreshControl = UIRefreshControl()
+    private var presenter: NewsPresenter?
+    private var customRefreshControl = UIRefreshControl()
     private let searchController = UISearchController(searchResultsController: nil)
     
     override func viewDidLoad() {
@@ -46,7 +45,7 @@ class NewsTableViewController: UITableViewController {
         return cell
     }
     
-    func addSearchController() {
+    private func addSearchController() {
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "News search"
@@ -54,13 +53,13 @@ class NewsTableViewController: UITableViewController {
         definesPresentationContext = true
     }
     
-    func addRefreshControl() {
+    private func addRefreshControl() {
         customRefreshControl.attributedTitle = NSAttributedString(string: "Refreshing ...")
         customRefreshControl.addTarget(self, action: #selector(refreshTable), for: .valueChanged)
         tableView.addSubview(customRefreshControl)
     }
     
-    @objc func refreshTable() {
+    @objc private func refreshTable() {
         print("[Logging] Update Realm[NewsRealm] from server")
         
         //обнуляю строку поиска для корректного отображения
@@ -70,7 +69,7 @@ class NewsTableViewController: UITableViewController {
         presenter?.viewDidLoad()
     }
     
-    func setupTableForSmoothScroll() {
+    private func setupTableForSmoothScroll() {
         tableView.estimatedRowHeight = 0
         tableView.estimatedSectionHeaderHeight = 0
         tableView.estimatedSectionFooterHeight = 0
@@ -93,8 +92,8 @@ extension NewsTableViewController {
         let currentOffset = scrollView.contentOffset.y
         let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height
         let deltaOffset = maximumOffset - currentOffset
-
-        if deltaOffset < 800.0 {
+        
+        if deltaOffset < 800.0, searchController.isActive == false {
             presenter?.uploadData()
         }
     }

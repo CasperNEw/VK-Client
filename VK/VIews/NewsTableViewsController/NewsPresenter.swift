@@ -16,11 +16,11 @@ protocol NewsPresenter {
     
     func getNumberOfSections() -> Int
     func getNumberOfRowsInSection(section: Int) -> Int
-    func getModelAtIndex(indexPath: IndexPath) -> NewsRealm?
+    func getModelAtIndex(indexPath: IndexPath) -> NewsCell?
 }
 
 class NewsPresenterImplementation: NewsPresenter {
-   
+    
     private var vkApi: VKApi
     private var database: NewsSource
     private weak var view: NewsTableViewControllerUpdater?
@@ -54,7 +54,7 @@ class NewsPresenterImplementation: NewsPresenter {
             getNewsFromApi(from: nextFrom)
         }
     }
-
+    
     func filterContent(searchText: String) {
         do {
             newsResult = searchText.isEmpty ? try database.getAllNews() : try database.searchNews(text: searchText)
@@ -102,7 +102,7 @@ class NewsPresenterImplementation: NewsPresenter {
     }
     
     private func tokenInitializaion() {
-    
+        
         token = newsResult?.observe { [weak self] results in
             switch results {
             case .error(let error):
@@ -140,7 +140,7 @@ class NewsPresenterImplementation: NewsPresenter {
     
     private func getPostAuthor(news: NewsVK, profiles: [UserVK], groups: [GroupVK], post: inout PostVK) {
         
-        if let source = news.fromId {
+        if let source = news.sourceId {
             if source > 0 {
                 profiles.forEach { if $0.id == source {
                     post.authorName = $0.fullname
@@ -176,10 +176,6 @@ class NewsPresenterImplementation: NewsPresenter {
 
 extension NewsPresenterImplementation {
     
-    func getModelAtIndex(indexPath: IndexPath) -> NewsRealm? {
-        return newsResult?[indexPath.row]
-    }
-    
     func getNumberOfSections() -> Int {
         return 1
     }
@@ -188,4 +184,51 @@ extension NewsPresenterImplementation {
         return newsResult?.count ?? 0
     }
     
+}
+
+extension NewsPresenterImplementation {
+    
+    func getModelAtIndex(indexPath: IndexPath) -> NewsCell? {
+        return renderWallRealmToNewsCell(news: newsResult?[indexPath.row])
+    }
+    
+    private func renderWallRealmToNewsCell(news: NewsRealm?) -> NewsCell? {
+        
+        guard let news = news else { return nil }
+        var cellModel = NewsCell()
+        
+        cellModel.mainAuthorImage = news.authorImagePath
+        cellModel.mainAuthorName = news.authorName
+        cellModel.publicationDate = prepareDate(modelDate: news.date)
+        cellModel.publicationText = news.text
+        cellModel.publicationLikeButtonStatus = news.userLikes == 1 ? true : false
+        cellModel.publicationLikeButtonCount = news.likes
+        cellModel.publicationCommentButton = prepareCount(modelCount: news.comments)
+        cellModel.publicationForwardButton = prepareCount(modelCount: news.reposts)
+        cellModel.publicationNumberOfViews = prepareCount(modelCount: news.views)
+        
+        cellModel.newsCollectionViewIsEmpty = news.photos.isEmpty
+        news.photos.forEach { if let url = URL(string: $0) { cellModel.photoCollection.append(url)}}
+        
+        return cellModel
+    }
+    
+    private func prepareDate(modelDate: Int) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "d MMMM в HH:mm"
+        formatter.locale = Locale(identifier: "ru")
+        let date = Date(timeIntervalSince1970: Double(modelDate))
+        return formatter.string(from: date)
+    }
+    
+    private func prepareCount(modelCount: Int) -> String {
+        let count = modelCount
+        if count < 1000 {
+            return "\(modelCount)"
+        } else if count < 10000 {
+            return String(format: "%.1fK", Float(count) / 1000)
+        } else {
+            return String(format: "%.0fK", floorf(Float(count) / 1000))
+        }
+    }
 }

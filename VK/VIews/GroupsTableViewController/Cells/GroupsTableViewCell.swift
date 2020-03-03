@@ -7,21 +7,15 @@ class GroupsTableViewCell: UITableViewCell {
     @IBOutlet weak var groupsActivity: UILabel!
     @IBOutlet weak var groupsMembersCount: UILabel!
     
-    func renderCell(model: GroupRealm) {
+    func renderCell(model: GroupsCell) {
         
-        groupsName.text = model.name
-        groupsActivity.text = model.activity
-        groupsMembersCount.text = String(model.membersCount)
-        
-        if model.activity == "" {
-            groupsActivity.isHidden = true
-        }
-        if model.membersCount == 0 {
-            groupsMembersCount.isHidden = true
-        }
-        
-        if let url = URL(string: model.photo100) {
+        if let url = URL(string: model.groupImage) {
             groupImage.kf.setImage(with: url)
         }
+        groupsName.text = model.groupsName
+        groupsActivity.text = model.groupsActivity
+        groupsMembersCount.text = model.groupsMembersCount
+        groupsActivity.isHidden = model.groupsActivityIsHidden
+        groupsMembersCount.isHidden = model.groupsMembersCountIsHidden
     }
 }

@@ -17,8 +17,8 @@ protocol ProfilePresenter {
     
     func getNumberOfSections() -> Int
     func getNumberOfRowsInSection(section: Int) -> Int
-    func getModel() -> ProfileRealm?
-    func getWallModelAtIndex(indexPath: IndexPath) -> WallRealm?
+    func getModel() -> ProfileCell?
+    func getModelAtIndex(indexPath: IndexPath) -> NewsCell?
 }
 
 class ProfilePresenterImplementation: ProfilePresenter {
@@ -201,6 +201,7 @@ class ProfilePresenterImplementation: ProfilePresenter {
         
         if online == 1 { return "online" }
         let formatter = DateFormatter()
+        //TODO: add sex to fields in api request
         formatter.dateFormat = "Был в сети d MMMM в HH:mm"
         formatter.locale = Locale(identifier: "ru")
         let date = Date(timeIntervalSince1970: Double(lastSeen))
@@ -350,17 +351,17 @@ class ProfilePresenterImplementation: ProfilePresenter {
            profile.photoRectY2 = group.cropPhoto?.rect.y2 ?? 100.0
     }
     
-    
 }
 
 extension ProfilePresenterImplementation {
     
-    func getModel() -> ProfileRealm? {
-        return profileResult?.first
+    func getModel() -> ProfileCell? {
+        return renderProfileRealmToProfileCell(profile: profileResult?.first)
     }
     
-    func getWallModelAtIndex(indexPath: IndexPath) -> WallRealm? {
-        return wallResult?[indexPath.row - 1]
+    func getModelAtIndex(indexPath: IndexPath) -> NewsCell? {
+        if indexPath.row == 0 { return nil }
+        return renderWallRealmToNewsCell(wall: wallResult?[indexPath.row - 1])
     }
     
     func getNumberOfSections() -> Int {
@@ -369,5 +370,76 @@ extension ProfilePresenterImplementation {
     
     func getNumberOfRowsInSection(section: Int) -> Int {
         return (profileResult?.count ?? 0) + (wallResult?.count ?? 0)
+    }
+}
+
+extension ProfilePresenterImplementation {
+    
+    private func renderProfileRealmToProfileCell(profile: ProfileRealm?) -> ProfileCell? {
+        
+        guard let profile = profile else { return nil }
+        var cellModel = ProfileCell()
+        
+        cellModel.statusMessage = profile.status
+        cellModel.currentCity = profile.city
+        cellModel.placeOfWorkButton = profile.career
+        
+        if profile.mutualFriendsCount != 0 {
+            cellModel.friendsCountButton = prepareCount(modelCount: profile.friendsCount) + " * " + prepareCount(modelCount: profile.mutualFriendsCount)
+        } else {
+            cellModel.friendsCountButton = prepareCount(modelCount: profile.friendsCount)
+        }
+        
+        cellModel.subscribesCountButton = prepareCount(modelCount: profile.followersCount)
+        
+        cellModel.statusStackViewIsEmpty = profile.status.isEmpty
+        cellModel.cityStackViewIsEmpty = profile.city.isEmpty
+        cellModel.workPlaceStackViewIsEmpty = profile.career.isEmpty
+        cellModel.photoCollectionIsEmpty = profile.photos.isEmpty
+        if profile.friendsCount != 0 { cellModel.friendsStackViewIsEmpty = false }
+        
+        profile.photos.forEach { if let url = URL(string: $0) { cellModel.photoCollection.append(url)}}
+        
+        return cellModel
+    }
+    
+    private func renderWallRealmToNewsCell(wall: WallRealm?) -> NewsCell? {
+        
+        guard let wall = wall else { return nil }
+        var cellModel = NewsCell()
+        
+        cellModel.mainAuthorImage = wall.authorImagePath
+        cellModel.mainAuthorName = wall.authorName
+        cellModel.publicationDate = prepareDate(modelDate: wall.date)
+        cellModel.publicationText = wall.text
+        cellModel.publicationLikeButtonStatus = wall.userLikes == 1 ? true : false
+        cellModel.publicationLikeButtonCount = wall.likes
+        cellModel.publicationCommentButton = prepareCount(modelCount: wall.comments)
+        cellModel.publicationForwardButton = prepareCount(modelCount: wall.reposts)
+        cellModel.publicationNumberOfViews = prepareCount(modelCount: wall.views)
+        
+        cellModel.newsCollectionViewIsEmpty = wall.photos.isEmpty
+        wall.photos.forEach { if let url = URL(string: $0) { cellModel.photoCollection.append(url)}}
+        
+        return cellModel
+    }
+  
+    private func prepareDate(modelDate: Int) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "d MMMM в HH:mm"
+        formatter.locale = Locale(identifier: "ru")
+        let date = Date(timeIntervalSince1970: Double(modelDate))
+        return formatter.string(from: date)
+    }
+    
+    private func prepareCount(modelCount: Int) -> String {
+        let count = modelCount
+        if count < 1000 {
+            return "\(modelCount)"
+        } else if count < 10000 {
+            return String(format: "%.1fK", Float(count) / 1000)
+        } else {
+            return String(format: "%.0fK", floorf(Float(count) / 1000))
+        }
     }
 }

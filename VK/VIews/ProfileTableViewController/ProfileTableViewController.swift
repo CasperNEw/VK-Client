@@ -22,8 +22,8 @@ class ProfileTableViewController: UITableViewController {
     @IBOutlet weak var profileName: UILabel!
     @IBOutlet weak var profileDate: UILabel!
     
-    var presenter: ProfilePresenter?
-    var customRefreshControl = UIRefreshControl()
+    private var presenter: ProfilePresenter?
+    private var customRefreshControl = UIRefreshControl()
     
     var fromVC: Int?
 
@@ -58,37 +58,38 @@ class ProfileTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.row == 0 {
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "ProfileTableViewCell", for: indexPath) as? ProfileTableViewCell, let model = presenter?.getModel() else { return UITableViewCell() }
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "ProfileTableViewCell", for: indexPath) as? ProfileTableViewCell, let profileModel = presenter?.getModel() else { return UITableViewCell() }
             
-            cell.renderCell(model: model)
+            cell.renderCell(model: profileModel)
             return cell
         }
         if indexPath.row > 0 {
-            guard let wallCell = tableView.dequeueReusableCell(withIdentifier: "NewsTableViewCell", for: indexPath) as? NewsTableViewCell, let wallModel = presenter?.getWallModelAtIndex(indexPath: indexPath) else { return UITableViewCell() }
+            guard let newsCell = tableView.dequeueReusableCell(withIdentifier: "NewsTableViewCell", for: indexPath) as? NewsTableViewCell, let newsModel = presenter?.getModelAtIndex(indexPath: indexPath) else { return UITableViewCell() }
             
-            wallCell.renderWallCell(model: wallModel)
-            return wallCell
+            newsCell.renderCell(model: newsModel)
+            return newsCell
         }
         return UITableViewCell()
     }
     
-    func addRefreshControl() {
+    private func addRefreshControl() {
         customRefreshControl.attributedTitle = NSAttributedString(string: "Refreshing ...")
         customRefreshControl.addTarget(self, action: #selector(refreshTable), for: .valueChanged)
         tableView.addSubview(customRefreshControl)
     }
     
-    @objc func refreshTable() {
+    @objc private func refreshTable() {
         print("[Logging] Update Realm[ProfileRealm] from server")
         
         presenter?.viewDidLoad(fromVC: fromVC)
     }
     
-    func updateNavigationItem() {
+    private func updateNavigationItem() {
         navigationController?.navigationBar.tintColor = .darkGray
+        navigationController?.navigationBar.topItem?.title = ""
     }
     
-    func setupTableForSmoothScroll() {
+    private func setupTableForSmoothScroll() {
         tableView.estimatedRowHeight = 0
         tableView.estimatedSectionHeaderHeight = 0
         tableView.estimatedSectionFooterHeight = 0

@@ -18,7 +18,7 @@ protocol GlobalGroupsPresenter {
     
     func getNumberOfSections() -> Int
     func getNumberOfRowsInSection(section: Int) -> Int
-    func getModelAtIndex(indexPath: IndexPath) -> GroupRealm?
+    func getModelAtIndex(indexPath: IndexPath) -> GroupsCell?
 }
 
 class GlobalGroupsPresenterImplementation: GlobalGroupsPresenter {
@@ -145,10 +145,6 @@ class GlobalGroupsPresenterImplementation: GlobalGroupsPresenter {
 
 extension GlobalGroupsPresenterImplementation {
     
-    func getModelAtIndex(indexPath: IndexPath) -> GroupRealm? {
-        return groupsResult?[indexPath.row]
-    }
-    
     func getNumberOfSections() -> Int {
         return 1
     }
@@ -158,3 +154,34 @@ extension GlobalGroupsPresenterImplementation {
     }
 }
 
+extension GlobalGroupsPresenterImplementation {
+    
+    func getModelAtIndex(indexPath: IndexPath) -> GroupsCell? {
+        return renderGroupRealmToGroupsCell(group: groupsResult?[indexPath.row])
+    }
+    
+    private func renderGroupRealmToGroupsCell(group: GroupRealm?) -> GroupsCell? {
+        guard let group = group else { return nil }
+        var cellModel = GroupsCell()
+        
+        cellModel.groupImage = group.photo100
+        cellModel.groupsName = group.name
+        cellModel.groupsActivity = group.activity
+        cellModel.groupsMembersCount = prepareCount(modelCount: group.membersCount)
+        cellModel.groupsActivityIsHidden = group.activity.isEmpty
+        cellModel.groupsMembersCountIsHidden = group.membersCount == 0 ? true : false
+        
+        return cellModel
+    }
+    
+    private func prepareCount(modelCount: Int) -> String {
+        let count = modelCount
+        if count < 1000 {
+            return "\(modelCount)"
+        } else if count < 10000 {
+            return String(format: "%.1fK", Float(count) / 1000)
+        } else {
+            return String(format: "%.0fK", floorf(Float(count) / 1000))
+        }
+    }
+}

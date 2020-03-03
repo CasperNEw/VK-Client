@@ -6,8 +6,8 @@ import KeychainAccess
 class LoginWebView: UIViewController {
     
     private let vkSecret = "7286112"
-    var webView: WKWebView!
-    var vkApi = VKApi()
+    private var webView: WKWebView!
+    private var vkApi = VKApi()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,7 +32,7 @@ class LoginWebView: UIViewController {
         view = webView
     }
     
-    func pushMainView() {
+    private func pushMainView() {
         let main = UIStoryboard( name: "Main", bundle: nil)
         let vc = main.instantiateViewController(identifier: "MainView") as! MainTabBar
         navigationController?.pushViewController(vc, animated: true)

@@ -9,6 +9,11 @@
 import Foundation
 import RealmSwift
 
+struct Section<T> {
+    var title: String
+    var items: [T]
+}
+
 protocol FriendsPresenter {
     
     func viewDidLoad()
@@ -20,7 +25,7 @@ protocol FriendsPresenter {
     func getNumberOfRowsInSection(section: Int) -> Int
     func getSectionIndexTitles() -> [String]?
     func getTitleForSection(section: Int) -> String?
-    func getModelAtIndex(indexPath: IndexPath) -> UserRealm?
+    func getModelAtIndex(indexPath: IndexPath) -> FriendsCell?
 }
 
 class FriendsPresenterImplementation: FriendsPresenter {
@@ -101,10 +106,6 @@ class FriendsPresenterImplementation: FriendsPresenter {
 
 extension FriendsPresenterImplementation {
     
-    func getModelAtIndex(indexPath: IndexPath) -> UserRealm? {
-        return friendsWithSectionsResults[indexPath.section].items[indexPath.row]
-    }
-    
     func getNumberOfSections() -> Int {
         return friendsWithSectionsResults.count
     }
@@ -122,7 +123,20 @@ extension FriendsPresenterImplementation {
     }
 }
 
-struct Section<T> {
-    var title: String
-    var items: [T]
+extension FriendsPresenterImplementation {
+    
+    func getModelAtIndex(indexPath: IndexPath) -> FriendsCell? {
+        return renderUserRealmToFriendsCell(user: friendsWithSectionsResults[indexPath.section].items[indexPath.row])
+    }
+    
+    private func renderUserRealmToFriendsCell(user: UserRealm?) -> FriendsCell? {
+        guard let user = user else { return nil }
+        var cellModel = FriendsCell()
+        
+        cellModel.friendsName = user.firstName + " " + user.lastName
+        if user.online == 1 { cellModel.friendsName += " * online" }
+        cellModel.cornerShadowView = user.photo100
+        
+        return cellModel
+    }
 }

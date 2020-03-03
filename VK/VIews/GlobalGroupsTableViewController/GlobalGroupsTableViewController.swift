@@ -9,7 +9,7 @@ protocol GlobalGroupsTableViewControllerUpdater: AnyObject {
 class GlobalGroupsTableViewController: UITableViewController {
 
 
-    var presenter: GlobalGroupsPresenter?
+    private var presenter: GlobalGroupsPresenter?
     private let searchController = UISearchController(searchResultsController: nil)
     
     override func viewDidLoad() {
@@ -48,7 +48,7 @@ class GlobalGroupsTableViewController: UITableViewController {
         navigationController?.pushViewController(vc, animated: true)
     }
     
-    func addSearchController() {
+    private func addSearchController() {
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Global search"
@@ -56,7 +56,7 @@ class GlobalGroupsTableViewController: UITableViewController {
         definesPresentationContext = true
     }
     
-    func updateNavigationItem() {
+    private func updateNavigationItem() {
         navigationController?.navigationBar.tintColor = .darkGray
     }
 }

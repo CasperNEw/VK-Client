@@ -10,8 +10,8 @@ protocol GroupsTableViewControllerUpdater: AnyObject {
 class GroupsTableViewController: UITableViewController {
     
     @IBOutlet var groupsView: UITableView!
-    var presenter: GroupsPresenter?
-    var customRefreshControl = UIRefreshControl()
+    private var presenter: GroupsPresenter?
+    private var customRefreshControl = UIRefreshControl()
     private let searchController = UISearchController(searchResultsController: nil)
     
     override func viewDidLoad() {
@@ -53,7 +53,7 @@ class GroupsTableViewController: UITableViewController {
         }
     }
     
-    func addSearchController() {
+    private func addSearchController() {
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Groups search"
@@ -61,13 +61,13 @@ class GroupsTableViewController: UITableViewController {
         definesPresentationContext = true
     }
     
-    func addRefreshControl() {
+    private func addRefreshControl() {
         customRefreshControl.attributedTitle = NSAttributedString(string: "Refreshing ...")
         customRefreshControl.addTarget(self, action: #selector(refreshTable), for: .valueChanged)
         tableView.addSubview(customRefreshControl)
     }
     
-    @objc func refreshTable() {
+    @objc private func refreshTable() {
         print("[Logging] Update Realm[GroupRealm] from server")
         
         //обнуляю строку поиска для корректного отображения

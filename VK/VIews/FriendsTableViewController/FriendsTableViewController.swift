@@ -8,8 +8,8 @@ protocol FriendsTableViewControllerUpdater: AnyObject {
 class FriendsTableViewController: UITableViewController {
     
     @IBOutlet var friendsTView: UITableView!
-    var presenter: FriendsPresenter?
-    var customRefreshControl = UIRefreshControl()
+    private var presenter: FriendsPresenter?
+    private var customRefreshControl = UIRefreshControl()
     private let searchController = UISearchController(searchResultsController: nil)
     
     override func viewDidLoad() {
@@ -57,7 +57,7 @@ class FriendsTableViewController: UITableViewController {
         navigationController?.pushViewController(vc, animated: true)
     }
     
-    func addSearchController() {
+    private func addSearchController() {
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Friends search"
@@ -65,13 +65,13 @@ class FriendsTableViewController: UITableViewController {
         definesPresentationContext = true
     }
     
-    func addRefreshControl() {
+    private func addRefreshControl() {
         customRefreshControl.attributedTitle = NSAttributedString(string: "Refreshing ...")
         customRefreshControl.addTarget(self, action: #selector(refreshTable), for: .valueChanged)
         tableView.addSubview(customRefreshControl)
     }
     
-    @objc func refreshTable() {
+    @objc private func refreshTable() {
         //обнуляю строку поиска для корректного отображения
         searchController.searchBar.text = nil
         searchController.isActive = false
