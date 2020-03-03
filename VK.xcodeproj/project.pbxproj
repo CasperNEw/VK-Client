@@ -10,6 +10,7 @@
 		6EF8AF87584ADAE106D15341 /* Pods_VK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4756E9DEA25B3D409F469DD /* Pods_VK.framework */; };
 		9CB98FB7E3212B21946549FF /* Pods_VK_VKUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48096E1884EA78EB9ECDFCC1 /* Pods_VK_VKUITests.framework */; };
 		DA2B82AA23EC4DF700BDAC52 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DA2B82A923EC4DF600BDAC52 /* GoogleService-Info.plist */; };
+		DA3712D8240EEDC100CDAA13 /* News.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA3712D7240EEDC100CDAA13 /* News.storyboard */; };
 		DA45F33723B876B60063CC62 /* ProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA45F33523B876B60063CC62 /* ProfileTableViewCell.swift */; };
 		DA45F33823B876B60063CC62 /* ProfileTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA45F33623B876B60063CC62 /* ProfileTableViewCell.xib */; };
 		DA4AE945239F75E6009B6300 /* LikeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4AE944239F75E6009B6300 /* LikeButton.swift */; };
@@ -102,6 +103,7 @@
 		C2559CCE82671543874BBB11 /* Pods-VK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VK.release.xcconfig"; path = "Target Support Files/Pods-VK/Pods-VK.release.xcconfig"; sourceTree = "<group>"; };
 		D4756E9DEA25B3D409F469DD /* Pods_VK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA2B82A923EC4DF600BDAC52 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		DA3712D7240EEDC100CDAA13 /* News.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = News.storyboard; sourceTree = "<group>"; };
 		DA45F33523B876B60063CC62 /* ProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewCell.swift; sourceTree = "<group>"; };
 		DA45F33623B876B60063CC62 /* ProfileTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileTableViewCell.xib; sourceTree = "<group>"; };
 		DA4AE944239F75E6009B6300 /* LikeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeButton.swift; sourceTree = "<group>"; };
@@ -268,6 +270,7 @@
 		DA4C2112240EE8890018A3A2 /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
+				DA3712D7240EEDC100CDAA13 /* News.storyboard */,
 				DAF16B96238D2E0E00FF58D0 /* LaunchScreen.storyboard */,
 				DAF16B91238D2E0A00FF58D0 /* Main.storyboard */,
 				DA4C2113240EE9240018A3A2 /* Friends.storyboard */,
@@ -610,6 +613,7 @@
 				DA6937AC23ABE1B700DF1BA5 /* NewsCollectionViewCell.xib in Resources */,
 				DA2B82AA23EC4DF700BDAC52 /* GoogleService-Info.plist in Resources */,
 				DA4C2114240EE9240018A3A2 /* Friends.storyboard in Resources */,
+				DA3712D8240EEDC100CDAA13 /* News.storyboard in Resources */,
 				DAE3726123B89539006FC3F4 /* ProfileCollectionViewCell.xib in Resources */,
 				DAF16B93238D2E0A00FF58D0 /* Main.storyboard in Resources */,
 			);
