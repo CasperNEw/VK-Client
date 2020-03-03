@@ -263,6 +263,15 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		DA4C2112240EE8890018A3A2 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				DAF16B96238D2E0E00FF58D0 /* LaunchScreen.storyboard */,
+				DAF16B91238D2E0A00FF58D0 /* Main.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
 		DA5673EE23E1DFC80050080F /* DataBase */ = {
 			isa = PBXGroup;
 			children = (
@@ -438,9 +447,8 @@
 		DAF16B8A238D2E0A00FF58D0 /* VK */ = {
 			isa = PBXGroup;
 			children = (
+				DA4C2112240EE8890018A3A2 /* Storyboards */,
 				DA5673EE23E1DFC80050080F /* DataBase */,
-				DAF16B96238D2E0E00FF58D0 /* LaunchScreen.storyboard */,
-				DAF16B91238D2E0A00FF58D0 /* Main.storyboard */,
 				DAB18FEC239E724200B4E9DA /* VIews */,
 				DA7D1EE72398FB21009E0514 /* Prototypes */,
 				DAA5E4D32396955C00B09EE7 /* Models */,
