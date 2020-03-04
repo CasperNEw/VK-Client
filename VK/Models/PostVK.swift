@@ -25,5 +25,4 @@ struct PostVK {
     var authorImagePath: String
     var authorName: String
     var photos: [String]
-    
 }
