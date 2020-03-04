@@ -49,7 +49,7 @@ class FriendsTableViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
  
         //сделаем переключение на ProfileView с пробросом данных
-        let main = UIStoryboard(name: "Main", bundle: nil)
+        let main = UIStoryboard(name: "Profile", bundle: nil)
         guard let vc = main.instantiateViewController(identifier: "ProfileTableViewController") as? ProfileTableViewController else {
             return
         }

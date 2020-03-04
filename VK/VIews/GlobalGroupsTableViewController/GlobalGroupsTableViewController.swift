@@ -40,7 +40,7 @@ class GlobalGroupsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        let main = UIStoryboard(name: "Main", bundle: nil)
+        let main = UIStoryboard(name: "Profile", bundle: nil)
         guard let vc = main.instantiateViewController(identifier: "ProfileTableViewController") as? ProfileTableViewController else {
             return
         }
