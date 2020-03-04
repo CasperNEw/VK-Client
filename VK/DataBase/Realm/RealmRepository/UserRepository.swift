@@ -20,7 +20,7 @@ class UserRepository: UserSourse {
     func getAllUsers() throws -> Results<UserRealm> {
         do {
             let realm = try Realm()
-            return realm.objects(UserRealm.self)
+            return realm.objects(UserRealm.self).filter("deactivated == ''")
         } catch {
             throw error
         }
@@ -29,7 +29,8 @@ class UserRepository: UserSourse {
     func searchUsers(name: String) throws -> Results<UserRealm> {
         do {
             let realm = try Realm()
-            return realm.objects(UserRealm.self).filter("firstName CONTAINS[c] %@ OR lastName CONTAINS[c] %@", name, name)
+            let objects = realm.objects(UserRealm.self).filter("deactivated == ''")
+            return objects.filter("firstName CONTAINS[c] %@ OR lastName CONTAINS[c] %@", name, name)
         } catch {
             throw error
         }

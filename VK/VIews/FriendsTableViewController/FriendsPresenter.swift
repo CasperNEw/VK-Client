@@ -26,6 +26,8 @@ protocol FriendsPresenter {
     func getSectionIndexTitles() -> [String]?
     func getTitleForSection(section: Int) -> String?
     func getModelAtIndex(indexPath: IndexPath) -> FriendsCell?
+    
+    init(view: FriendsTableViewControllerUpdater)
 }
 
 class FriendsPresenterImplementation: FriendsPresenter {
@@ -36,9 +38,9 @@ class FriendsPresenterImplementation: FriendsPresenter {
     private var friendsResult: Results<UserRealm>!
     private var friendsWithSectionsResults = [Section<UserRealm>]()
     
-    init(database: UserSourse, view: FriendsTableViewControllerUpdater) {
+    required init(view: FriendsTableViewControllerUpdater) {
         vkApi = VKApi()
-        self.database = database
+        database = UserRepository()
         self.view = view
     }
     

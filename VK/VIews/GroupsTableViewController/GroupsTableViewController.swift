@@ -15,7 +15,7 @@ class GroupsTableViewController: UITableViewController {
     private let searchController = UISearchController(searchResultsController: nil)
     
     override func viewDidLoad() {
-        presenter = GroupsPresenterImplementation(database: GroupRepository(), view: self)
+        presenter = GroupsPresenterImplementation(view: self)
         addSearchController()
         addRefreshControl()
         print("[Logging] load Groups View")

@@ -13,7 +13,7 @@ class GlobalGroupsTableViewController: UITableViewController {
     private let searchController = UISearchController(searchResultsController: nil)
     
     override func viewDidLoad() {
-        presenter = GlobalGroupsPresenterImplementation(database: GlobalGroupRepository(), view: self)
+        presenter = GlobalGroupsPresenterImplementation(view: self)
         addSearchController()
         updateNavigationItem()
         print("[Logging] load Global Groups View")

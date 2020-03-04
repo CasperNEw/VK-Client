@@ -14,7 +14,7 @@ class NewsTableViewController: UITableViewController {
     private let searchController = UISearchController(searchResultsController: nil)
     
     override func viewDidLoad() {
-        presenter = NewsPresenterImplementation(database: NewsRepository(), view: self)
+        presenter = NewsPresenterImplementation(view: self)
         addSearchController()
         addRefreshControl()
         setupTableForSmoothScroll()

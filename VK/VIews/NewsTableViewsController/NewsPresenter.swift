@@ -17,6 +17,8 @@ protocol NewsPresenter {
     func getNumberOfSections() -> Int
     func getNumberOfRowsInSection(section: Int) -> Int
     func getModelAtIndex(indexPath: IndexPath) -> NewsCell?
+    
+    init(view: NewsTableViewControllerUpdater)
 }
 
 class NewsPresenterImplementation: NewsPresenter {
@@ -29,9 +31,9 @@ class NewsPresenterImplementation: NewsPresenter {
     private var nextFrom = ""
     private var status = false
     
-    init(database: NewsSource, view: NewsTableViewControllerUpdater) {
+    required init(view: NewsTableViewControllerUpdater) {
         vkApi = VKApi()
-        self.database = database
+        database = NewsRepository()
         self.view = view
     }
     

@@ -13,8 +13,7 @@ class FriendsTableViewController: UITableViewController {
     private let searchController = UISearchController(searchResultsController: nil)
     
     override func viewDidLoad() {
-        presenter = FriendsPresenterImplementation(database: UserRepository(), view: self)
-        
+        presenter = FriendsPresenterImplementation(view: self)
         presenter?.viewDidLoad()
         addSearchController()
         addRefreshControl()

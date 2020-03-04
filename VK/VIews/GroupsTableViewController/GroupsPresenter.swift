@@ -19,6 +19,8 @@ protocol GroupsPresenter {
     func getNumberOfSections() -> Int
     func getNumberOfRowsInSection(section: Int) -> Int
     func getModelAtIndex(indexPath: IndexPath) -> GroupsCell?
+    
+    init(view: GroupsTableViewControllerUpdater)
 }
 
 class GroupsPresenterImplementation: GroupsPresenter {
@@ -29,9 +31,9 @@ class GroupsPresenterImplementation: GroupsPresenter {
     private var groupsResult: Results<GroupRealm>!
     private var token: NotificationToken?
     
-    init(database: GroupSourse, view: GroupsTableViewControllerUpdater) {
+    required init(view: GroupsTableViewControllerUpdater) {
         vkApi = VKApi()
-        self.database = database
+        database = GroupRepository()
         self.view = view
     }
     

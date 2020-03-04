@@ -10,12 +10,7 @@ import Foundation
 
 struct PostVK {
     
-//    enum PostType {
-//        case news(fromId: Int)
-//        case wall(id: Int, ownderId: Int)
-//    }
-//
-//    var postType: PostType
+    //TODO: (id, ownerId, fromId) -> enum PostType { case news , case wall }
     
     var id: Int?
     var ownerId: Int?

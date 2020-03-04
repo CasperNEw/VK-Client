@@ -19,6 +19,8 @@ protocol GlobalGroupsPresenter {
     func getNumberOfSections() -> Int
     func getNumberOfRowsInSection(section: Int) -> Int
     func getModelAtIndex(indexPath: IndexPath) -> GroupsCell?
+    
+    init(view: GlobalGroupsTableViewControllerUpdater)
 }
 
 class GlobalGroupsPresenterImplementation: GlobalGroupsPresenter {
@@ -33,9 +35,10 @@ class GlobalGroupsPresenterImplementation: GlobalGroupsPresenter {
     private var status = false
     private var searchName = ""
     
-    init(database: GlobalGroupSourse, view: GlobalGroupsTableViewControllerUpdater) {
+    
+    required init(view: GlobalGroupsTableViewControllerUpdater) {
         vkApi = VKApi()
-        self.database = database
+        database = GlobalGroupRepository()
         self.view = view
     }
     

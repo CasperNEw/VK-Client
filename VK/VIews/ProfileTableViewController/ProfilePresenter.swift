@@ -19,6 +19,8 @@ protocol ProfilePresenter {
     func getNumberOfRowsInSection(section: Int) -> Int
     func getModel() -> ProfileCell?
     func getModelAtIndex(indexPath: IndexPath) -> NewsCell?
+    
+    init(view: ProfileTableViewControllerUpdater)
 }
 
 class ProfilePresenterImplementation: ProfilePresenter {
@@ -35,10 +37,10 @@ class ProfilePresenterImplementation: ProfilePresenter {
     private var offset = 0
     private var status = false
     
-    init(database: ProfileSource, databaseWall: WallSource, view: ProfileTableViewControllerUpdater) {
+    required init(view: ProfileTableViewControllerUpdater) {
         vkApi = VKApi()
-        self.database = database
-        self.databaseWall = databaseWall
+        database = ProfileRepository()
+        databaseWall = WallRepository()
         self.view = view
     }
     
@@ -143,10 +145,11 @@ class ProfilePresenterImplementation: ProfilePresenter {
         vkApi.getWall(token: Session.instance.token, ownerId: idForRequest, version: Session.instance.version, offset: offset ?? 0) { result in
             switch result {
             case .success(let result):
-                var posts = [PostVK]()
-                result.items.forEach {
-                    if let post = self.creatingPostFromData(news: $0, profiles: result.profiles, groups: result.groups) { posts.append(post) }
+                
+                let posts = result.items.compactMap {
+                    self.creatingPostFromData(news: $0, profiles: result.profiles, groups: result.groups)
                 }
+                
                 self.databaseWall.addWall(posts: posts)
                 self.getWallFromDatabase(id: idForRequest)
                 if result.items.count == 20 {

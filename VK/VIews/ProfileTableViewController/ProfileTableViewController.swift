@@ -28,7 +28,7 @@ class ProfileTableViewController: UITableViewController {
     var fromVC: Int?
 
     override func viewDidLoad() {
-        presenter = ProfilePresenterImplementation(database: ProfileRepository(), databaseWall: WallRepository(), view: self)
+        presenter = ProfilePresenterImplementation(view: self)
         addRefreshControl()
         updateNavigationItem()
         setupTableForSmoothScroll()
