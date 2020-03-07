@@ -24,6 +24,8 @@ class ProfileTableViewController: UITableViewController {
     
     private var presenter: ProfilePresenter?
     private var customRefreshControl = UIRefreshControl()
+    private let profileCellName = String(describing: ProfileTableViewCell.self)
+    private let newsCellName = String(describing: NewsTableViewCell.self)
     
     var fromVC: Int?
 
@@ -34,8 +36,8 @@ class ProfileTableViewController: UITableViewController {
         setupTableForSmoothScroll()
         print("[Logging] load Profile View")
         
-        tableView.register(UINib(nibName: "ProfileTableViewCell", bundle: nil), forCellReuseIdentifier: "ProfileTableViewCell")
-        tableView.register(UINib(nibName: "NewsTableViewCell", bundle: nil), forCellReuseIdentifier: "NewsTableViewCell")
+        tableView.register(UINib(nibName: profileCellName, bundle: nil), forCellReuseIdentifier: profileCellName)
+        tableView.register(UINib(nibName: newsCellName, bundle: nil), forCellReuseIdentifier: newsCellName)
         
         //автоматическое изменение высоты ячейки
         tableView.estimatedRowHeight = 100.0
@@ -43,7 +45,7 @@ class ProfileTableViewController: UITableViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        presenter?.viewDidLoad(fromVC: fromVC)
+        presenter?.viewDidAppear(fromVC: fromVC)
     }
     
     
@@ -58,13 +60,13 @@ class ProfileTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.row == 0 {
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "ProfileTableViewCell", for: indexPath) as? ProfileTableViewCell, let profileModel = presenter?.getModel() else { return UITableViewCell() }
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: profileCellName, for: indexPath) as? ProfileTableViewCell, let profileModel = presenter?.getModel() else { return UITableViewCell() }
             
             cell.renderCell(model: profileModel)
             return cell
         }
         if indexPath.row > 0 {
-            guard let newsCell = tableView.dequeueReusableCell(withIdentifier: "NewsTableViewCell", for: indexPath) as? NewsTableViewCell, let newsModel = presenter?.getModelAtIndex(indexPath: indexPath) else { return UITableViewCell() }
+            guard let newsCell = tableView.dequeueReusableCell(withIdentifier: newsCellName, for: indexPath) as? NewsTableViewCell, let newsModel = presenter?.getModelAtIndex(indexPath: indexPath) else { return UITableViewCell() }
             
             newsCell.renderCell(model: newsModel)
             return newsCell
@@ -81,7 +83,7 @@ class ProfileTableViewController: UITableViewController {
     @objc private func refreshTable() {
         print("[Logging] Update Realm[ProfileRealm] from server")
         
-        presenter?.viewDidLoad(fromVC: fromVC)
+        presenter?.refreshTable(fromVC: fromVC)
     }
     
     private func updateNavigationItem() {
@@ -105,7 +107,7 @@ extension ProfileTableViewController {
         let deltaOffset = maximumOffset - currentOffset
 
         if deltaOffset < 800.0 {
-            presenter?.uploadData(fromVC: fromVC)
+            presenter?.uploadContent(fromVC: fromVC)
         }
     }
 }

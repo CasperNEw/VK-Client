@@ -25,7 +25,7 @@ protocol FriendsPresenter {
     func getNumberOfRowsInSection(section: Int) -> Int
     func getSectionIndexTitles() -> [String]?
     func getTitleForSection(section: Int) -> String?
-    func getModelAtIndex(indexPath: IndexPath) -> FriendsCell?
+    func getModelAtIndex(indexPath: IndexPath) -> FriendsCellModel?
     
     init(view: FriendsTableViewControllerUpdater)
 }
@@ -85,13 +85,13 @@ class FriendsPresenterImplementation: FriendsPresenter {
     }
     
     private func getUsersFromApi() {
-        vkApi.getFriendList(token: Session.instance.token, version: Session.instance.version) { result in
+        vkApi.getFriendList(token: Session.instance.token, version: Session.instance.version) { [weak self] result in
             switch result {
             case .success(let users):
-                self.database.addUsers(users: users)
-                self.getUsersFromDatabase()
+                self?.database.addUsers(users: users)
+                self?.getUsersFromDatabase()
             case .failure(let error):
-                self.view?.endRefreshing()
+                self?.view?.endRefreshing()
                 print("[Logging] Error retrieving the value: \(error)")
             }
         }
@@ -127,17 +127,17 @@ extension FriendsPresenterImplementation {
 
 extension FriendsPresenterImplementation {
     
-    func getModelAtIndex(indexPath: IndexPath) -> FriendsCell? {
+    func getModelAtIndex(indexPath: IndexPath) -> FriendsCellModel? {
         return renderUserRealmToFriendsCell(user: friendsWithSectionsResults[indexPath.section].items[indexPath.row])
     }
     
-    private func renderUserRealmToFriendsCell(user: UserRealm?) -> FriendsCell? {
+    private func renderUserRealmToFriendsCell(user: UserRealm?) -> FriendsCellModel? {
         guard let user = user else { return nil }
-        var cellModel = FriendsCell()
         
-        cellModel.friendsName = user.firstName + " " + user.lastName
-        if user.online == 1 { cellModel.friendsName += " * online" }
-        cellModel.cornerShadowView = user.photo100
+        var friendsName = user.firstName + " " + user.lastName
+        if user.online == 1 { friendsName += " * online" }
+        
+        let cellModel = FriendsCellModel(friendsName: friendsName, cornerShadowView: user.photo100)
         
         return cellModel
     }

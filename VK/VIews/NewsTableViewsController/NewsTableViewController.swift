@@ -12,6 +12,7 @@ class NewsTableViewController: UITableViewController {
     private var presenter: NewsPresenter?
     private var customRefreshControl = UIRefreshControl()
     private let searchController = UISearchController(searchResultsController: nil)
+    private let newsCellName = String(describing: NewsTableViewCell.self)
     
     override func viewDidLoad() {
         presenter = NewsPresenterImplementation(view: self)
@@ -19,7 +20,7 @@ class NewsTableViewController: UITableViewController {
         addRefreshControl()
         setupTableForSmoothScroll()
         
-        tableView.register(UINib(nibName: "NewsTableViewCell", bundle: nil), forCellReuseIdentifier: "NewsTableViewCell")
+        tableView.register(UINib(nibName: newsCellName, bundle: nil), forCellReuseIdentifier: newsCellName)
         
         //автоматическое изменение высоты ячейки
         tableView.estimatedRowHeight = 100.0
@@ -27,7 +28,7 @@ class NewsTableViewController: UITableViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        presenter?.viewDidLoad()
+        presenter?.viewDidAppear()
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -38,7 +39,7 @@ class NewsTableViewController: UITableViewController {
         return presenter?.getNumberOfRowsInSection(section: section) ?? 0
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "NewsTableViewCell", for: indexPath) as? NewsTableViewCell, let model = presenter?.getModelAtIndex(indexPath: indexPath) else { return UITableViewCell()
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: newsCellName, for: indexPath) as? NewsTableViewCell, let model = presenter?.getModelAtIndex(indexPath: indexPath) else { return UITableViewCell()
         }
         
         cell.renderCell(model: model)
@@ -66,7 +67,7 @@ class NewsTableViewController: UITableViewController {
         searchController.searchBar.text = nil
         searchController.isActive = false
         
-        presenter?.viewDidLoad()
+        presenter?.refreshTable()
     }
     
     private func setupTableForSmoothScroll() {
@@ -94,7 +95,7 @@ extension NewsTableViewController {
         let deltaOffset = maximumOffset - currentOffset
         
         if deltaOffset < 800.0, searchController.isActive == false {
-            presenter?.uploadData()
+            presenter?.uploadContent()
         }
     }
 }

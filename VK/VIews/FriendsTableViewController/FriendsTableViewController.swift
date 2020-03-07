@@ -11,6 +11,7 @@ class FriendsTableViewController: UITableViewController {
     private var presenter: FriendsPresenter?
     private var customRefreshControl = UIRefreshControl()
     private let searchController = UISearchController(searchResultsController: nil)
+    private let friendsCellName = String(describing: FriendsTableViewCell.self)
     
     override func viewDidLoad() {
         presenter = FriendsPresenterImplementation(view: self)
@@ -37,7 +38,7 @@ class FriendsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "FriendsTableViewCell", for: indexPath) as? FriendsTableViewCell, let model = presenter?.getModelAtIndex(indexPath: indexPath) else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: friendsCellName, for: indexPath) as? FriendsTableViewCell, let model = presenter?.getModelAtIndex(indexPath: indexPath) else {
             return UITableViewCell()
         }
         cell.renderCell(model: model)

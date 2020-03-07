@@ -13,6 +13,7 @@ class GroupsTableViewController: UITableViewController {
     private var presenter: GroupsPresenter?
     private var customRefreshControl = UIRefreshControl()
     private let searchController = UISearchController(searchResultsController: nil)
+    private let groupsCellName = String(describing: GroupsTableViewCell.self)
     
     override func viewDidLoad() {
         presenter = GroupsPresenterImplementation(view: self)
@@ -22,7 +23,7 @@ class GroupsTableViewController: UITableViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        presenter?.viewDidLoad()
+        presenter?.viewDidAppear()
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -30,7 +31,7 @@ class GroupsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "GroupsTableViewCell", for: indexPath) as? GroupsTableViewCell, let model = presenter?.getModelAtIndex(indexPath: indexPath) else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: groupsCellName, for: indexPath) as? GroupsTableViewCell, let model = presenter?.getModelAtIndex(indexPath: indexPath) else { return UITableViewCell() }
         
         cell.renderCell(model: model)
         return cell
@@ -74,7 +75,7 @@ class GroupsTableViewController: UITableViewController {
         searchController.searchBar.text = nil
         searchController.isActive = false
         
-        presenter?.viewDidLoad()
+        presenter?.refreshTable()
     }
 }
 

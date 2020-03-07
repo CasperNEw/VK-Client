@@ -30,7 +30,7 @@ class NewsTableViewCell: UITableViewCell {
     
     private var photos = [URL]()
     
-    func renderCell(model: NewsCell) {
+    func renderCell(model: NewsCellModel) {
         
         if let url = URL(string: model.mainAuthorImage) {
             mainAuthorImage.kf.setImage(with: url)

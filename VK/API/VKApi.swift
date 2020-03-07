@@ -27,6 +27,17 @@ class VKApi {
                     completion(.success(result.response.items))
                 } catch {
                     //TODO: Error processing
+                    //Пример обработки определенной ошибки (6: слишком много запросов в секунду) GlobalGroupsSearch
+                    do {
+                        let result = try JSONDecoder().decode(ResponseErrorVK.self, from: data)
+                        if result.error.errorCode == 6 {
+                            print("[Logging] API ERROR CODE 6 : Come on, man slow down")
+                            return
+                        }
+                        completion(.failure(error))
+                    } catch {
+                        completion(.failure(error))
+                    }
                     completion(.failure(error))
                 }
         }
@@ -118,7 +129,6 @@ class VKApi {
                       "type": "group",
                       "v": version]
         
-        Alamofire.SessionManager.default.session.getAllTasks { tasks in tasks.forEach{ $0.cancel()} }
         requestServer(requestURL: requestURL, method: .post, params: params) { completion($0) }
     }
     

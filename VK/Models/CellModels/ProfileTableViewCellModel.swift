@@ -8,17 +8,17 @@
 
 import Foundation
 
-struct ProfileCell {
-    var statusMessage: String = ""
-    var friendsCountButton: String = ""
-    var subscribesCountButton: String = ""
-    var currentCity: String = ""
-    var placeOfWorkButton: String = ""
-    var photoCollection: [URL] = []
+struct ProfileCellModel {
+    var statusMessage: String
+    var friendsCountButton: String
+    var subscribesCountButton: String
+    var currentCity: String
+    var placeOfWorkButton: String
+    var photoCollection: [URL]
     
-    var statusStackViewIsEmpty: Bool = true
-    var friendsStackViewIsEmpty: Bool = true
-    var cityStackViewIsEmpty: Bool = true
-    var workPlaceStackViewIsEmpty: Bool = true
-    var photoCollectionIsEmpty: Bool = true
+    var statusStackViewIsEmpty: Bool
+    var friendsStackViewIsEmpty: Bool
+    var cityStackViewIsEmpty: Bool
+    var workPlaceStackViewIsEmpty: Bool
+    var photoCollectionIsEmpty: Bool
 }

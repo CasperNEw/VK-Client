@@ -11,14 +11,15 @@ import RealmSwift
 
 protocol GroupsPresenter {
     
-    func viewDidLoad()
+    func viewDidAppear()
+    func refreshTable()
     func filterContent(searchText: String)
     func deleteEntity(indexPath: IndexPath)
     func sendToNextVC(indexPath: IndexPath) -> Int
     
     func getNumberOfSections() -> Int
     func getNumberOfRowsInSection(section: Int) -> Int
-    func getModelAtIndex(indexPath: IndexPath) -> GroupsCell?
+    func getModelAtIndex(indexPath: IndexPath) -> GroupsCellModel?
     
     init(view: GroupsTableViewControllerUpdater)
 }
@@ -41,7 +42,11 @@ class GroupsPresenterImplementation: GroupsPresenter {
         token?.invalidate()
     }
     
-    func viewDidLoad() {
+    func viewDidAppear() {
+        getGroupsFromApi()
+    }
+    
+    func refreshTable() {
         getGroupsFromApi()
     }
     
@@ -79,14 +84,14 @@ class GroupsPresenterImplementation: GroupsPresenter {
     }
     
     private func getGroupsFromApi() {
-        vkApi.getGroupList(token: Session.instance.token, version: Session.instance.version, user: Session.instance.userId) { result in
+        vkApi.getGroupList(token: Session.instance.token, version: Session.instance.version, user: Session.instance.userId) { [weak self] result in
             switch result {
             case .success(let groups):
-                self.database.addGroups(groups: groups)
-                self.getGroupsFromDatabase()
+                self?.database.addGroups(groups: groups)
+                self?.getGroupsFromDatabase()
             case .failure(let error):
-                self.view?.endRefreshing()
-                self.view?.showConnectionAlert()
+                self?.view?.endRefreshing()
+                self?.view?.showConnectionAlert()
                 print("[Logging] Error retrieving the value: \(error)")
             }
         }
@@ -133,20 +138,19 @@ extension GroupsPresenterImplementation {
 extension GroupsPresenterImplementation {
     
     
-    func getModelAtIndex(indexPath: IndexPath) -> GroupsCell? {
+    func getModelAtIndex(indexPath: IndexPath) -> GroupsCellModel? {
         return renderGroupRealmToGroupsCell(group: groupsResult?[indexPath.row])
     }
     
-    private func renderGroupRealmToGroupsCell(group: GroupRealm?) -> GroupsCell? {
+    private func renderGroupRealmToGroupsCell(group: GroupRealm?) -> GroupsCellModel? {
         guard let group = group else { return nil }
-        var cellModel = GroupsCell()
         
-        cellModel.groupImage = group.photo100
-        cellModel.groupsName = group.name
-        cellModel.groupsActivity = group.activity
-        cellModel.groupsMembersCount = prepareCount(modelCount: group.membersCount)
-        cellModel.groupsActivityIsHidden = group.activity.isEmpty
-        cellModel.groupsMembersCountIsHidden = group.membersCount == 0 ? true : false
+        let cellModel = GroupsCellModel(groupImage: group.photo100,
+                                        groupsName: group.name,
+                                        groupsActivity: group.activity,
+                                        groupsMembersCount: prepareCount(modelCount: group.membersCount),
+                                        groupsActivityIsHidden: group.activity.isEmpty,
+                                        groupsMembersCountIsHidden: group.membersCount == 0 ? true : false)
         
         return cellModel
     }

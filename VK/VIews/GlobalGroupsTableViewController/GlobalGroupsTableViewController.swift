@@ -8,9 +8,9 @@ protocol GlobalGroupsTableViewControllerUpdater: AnyObject {
 
 class GlobalGroupsTableViewController: UITableViewController {
 
-
     private var presenter: GlobalGroupsPresenter?
     private let searchController = UISearchController(searchResultsController: nil)
+    private let globalGroupsCellName = String(describing: GlobalGroupsTableViewCell.self)
     
     override func viewDidLoad() {
         presenter = GlobalGroupsPresenterImplementation(view: self)
@@ -20,8 +20,7 @@ class GlobalGroupsTableViewController: UITableViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        if searchController.isActive == true { return }
-        presenter?.viewDidLoad()
+        presenter?.viewDidAppear(searchControllerIsActive: searchController.isActive)
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -29,7 +28,7 @@ class GlobalGroupsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "GlobalGroupsTableViewCell", for: indexPath) as? GlobalGroupsTableViewCell, let model = presenter?.getModelAtIndex(indexPath: indexPath) else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: globalGroupsCellName, for: indexPath) as? GlobalGroupsTableViewCell, let model = presenter?.getModelAtIndex(indexPath: indexPath) else {
             return UITableViewCell()
         }
         

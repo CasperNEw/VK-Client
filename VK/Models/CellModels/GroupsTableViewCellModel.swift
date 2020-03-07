@@ -8,12 +8,12 @@
 
 import Foundation
 
-struct GroupsCell {
-    var groupImage: String = ""
-    var groupsName: String = ""
-    var groupsActivity: String = ""
-    var groupsMembersCount: String = ""
+struct GroupsCellModel {
+    var groupImage: String
+    var groupsName: String
+    var groupsActivity: String
+    var groupsMembersCount: String
     
-    var groupsActivityIsHidden = false
-    var groupsMembersCountIsHidden = false
+    var groupsActivityIsHidden: Bool
+    var groupsMembersCountIsHidden: Bool
 }

@@ -1,4 +1,7 @@
 # VK-Client
+
+<img src="/screenshots/interface.gif" alt="application"/> <img src="/screenshots/screen_1.png" alt="first screen"/> <img src="/screenshots/screen_2.png" alt="second screen"/>
+
 ## Архитектура
 
 Была использована архитектура на базе паттерна MVP

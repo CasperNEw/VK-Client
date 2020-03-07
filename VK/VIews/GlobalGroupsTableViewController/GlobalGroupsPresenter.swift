@@ -11,14 +11,14 @@ import RealmSwift
 
 protocol GlobalGroupsPresenter {
     
-    func viewDidLoad()
+    func viewDidAppear(searchControllerIsActive: Bool)
     func filterContent(searchText: String)
     func uploadContent(searchText: String)
     func sendToNextVC(indexPath: IndexPath) -> Int
     
     func getNumberOfSections() -> Int
     func getNumberOfRowsInSection(section: Int) -> Int
-    func getModelAtIndex(indexPath: IndexPath) -> GroupsCell?
+    func getModelAtIndex(indexPath: IndexPath) -> GroupsCellModel?
     
     init(view: GlobalGroupsTableViewControllerUpdater)
 }
@@ -32,8 +32,9 @@ class GlobalGroupsPresenterImplementation: GlobalGroupsPresenter {
     private var token: NotificationToken?
     
     private var offset = 0
-    private var status = false
+    private var requestCompleted = true
     private var searchName = ""
+    private var lastSearchQueryName = ""
     
     
     required init(view: GlobalGroupsTableViewControllerUpdater) {
@@ -51,47 +52,57 @@ class GlobalGroupsPresenterImplementation: GlobalGroupsPresenter {
         }
     }
     
-    func viewDidLoad() {
+    func viewDidAppear(searchControllerIsActive: Bool) {
+        if searchControllerIsActive { return }
         getGroupsFromApi()
     }
     
     func uploadContent(searchText: String) {
-        if status {
-            status = false
-            filterContent(searchText: searchText)
-        }
+        filterContent(searchText: searchText)
     }
     
     func filterContent(searchText: String) {
         
-        if self.searchName != searchText {
-            self.searchName = searchText
-            self.offset = 0
-        }
+        lastSearchQueryName = searchText
         
-        do {
-            if searchText == "" {
-                groupsResult = try database.getUserGroups()
-                offset = 0
-                tokenInitializaion()
-                return
+        if requestCompleted {
+            if self.searchName != searchText {
+                self.searchName = searchText
+                self.offset = 0
             }
             
-            vkApi.getSearchGroup(token: Session.instance.token, version: Session.instance.version, offset: offset, text: searchText) { result in
-                switch result {
-                case .success(let groups):
-                    self.database.addGroups(groups: groups)
-                    self.getSortedGroupsFromDatabase(name: searchText)
-                    self.offset += 20
-                    self.status = true
-                case .failure(let error):
-                    self.view?.showConnectionAlert()
-                    print("[Logging] Error retrieving the value: \(error)")
+            do {
+                if searchText == "" {
+                    groupsResult = try database.getUserGroups()
+                    offset = 0
+                    tokenInitializaion()
+                    return
                 }
+                
+                requestCompleted = false
+                vkApi.getSearchGroup(token: Session.instance.token, version: Session.instance.version, offset: offset, text: searchText) { [weak self] result in
+                    
+                    switch result {
+                    case .success(let groups):
+                        self?.database.addGroups(groups: groups)
+                        self?.getSortedGroupsFromDatabase(name: searchText)
+                        self?.offset += 20
+                        
+                        //TODO: think about it ...
+                        if searchText != self?.lastSearchQueryName {
+                            self?.filterContent(searchText: self?.lastSearchQueryName ?? "")
+                        }
+                        
+                    case .failure(let error):
+                        self?.view?.showConnectionAlert()
+                        print("[Logging] Error retrieving the value: \(error)")
+                    }
+                }
+                requestCompleted = true
+                tokenInitializaion()
+            } catch {
+                print(error)
             }
-            tokenInitializaion()
-        } catch {
-            print(error)
         }
     }
     
@@ -100,13 +111,13 @@ class GlobalGroupsPresenterImplementation: GlobalGroupsPresenter {
        }
     
     private func getGroupsFromApi() {
-        vkApi.getGroupList(token: Session.instance.token, version: Session.instance.version, user: Session.instance.userId) { result in
+        vkApi.getGroupList(token: Session.instance.token, version: Session.instance.version, user: Session.instance.userId) { [weak self] result in
             switch result {
             case .success(let groups):
-                self.database.addGroups(groups: groups)
-                self.getGroupsFromDatabase()
+                self?.database.addGroups(groups: groups)
+                self?.getGroupsFromDatabase()
             case .failure(let error):
-                self.view?.showConnectionAlert()
+                self?.view?.showConnectionAlert()
                 print("[Logging] Error retrieving the value: \(error)")
             }
         }
@@ -159,20 +170,19 @@ extension GlobalGroupsPresenterImplementation {
 
 extension GlobalGroupsPresenterImplementation {
     
-    func getModelAtIndex(indexPath: IndexPath) -> GroupsCell? {
+    func getModelAtIndex(indexPath: IndexPath) -> GroupsCellModel? {
         return renderGroupRealmToGroupsCell(group: groupsResult?[indexPath.row])
     }
     
-    private func renderGroupRealmToGroupsCell(group: GroupRealm?) -> GroupsCell? {
+    private func renderGroupRealmToGroupsCell(group: GroupRealm?) -> GroupsCellModel? {
         guard let group = group else { return nil }
-        var cellModel = GroupsCell()
         
-        cellModel.groupImage = group.photo100
-        cellModel.groupsName = group.name
-        cellModel.groupsActivity = group.activity
-        cellModel.groupsMembersCount = prepareCount(modelCount: group.membersCount)
-        cellModel.groupsActivityIsHidden = group.activity.isEmpty
-        cellModel.groupsMembersCountIsHidden = group.membersCount == 0 ? true : false
+        let cellModel = GroupsCellModel(groupImage: group.photo100,
+                                        groupsName: group.name,
+                                        groupsActivity: group.activity,
+                                        groupsMembersCount: prepareCount(modelCount: group.membersCount),
+                                        groupsActivityIsHidden: group.activity.isEmpty,
+                                        groupsMembersCountIsHidden: group.membersCount == 0 ? true : false)
         
         return cellModel
     }

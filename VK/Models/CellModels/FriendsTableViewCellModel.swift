@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct FriendsCell {
-    var friendsName: String = ""
-    var cornerShadowView: String = ""
+struct FriendsCellModel {
+    var friendsName: String
+    var cornerShadowView: String
 }

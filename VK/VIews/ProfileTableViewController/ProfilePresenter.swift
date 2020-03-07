@@ -12,13 +12,14 @@ import Kingfisher
 
 protocol ProfilePresenter {
 
-    func viewDidLoad(fromVC: Int?)
-    func uploadData(fromVC: Int?)
+    func viewDidAppear(fromVC: Int?)
+    func refreshTable(fromVC: Int?)
+    func uploadContent(fromVC: Int?)
     
     func getNumberOfSections() -> Int
     func getNumberOfRowsInSection(section: Int) -> Int
-    func getModel() -> ProfileCell?
-    func getModelAtIndex(indexPath: IndexPath) -> NewsCell?
+    func getModel() -> ProfileCellModel?
+    func getModelAtIndex(indexPath: IndexPath) -> NewsCellModel?
     
     init(view: ProfileTableViewControllerUpdater)
 }
@@ -35,7 +36,8 @@ class ProfilePresenterImplementation: ProfilePresenter {
     private var wallToken: NotificationToken?
     
     private var offset = 0
-    private var status = false
+    private var requestCompleted = false
+    private let formatter = DateFormatter()
     
     required init(view: ProfileTableViewControllerUpdater) {
         vkApi = VKApi()
@@ -54,14 +56,19 @@ class ProfilePresenterImplementation: ProfilePresenter {
         }
     }
     
-    func viewDidLoad(fromVC: Int?) {
+    func viewDidAppear(fromVC: Int?) {
         getProfileFromApi(id: fromVC)
         getWallFromApi(id: fromVC)
     }
     
-    func uploadData(fromVC: Int?) {
-        if status {
-            status = false
+    func refreshTable(fromVC: Int?) {
+        viewDidAppear(fromVC: fromVC)
+    }
+    
+    func uploadContent(fromVC: Int?) {
+        if offset == 0 { return }
+        if requestCompleted {
+            requestCompleted = false
             getWallFromApi(id: fromVC, offset: offset)
         }
     }
@@ -142,26 +149,26 @@ class ProfilePresenterImplementation: ProfilePresenter {
         id != nil ? idForRequest = String(id!) : nil
         if offset == nil { self.offset = 0 }
         
-        vkApi.getWall(token: Session.instance.token, ownerId: idForRequest, version: Session.instance.version, offset: offset ?? 0) { result in
+        vkApi.getWall(token: Session.instance.token, ownerId: idForRequest, version: Session.instance.version, offset: offset ?? 0) { [weak self] result in
             switch result {
             case .success(let result):
                 
                 let posts = result.items.compactMap {
-                    self.creatingPostFromData(news: $0, profiles: result.profiles, groups: result.groups)
+                    self?.creatingPostFromData(news: $0, profiles: result.profiles, groups: result.groups)
                 }
                 
-                self.databaseWall.addWall(posts: posts)
-                self.getWallFromDatabase(id: idForRequest)
+                self?.databaseWall.addWall(posts: posts)
+                self?.getWallFromDatabase(id: idForRequest)
                 if result.items.count == 20 {
-                    self.status = true
-                    self.offset += 20
+                    self?.offset += 20
                 }
             case .failure(let error):
-                self.view?.endRefreshing()
-                self.view?.showConnectionAlert()
+                self?.view?.endRefreshing()
+                self?.view?.showConnectionAlert()
                 print("[Logging] Error retrieving the value: \(error)")
             }
         }
+        requestCompleted = true
     }
     
     private func getWallFromDatabase(id: String) {
@@ -358,11 +365,11 @@ class ProfilePresenterImplementation: ProfilePresenter {
 
 extension ProfilePresenterImplementation {
     
-    func getModel() -> ProfileCell? {
+    func getModel() -> ProfileCellModel? {
         return renderProfileRealmToProfileCell(profile: profileResult?.first)
     }
     
-    func getModelAtIndex(indexPath: IndexPath) -> NewsCell? {
+    func getModelAtIndex(indexPath: IndexPath) -> NewsCellModel? {
         if indexPath.row == 0 { return nil }
         return renderWallRealmToNewsCell(wall: wallResult?[indexPath.row - 1])
     }
@@ -378,57 +385,54 @@ extension ProfilePresenterImplementation {
 
 extension ProfilePresenterImplementation {
     
-    private func renderProfileRealmToProfileCell(profile: ProfileRealm?) -> ProfileCell? {
+    private func renderProfileRealmToProfileCell(profile: ProfileRealm?) -> ProfileCellModel? {
         
         guard let profile = profile else { return nil }
-        var cellModel = ProfileCell()
         
-        cellModel.statusMessage = profile.status
-        cellModel.currentCity = profile.city
-        cellModel.placeOfWorkButton = profile.career
+        var photoCollection = [URL]()
+        profile.photos.forEach { if let url = URL(string: $0) { photoCollection.append(url)}}
         
-        if profile.mutualFriendsCount != 0 {
-            cellModel.friendsCountButton = prepareCount(modelCount: profile.friendsCount) + " * " + prepareCount(modelCount: profile.mutualFriendsCount)
-        } else {
-            cellModel.friendsCountButton = prepareCount(modelCount: profile.friendsCount)
-        }
+        var friendsCountDescription = prepareCount(modelCount: profile.friendsCount)
+        if profile.mutualFriendsCount != 0 { friendsCountDescription += " * " + prepareDate(modelDate: profile.mutualFriendsCount) }
         
-        cellModel.subscribesCountButton = prepareCount(modelCount: profile.followersCount)
-        
-        cellModel.statusStackViewIsEmpty = profile.status.isEmpty
-        cellModel.cityStackViewIsEmpty = profile.city.isEmpty
-        cellModel.workPlaceStackViewIsEmpty = profile.career.isEmpty
-        cellModel.photoCollectionIsEmpty = profile.photos.isEmpty
-        if profile.friendsCount != 0 { cellModel.friendsStackViewIsEmpty = false }
-        
-        profile.photos.forEach { if let url = URL(string: $0) { cellModel.photoCollection.append(url)}}
+        let cellModel = ProfileCellModel(statusMessage: profile.status,
+                                         friendsCountButton: friendsCountDescription,
+                                         subscribesCountButton: prepareCount(modelCount: profile.followersCount),
+                                         currentCity: profile.city,
+                                         placeOfWorkButton: profile.career,
+                                         photoCollection: photoCollection,
+                                         statusStackViewIsEmpty: profile.status.isEmpty,
+                                         friendsStackViewIsEmpty: profile.friendsCount != 0 ? false : true,
+                                         cityStackViewIsEmpty: profile.city.isEmpty,
+                                         workPlaceStackViewIsEmpty: profile.career.isEmpty,
+                                         photoCollectionIsEmpty: profile.photos.isEmpty)
         
         return cellModel
     }
     
-    private func renderWallRealmToNewsCell(wall: WallRealm?) -> NewsCell? {
+    private func renderWallRealmToNewsCell(wall: WallRealm?) -> NewsCellModel? {
         
         guard let wall = wall else { return nil }
-        var cellModel = NewsCell()
         
-        cellModel.mainAuthorImage = wall.authorImagePath
-        cellModel.mainAuthorName = wall.authorName
-        cellModel.publicationDate = prepareDate(modelDate: wall.date)
-        cellModel.publicationText = wall.text
-        cellModel.publicationLikeButtonStatus = wall.userLikes == 1 ? true : false
-        cellModel.publicationLikeButtonCount = wall.likes
-        cellModel.publicationCommentButton = prepareCount(modelCount: wall.comments)
-        cellModel.publicationForwardButton = prepareCount(modelCount: wall.reposts)
-        cellModel.publicationNumberOfViews = prepareCount(modelCount: wall.views)
+        var photoCollection = [URL]()
+        wall.photos.forEach { if let url = URL(string: $0) { photoCollection.append(url)}}
         
-        cellModel.newsCollectionViewIsEmpty = wall.photos.isEmpty
-        wall.photos.forEach { if let url = URL(string: $0) { cellModel.photoCollection.append(url)}}
+        let cellModel = NewsCellModel(mainAuthorImage: wall.authorImagePath,
+                                      mainAuthorName: wall.authorName,
+                                      publicationDate: prepareDate(modelDate: wall.date),
+                                      publicationText: wall.text,
+                                      publicationLikeButtonStatus: wall.userLikes == 1 ? true : false,
+                                      publicationLikeButtonCount: wall.likes,
+                                      publicationCommentButton: prepareCount(modelCount: wall.comments),
+                                      publicationForwardButton: prepareCount(modelCount: wall.reposts),
+                                      publicationNumberOfViews: prepareCount(modelCount: wall.views),
+                                      photoCollection: photoCollection,
+                                      newsCollectionViewIsEmpty: wall.photos.isEmpty)
         
         return cellModel
     }
   
     private func prepareDate(modelDate: Int) -> String {
-        let formatter = DateFormatter()
         formatter.dateFormat = "d MMMM в HH:mm"
         formatter.locale = Locale(identifier: "ru")
         let date = Date(timeIntervalSince1970: Double(modelDate))

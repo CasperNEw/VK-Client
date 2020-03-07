@@ -10,13 +10,14 @@ import Foundation
 import RealmSwift
 
 protocol NewsPresenter {
-    func viewDidLoad()
-    func uploadData()
+    func viewDidAppear()
+    func refreshTable()
+    func uploadContent()
     func filterContent(searchText: String)
     
     func getNumberOfSections() -> Int
     func getNumberOfRowsInSection(section: Int) -> Int
-    func getModelAtIndex(indexPath: IndexPath) -> NewsCell?
+    func getModelAtIndex(indexPath: IndexPath) -> NewsCellModel?
     
     init(view: NewsTableViewControllerUpdater)
 }
@@ -29,7 +30,8 @@ class NewsPresenterImplementation: NewsPresenter {
     private var newsResult: Results<NewsRealm>!
     private var token: NotificationToken?
     private var nextFrom = ""
-    private var status = false
+    private var requestCompleted = false
+    private let formatter = DateFormatter()
     
     required init(view: NewsTableViewControllerUpdater) {
         vkApi = VKApi()
@@ -46,13 +48,17 @@ class NewsPresenterImplementation: NewsPresenter {
         }
     }
     
-    func viewDidLoad() {
+    func viewDidAppear() {
         getNewsFromApi()
     }
     
-    func uploadData() {
-        if status {
-            status = false
+    func refreshTable() {
+        getNewsFromApi()
+    }
+    
+    func uploadContent() {
+        if requestCompleted {
+            requestCompleted = false
             getNewsFromApi(from: nextFrom)
         }
     }
@@ -68,24 +74,24 @@ class NewsPresenterImplementation: NewsPresenter {
     
     private func getNewsFromApi(from: String? = nil) {
         
-        vkApi.getNewsList(token: Session.instance.token, userId: Session.instance.userId, from: from, version: Session.instance.version) { result in
+        vkApi.getNewsList(token: Session.instance.token, userId: Session.instance.userId, from: from, version: Session.instance.version) { [weak self] result in
             switch result {
             case .success(let result):
                 let posts = result.items.compactMap {
-                    self.postCreation(news: $0, profiles: result.profiles, groups: result.groups)
+                    self?.postCreation(news: $0, profiles: result.profiles, groups: result.groups)
                 }
-                self.database.addNews(posts: posts)
-                self.getNewsFromDatabase()
+                self?.database.addNews(posts: posts)
+                self?.getNewsFromDatabase()
                 if let nextFrom = result.nextFrom {
-                    self.nextFrom = nextFrom
+                    self?.nextFrom = nextFrom
                 }
-                self.status = true
             case .failure(let error):
-                self.view?.endRefreshing()
-                self.view?.showConnectionAlert()
+                self?.view?.endRefreshing()
+                self?.view?.showConnectionAlert()
                 print("[Logging] Error retrieving the value: \(error)")
             }
         }
+        requestCompleted = true
     }
     
     private func getNextFrom() -> String? {
@@ -190,33 +196,33 @@ extension NewsPresenterImplementation {
 
 extension NewsPresenterImplementation {
     
-    func getModelAtIndex(indexPath: IndexPath) -> NewsCell? {
+    func getModelAtIndex(indexPath: IndexPath) -> NewsCellModel? {
         return renderWallRealmToNewsCell(news: newsResult?[indexPath.row])
     }
     
-    private func renderWallRealmToNewsCell(news: NewsRealm?) -> NewsCell? {
+    private func renderWallRealmToNewsCell(news: NewsRealm?) -> NewsCellModel? {
         
         guard let news = news else { return nil }
-        var cellModel = NewsCell()
         
-        cellModel.mainAuthorImage = news.authorImagePath
-        cellModel.mainAuthorName = news.authorName
-        cellModel.publicationDate = prepareDate(modelDate: news.date)
-        cellModel.publicationText = news.text
-        cellModel.publicationLikeButtonStatus = news.userLikes == 1 ? true : false
-        cellModel.publicationLikeButtonCount = news.likes
-        cellModel.publicationCommentButton = prepareCount(modelCount: news.comments)
-        cellModel.publicationForwardButton = prepareCount(modelCount: news.reposts)
-        cellModel.publicationNumberOfViews = prepareCount(modelCount: news.views)
+        var photoCollection = [URL]()
+        news.photos.forEach { if let url = URL(string: $0) { photoCollection.append(url)}}
         
-        cellModel.newsCollectionViewIsEmpty = news.photos.isEmpty
-        news.photos.forEach { if let url = URL(string: $0) { cellModel.photoCollection.append(url)}}
+        let cellModel = NewsCellModel(mainAuthorImage: news.authorImagePath,
+                                      mainAuthorName: news.authorName,
+                                      publicationDate: prepareDate(modelDate: news.date),
+                                      publicationText: news.text,
+                                      publicationLikeButtonStatus: news.userLikes == 1 ? true : false,
+                                      publicationLikeButtonCount: news.likes,
+                                      publicationCommentButton: prepareCount(modelCount: news.comments),
+                                      publicationForwardButton: prepareCount(modelCount: news.reposts),
+                                      publicationNumberOfViews: prepareCount(modelCount: news.views),
+                                      photoCollection: photoCollection,
+                                      newsCollectionViewIsEmpty: news.photos.isEmpty)
         
         return cellModel
     }
     
     private func prepareDate(modelDate: Int) -> String {
-        let formatter = DateFormatter()
         formatter.dateFormat = "d MMMM в HH:mm"
         formatter.locale = Locale(identifier: "ru")
         let date = Date(timeIntervalSince1970: Double(modelDate))

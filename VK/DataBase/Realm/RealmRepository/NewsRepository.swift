@@ -20,7 +20,7 @@ class NewsRepository: NewsSource {
     func getAllNews() throws -> Results<NewsRealm> {
         do {
             let realm = try Realm()
-            return realm.objects(NewsRealm.self)
+            return realm.objects(NewsRealm.self).sorted(byKeyPath: "date", ascending: false)
         } catch {
             throw error
         }

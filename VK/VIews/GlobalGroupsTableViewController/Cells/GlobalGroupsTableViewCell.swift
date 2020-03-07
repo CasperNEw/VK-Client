@@ -7,7 +7,7 @@ class GlobalGroupsTableViewCell: UITableViewCell {
     @IBOutlet weak var groupsActivity: UILabel!
     @IBOutlet weak var groupsMembersCount: UILabel!
     
-    func renderCell(model: GroupsCell) {
+    func renderCell(model: GroupsCellModel) {
         
         if let url = URL(string: model.groupImage) {
             groupImage.kf.setImage(with: url)

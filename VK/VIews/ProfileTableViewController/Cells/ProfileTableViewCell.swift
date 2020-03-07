@@ -17,7 +17,7 @@ class ProfileTableViewCell: UITableViewCell {
     
     private var photos = [URL]()
     
-    func renderCell(model: ProfileCell) {
+    func renderCell(model: ProfileCellModel) {
         
         statusMessage.text = model.statusMessage
         friendsCountButton.setTitle(model.friendsCountButton, for: .normal)

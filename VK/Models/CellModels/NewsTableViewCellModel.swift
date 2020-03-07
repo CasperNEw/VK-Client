@@ -8,17 +8,17 @@
 
 import Foundation
 
-struct NewsCell {
-    var mainAuthorImage: String = ""
-    var mainAuthorName: String = ""
-    var publicationDate: String = ""
-    var publicationText: String = ""
-    var publicationLikeButtonStatus: Bool = false
-    var publicationLikeButtonCount: Int = 0
-    var publicationCommentButton: String = ""
-    var publicationForwardButton: String = ""
-    var publicationNumberOfViews: String = ""
-    var photoCollection: [URL] = []
+struct NewsCellModel {
+    var mainAuthorImage: String
+    var mainAuthorName: String
+    var publicationDate: String
+    var publicationText: String
+    var publicationLikeButtonStatus: Bool
+    var publicationLikeButtonCount: Int
+    var publicationCommentButton: String
+    var publicationForwardButton: String
+    var publicationNumberOfViews: String
+    var photoCollection: [URL]
 
-    var newsCollectionViewIsEmpty: Bool = true
+    var newsCollectionViewIsEmpty: Bool
 }
